@@ -85,7 +85,7 @@ public class ProfileFragment extends BaseFragment {
             R.id.iv_logo_setting, R.id.iv_logo_zxing, R.id.iv_portrait,
             R.id.user_view_solar_system, R.id.ly_tweet, R.id.ly_favorite,
             R.id.ly_following, R.id.ly_follower, R.id.rl_message, R.id.rl_blog,
-            R.id.rl_info_question, R.id.rl_info_activities, R.id.rl_team
+            R.id.rl_info_question
     })
     public void onClick(View v) {
 
@@ -121,10 +121,6 @@ public class ProfileFragment extends BaseFragment {
                 case R.id.rl_blog:
                     break;
                 case R.id.rl_info_question:
-                    break;
-                case R.id.rl_info_activities:
-                    break;
-                case R.id.rl_team:
                     break;
                 default:
                     break;
