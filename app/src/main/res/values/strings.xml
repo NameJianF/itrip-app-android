@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">和旅行</string>
+    <string name="nav_home">首页</string>
+    <string name="nav_visibility">发现</string>
+    <string name="nav_friends">朋友圈</string>
+    <string name="nav_travel">行程</string>
+    <string name="nav_profile">我的</string>
+
+    <string name="exit_click_back_again">再次点击退出应用.</string>
+
+    <string name="sign_in">登录</string>
+
+    <!--introduce-->
+    <string name="title_1">Welcome, Programmer</string>
+    <string name="title_font">CaviarDreams_Bold.ttf</string>
+    <string name="desc_1">Github is the programmer\'s facebook.</string>
+    <string name="desc_font">aller_It.ttf</string>
+    <string name="title_2">Here, Code is everything</string>
+    <string name="desc_2">Read the fucking source code.</string>
+    <string name="title_3">Let\'s coding</string>
+    <string name="desc_3">Talk is cheap, show me the code</string>
+
+    <!--profile-->
+    <string name="tv_my_score">积分 0</string>
+    <string name="zero">0</string>
+    <string name="main_tab_name_tweet">动弹</string>
+    <string name="favorite">收藏</string>
+    <string name="following">关注</string>
+    <string name="follower">粉丝</string>
+    <string name="blog">我的博客</string>
+    <string name="message">我的消息</string>
+    <string name="team">我的团队</string>
+    <string name="user_score">积分</string>
+    <string name="question">我的问答</string>
+    <string name="actionbar_title_event">我的活动</string>
+
+    <!--设置中心-->
+    <string name="clean_cache">清理缓存</string>
+    <string name="double_click_exit">双击退出</string>
+    <string name="feedback">意见反馈</string>
+    <string name="about" translatable="false">关于我们</string>
+    <string name="update">检查更新</string>
+    <string name="setting_cancel">注销</string>
+
+
+</resources>
