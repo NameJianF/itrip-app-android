@@ -17,6 +17,7 @@ import live.itrip.app.R;
 import live.itrip.app.data.PreferenceData;
 import live.itrip.app.ui.base.BaseFragment;
 import live.itrip.app.ui.util.UIUtils;
+import live.itrip.app.ui.view.dialog.QRCodeDialog;
 import live.itrip.common.util.AppLog;
 import live.itrip.common.widget.PortraitView;
 import live.itrip.common.widget.SolarSystemView;
@@ -96,12 +97,14 @@ public class ProfileFragment extends BaseFragment {
             UIUtils.showSetting(getActivity());
             AppLog.e("setting click:");
         } else {
-            if (!PreferenceData.Account.checkLogon(this.getActivity())) {
-                return;
-            }
+//            if (!PreferenceData.Account.checkLogon(this.getActivity())) {
+//                return;
+//            }
 
             switch (id) {
                 case R.id.iv_logo_zxing:
+                    QRCodeDialog dialog = new QRCodeDialog(getActivity());
+                    dialog.show();
                     break;
                 case R.id.iv_portrait:
                     //查看头像 or 更换头像

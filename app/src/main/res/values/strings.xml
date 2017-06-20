@@ -52,4 +52,7 @@
     <string name="itrip_site">官网</string>
     <string name="know_more">了解更多</string>
     <string name="copyright">© 2017 itrip.live All rights reserved.</string>
+
+    <string name="qr_code_tip">扫一扫上面的二维码，加我为好友</string>
+    <string name="qr_code_tip2">(长按保存到本地)</string>
 </resources>

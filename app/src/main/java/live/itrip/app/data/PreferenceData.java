@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 
+import live.itrip.app.App;
 import live.itrip.app.data.model.User;
 import live.itrip.app.ui.activity.account.LoginActivity;
 
@@ -84,6 +85,14 @@ public class PreferenceData {
 
         public static void clearUserCache() {
 
+        }
+
+        public static Integer getUserId() {
+            User user = getLogonUser(App.getContext());
+            if (user != null) {
+                return user.getId();
+            }
+            return -1;
         }
     }
 }

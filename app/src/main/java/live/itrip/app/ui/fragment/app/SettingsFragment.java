@@ -27,6 +27,7 @@ import live.itrip.app.ui.activity.account.LoginActivity;
 import live.itrip.app.ui.base.BaseFragment;
 import live.itrip.app.ui.util.DialogUtils;
 import live.itrip.app.ui.util.UIUtils;
+import live.itrip.app.update.CheckUpdateManager;
 import live.itrip.common.util.AppLog;
 import live.itrip.common.util.FileUtils;
 
@@ -136,7 +137,7 @@ public class SettingsFragment extends BaseFragment {
                 // 清理所有缓存
                 UIUtils.clearAppCache(false);
                 // 注销操作
-//                AccountHelper.logout(mCancel, new Runnable() {
+//                AccountUtils.logout(mCancel, new Runnable() {
 //                    @SuppressLint("SetTextI18n")
 //                    @Override
 //                    public void run() {
@@ -152,13 +153,12 @@ public class SettingsFragment extends BaseFragment {
             default:
                 break;
         }
-
     }
 
     private void onClickUpdate() {
-//        CheckUpdateManager manager = new CheckUpdateManager(getActivity(), true);
-//        manager.setCaller(this);
-//        manager.checkUpdate();
+        CheckUpdateManager manager = new CheckUpdateManager(getActivity(), true);
+//        manager.setCaller();
+        manager.checkUpdate();
     }
 
     private void onClickCleanCache() {
@@ -173,34 +173,4 @@ public class SettingsFragment extends BaseFragment {
         }).show();
     }
 
-    public void call(Version version) {
-//        this.mVersion = version;
-//        requestExternalStorage();
-    }
-
-//    @SuppressLint("InlinedApi")
-//    @AfterPermissionGranted(RC_EXTERNAL_STORAGE)
-//    public void requestExternalStorage() {
-//        if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
-//            DownloadService.startService(getActivity(), mVersion.getDownloadUrl());
-//        } else {
-//            EasyPermissions.requestPermissions(this, "", RC_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
-//        }
-//    }
-
-
-    public void onPermissionsDenied(int requestCode, List<String> perms) {
-        DialogUtils.getConfirmDialog(getActivity(), "温馨提示", "需要开启开源中国对您手机的存储权限才能下载安装，是否现在开启", "去开启", "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(Settings.ACTION_APPLICATION_SETTINGS));
-            }
-        }).show();
-    }
-
-
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-//    }
 }
