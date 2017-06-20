@@ -13,6 +13,7 @@ import com.gigamole.navigationtabbar.ntb.NavigationTabBar;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import live.itrip.app.App;
 import live.itrip.app.R;
@@ -30,6 +31,9 @@ import live.itrip.app.ui.fragment.VisibilityFragment;
 import live.itrip.common.util.AppLog;
 
 public class MainActivity extends BaseActivity implements HasComponent<MainComponent> {
+
+    @BindView(R.id.vp_horizontal_ntb)
+    ViewPager mViewPager;
 
     private ViewPagerAdapter mViewPagerAdapter;
     private FragmentManager mFragmentManager = getSupportFragmentManager();
@@ -61,16 +65,14 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
         mToolbar = this.getSupportActionBar();
         mToolbar.hide();
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.vp_horizontal_ntb);
 
-        mViewPagerAdapter = new ViewPagerAdapter(mFragmentManager);
         mViewPagerAdapter = new ViewPagerAdapter(mFragmentManager);
         mViewPagerAdapter.addFragment(HomeFragment.newInstance());
         mViewPagerAdapter.addFragment(VisibilityFragment.newInstance());
         mViewPagerAdapter.addFragment(PositionFragment.newInstance());
         mViewPagerAdapter.addFragment(TravelFragment.newInstance());
         mViewPagerAdapter.addFragment(ProfileFragment.newInstance());
-        viewPager.setAdapter(mViewPagerAdapter);
+        mViewPager.setAdapter(mViewPagerAdapter);
 
         final String[] colors = getResources().getStringArray(R.array.default_preview);
 
@@ -142,7 +144,7 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
 //        navigationTabBar.setIconSizeFraction(0.5);
 
         navigationTabBar.setModels(models);
-        navigationTabBar.setViewPager(viewPager, 0);
+        navigationTabBar.setViewPager(mViewPager, 0);
         navigationTabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {

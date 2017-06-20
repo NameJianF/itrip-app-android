@@ -3,6 +3,8 @@ package live.itrip.app.data.net.client.core;
 import java.util.concurrent.TimeUnit;
 
 import live.itrip.app.BuildConfig;
+import live.itrip.app.service.FileLoads.ProgressRequestListener;
+import live.itrip.app.service.FileLoads.ProgressResponseListener;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -26,6 +28,27 @@ public abstract class BaseOkHttpClient {
         return builder.build();
     }
 
+    /**
+     * 用于数据
+     *
+     * @param builder
+     * @return
+     */
     public abstract OkHttpClient.Builder customize(OkHttpClient.Builder builder);
 
+    /**
+     * 包装OkHttpClient，用于下载文件的回调
+     *
+     * @param progressListener
+     * @return
+     */
+    public abstract OkHttpClient addProgressResponseListener(ProgressResponseListener progressListener);
+
+    /**
+     * 包装OkHttpClient，用于上传文件的回调
+     *
+     * @param progressListener
+     * @return
+     */
+    public abstract OkHttpClient addProgressRequestListener(ProgressRequestListener progressListener);
 }

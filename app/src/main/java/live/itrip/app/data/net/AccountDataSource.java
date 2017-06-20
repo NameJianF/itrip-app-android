@@ -54,7 +54,7 @@ public class AccountDataSource implements AccountApi {
                         String token = authorizationResp.getToken();
 
                         // save token
-                        PreferenceData.saveLoginToken(mContext, token);
+                        PreferenceData.Account.saveLoginToken(mContext, token);
 
                         return accountService.getUserInfo(authorizationResp.getToken());
                     }

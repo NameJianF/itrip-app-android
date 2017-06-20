@@ -15,7 +15,7 @@
     <color name="blue">#2196F3</color>
     <color name="light_blue">#03A9F4</color>
     <color name="cyan">#00BCD4</color>
-    <color name="green">#4CAF50</color>
+    <color name="green">#4caf50</color>
     <color name="light_green">#8BC34A</color>
     <color name="lime">#CDDC39</color>
     <color name="lime_200">#E6EE9C</color>
@@ -38,4 +38,6 @@
     <color name="main_black">#333</color>
     <color name="black_alpha_16">#10000000</color>
     <color name="user_info_option_pressed">#1EB050</color>
+
+    <color name="main_background">#F6F6F6</color>
 </resources>

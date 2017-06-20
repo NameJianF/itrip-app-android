@@ -32,49 +32,58 @@ public class PreferenceData {
         return getPreference(context).getBoolean(KEY_IS_FIRST_RUNNING, true);
     }
 
-    public static void saveLoginToken(Context context, String loginToken) {
-        getPreference(context).edit().putString(KEY_LOGIN_TOKEN, loginToken).apply();
-    }
-
-    public static String getLogonToken(Context context) {
-        return getPreference(context).getString(KEY_LOGIN_TOKEN, "");
-    }
-
-    public static void saveLogonUser(Context context, User user) {
-        String userJson = new Gson().toJson(user);
-        getPreference(context).edit().putString(KEY_LOGON_USER, userJson).apply();
-    }
-
-    public static void removeLogonUser(Context context) {
-        getPreference(context).edit().remove(KEY_LOGON_USER).apply();
-    }
-
-    public static User getLogonUser(Context context) {
-        User user = null;
-        String userJson = getPreference(context).getString(KEY_LOGON_USER, "");
-        if (!TextUtils.isEmpty(userJson)) {
-            user = new Gson().fromJson(userJson, User.class);
-        }
-        return user;
-    }
-
-    public static boolean isLogon(Context context) {
-        return !TextUtils.isEmpty(getLogonToken(context)) && getLogonUser(context) != null;
-    }
-
-    public static boolean checkLogon(Context context) {
-        if (!isLogon(context)) {
-            LoginActivity.launch(context);
-            return false;
+    /**
+     * Account datas
+     */
+    public static class Account {
+        public static void saveLoginToken(Context context, String loginToken) {
+            getPreference(context).edit().putString(KEY_LOGIN_TOKEN, loginToken).apply();
         }
 
-        return true;
-    }
+        public static String getLogonToken(Context context) {
+            return getPreference(context).getString(KEY_LOGIN_TOKEN, "");
+        }
 
-    public static boolean isSelf(Context context, String username) {
-        User user = getLogonUser(context);
-        return user != null
-                && !TextUtils.isEmpty(username)
-                && username.equals(user.getLogin());
+        public static void saveLogonUser(Context context, User user) {
+            String userJson = new Gson().toJson(user);
+            getPreference(context).edit().putString(KEY_LOGON_USER, userJson).apply();
+        }
+
+        public static void removeLogonUser(Context context) {
+            getPreference(context).edit().remove(KEY_LOGON_USER).apply();
+        }
+
+        public static User getLogonUser(Context context) {
+            User user = null;
+            String userJson = getPreference(context).getString(KEY_LOGON_USER, "");
+            if (!TextUtils.isEmpty(userJson)) {
+                user = new Gson().fromJson(userJson, User.class);
+            }
+            return user;
+        }
+
+        public static boolean isLogon(Context context) {
+            return !TextUtils.isEmpty(getLogonToken(context)) && getLogonUser(context) != null;
+        }
+
+        public static boolean checkLogon(Context context) {
+            if (!isLogon(context)) {
+                LoginActivity.launch(context);
+                return false;
+            }
+
+            return true;
+        }
+
+        public static boolean isSelf(Context context, String username) {
+            User user = getLogonUser(context);
+            return user != null
+                    && !TextUtils.isEmpty(username)
+                    && username.equals(user.getLogin());
+        }
+
+        public static void clearUserCache() {
+
+        }
     }
 }

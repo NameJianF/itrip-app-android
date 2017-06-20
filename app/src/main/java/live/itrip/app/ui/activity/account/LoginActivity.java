@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,6 +47,7 @@ public class LoginActivity extends BaseLoadingActivity implements LoginView, Has
 
     @Inject
     LoginPresenter mPresenter;
+    private ActionBar mActionBar;
 
     public static void launch(Context context) {
         context.startActivity(new Intent(context, LoginActivity.class));
@@ -61,11 +63,18 @@ public class LoginActivity extends BaseLoadingActivity implements LoginView, Has
         getComponent().inject(this);
 
         setContentView(R.layout.activity_login);
-        setTitle(R.string.sign_in);
+//        setTitle(R.string.sign_in);
 
         ButterKnife.bind(this);
 
         mPresenter.attachView(this);
+
+        mActionBar = this.getSupportActionBar();
+        if (mActionBar != null) {
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+            mActionBar.setDisplayShowHomeEnabled(true);
+            mActionBar.setTitle(R.string.sign_in);
+        }
     }
 
     @Override
@@ -92,6 +101,13 @@ public class LoginActivity extends BaseLoadingActivity implements LoginView, Has
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+
+    @Override
     public AccountComponent getComponent() {
         return DaggerAccountComponent.builder()
                 .applicationComponent(App.get(this).getComponent())
@@ -103,7 +119,7 @@ public class LoginActivity extends BaseLoadingActivity implements LoginView, Has
     @Override
     public void loginSuccess(User user) {
         Snackbar.make(mLoginBtn, "Login Success", Snackbar.LENGTH_LONG).show();
-        PreferenceData.saveLogonUser(this, user);
+        PreferenceData.Account.saveLogonUser(this, user);
         finish();
     }
 }

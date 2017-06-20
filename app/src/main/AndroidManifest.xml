@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".App"
@@ -32,10 +34,12 @@
         <activity android:name=".ui.activity.MainActivity" />
         <activity android:name=".ui.activity.IntroduceActivity" />
         <activity android:name=".ui.activity.account.LoginActivity" />
+        <activity android:name=".ui.activity.SimpleBackActivity" />
+        <activity android:name=".ui.activity.FeedBackActivity"/>
+
 
         <!--service-->
         <service android:name=".service.InitializeService" />
-
 
     </application>
 

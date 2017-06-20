@@ -16,6 +16,7 @@ import butterknife.OnClick;
 import live.itrip.app.R;
 import live.itrip.app.data.PreferenceData;
 import live.itrip.app.ui.base.BaseFragment;
+import live.itrip.app.ui.util.UIUtils;
 import live.itrip.common.util.AppLog;
 import live.itrip.common.widget.PortraitView;
 import live.itrip.common.widget.SolarSystemView;
@@ -92,10 +93,10 @@ public class ProfileFragment extends BaseFragment {
         int id = v.getId();
 
         if (id == R.id.iv_logo_setting) {
-//            UIHelper.showSetting(getActivity());
-//            AppLog.e("setting click:");
+            UIUtils.showSetting(getActivity());
+            AppLog.e("setting click:");
         } else {
-            if (!PreferenceData.checkLogon(this.getActivity())) {
+            if (!PreferenceData.Account.checkLogon(this.getActivity())) {
                 return;
             }
 

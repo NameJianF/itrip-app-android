@@ -10,6 +10,8 @@ import live.itrip.app.data.net.client.core.ApiEndpoint;
 import live.itrip.app.data.net.client.core.BaseOkHttpClient;
 import live.itrip.app.data.net.client.core.BaseRetrofit;
 import live.itrip.app.data.net.request.CreateAuthorization;
+import live.itrip.app.service.FileLoads.ProgressRequestListener;
+import live.itrip.app.service.FileLoads.ProgressResponseListener;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -59,16 +61,12 @@ public class AppAuthRetrofit extends BaseRetrofit {
         }
 
         @Override
-        public OkHttpClient.Builder customize(OkHttpClient.Builder builder) {
+            public OkHttpClient.Builder customize(OkHttpClient.Builder builder) {
 
             builder.addInterceptor(new Interceptor() {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request original = chain.request();
-//                    Gson gson = new Gson();
-//                    String json = gson.toJson(createAuthorization).trim();
-//                    createAuthorization.setSig(SigUtil.getSig(json, AppConfig.SECRET_KEY));
-
                     RequestBody body = RequestBody.create(APPLICATION_JSON, JSON.toJSONString(createAuthorization).trim());
                     Request.Builder requestBuilder = original.newBuilder().post(body);
 
@@ -76,9 +74,17 @@ public class AppAuthRetrofit extends BaseRetrofit {
                     return chain.proceed(request);
                 }
             });
-
-
             return builder;
+        }
+
+        @Override
+        public OkHttpClient addProgressResponseListener(ProgressResponseListener progressListener) {
+            return null;
+        }
+
+        @Override
+        public OkHttpClient addProgressRequestListener(ProgressRequestListener progressListener) {
+            return null;
         }
     }
 }

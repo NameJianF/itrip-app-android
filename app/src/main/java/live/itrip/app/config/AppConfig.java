@@ -11,4 +11,5 @@ public class AppConfig {
     public static final String SOURCE = "normal";
     public static String CLIENT_VERSION = "";
 
+    public static final String DEFAULT_SAVE_FILE_PATH = "";
 }

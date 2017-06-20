@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.view.Gravity;
+import android.widget.StackView;
+import android.widget.Toast;
 
 import live.itrip.app.config.AppConfig;
 import live.itrip.app.di.component.ApplicationComponent;
@@ -18,6 +21,8 @@ import live.itrip.common.util.AppLog;
 
 public class App extends Application {
 
+    static Context context;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -28,10 +33,16 @@ public class App extends Application {
         InitializeService.start(this);
 
         AppConfig.CLIENT_VERSION = getVersion();
+
+        context = getApplicationContext();
     }
 
     public static App get(Context context) {
         return (App) context.getApplicationContext();
+    }
+
+    public static Context getContext() {
+        return context;
     }
 
     ApplicationComponent mApplicationComponent;
@@ -65,4 +76,6 @@ public class App extends Application {
         }
         return "NO_VERSION";
     }
+
+
 }

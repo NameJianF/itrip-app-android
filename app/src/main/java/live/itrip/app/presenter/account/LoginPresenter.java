@@ -51,7 +51,7 @@ public class LoginPresenter extends RxMvpPresenter<LoginView> {
                     @Override
                     public void onSuccess(User user) {
                         // save user
-                        PreferenceData.saveLogonUser(mContext, user);
+                        PreferenceData.Account.saveLogonUser(mContext, user);
 
                         AppLog.d("user:" + user.getLogin());
                         getMvpView().loginSuccess(user);
