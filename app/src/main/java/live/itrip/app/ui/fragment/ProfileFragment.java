@@ -1,6 +1,10 @@
 package live.itrip.app.ui.fragment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,24 +13,34 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import live.itrip.app.R;
 import live.itrip.app.data.PreferenceData;
+import live.itrip.app.ui.activity.ImageCropActivity;
 import live.itrip.app.ui.base.BaseFragment;
 import live.itrip.app.ui.util.UIUtils;
 import live.itrip.app.ui.view.dialog.QRCodeDialog;
+import live.itrip.common.crop.UCrop;
 import live.itrip.common.util.AppLog;
 import live.itrip.common.widget.PortraitView;
 import live.itrip.common.widget.SolarSystemView;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Feng on 2017/4/25.
  */
 
 public class ProfileFragment extends BaseFragment {
+    private static final int REQUEST_SELECT_PICTURE = 0x01;
 
     @BindView(R.id.iv_logo_setting)
     ImageView mIvLogoSetting;
@@ -80,6 +94,9 @@ public class ProfileFragment extends BaseFragment {
         AppLog.d("ProfileFragment ===> onCreateView");
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, root);
+
+        mDestinationUri = Uri.fromFile(new File(getActivity().getCacheDir(), "cropImage.jpeg"));
+
         return root;
     }
 
@@ -107,6 +124,7 @@ public class ProfileFragment extends BaseFragment {
                     dialog.show();
                     break;
                 case R.id.iv_portrait:
+                    showAvatarOperation();
                     //查看头像 or 更换头像
                     break;
                 case R.id.user_view_solar_system:
@@ -132,4 +150,71 @@ public class ProfileFragment extends BaseFragment {
         }
     }
 
+    /**
+     * 更换头像 or 查看头像
+     */
+    private void showAvatarOperation() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(Intent.createChooser(intent, "选择图片"), REQUEST_SELECT_PICTURE);
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_SELECT_PICTURE) {
+                final Uri selectedUri = data.getData();
+                if (selectedUri != null) {
+                    startCropActivity(data.getData());
+                } else {
+                    Toast.makeText(getContext(), "无法剪切选择图片", Toast.LENGTH_SHORT).show();
+                }
+            } else if (requestCode == UCrop.REQUEST_CROP) {
+                handleCropResult(data);
+            }
+        }
+    }
+
+    // 剪切后图像文件
+    private Uri mDestinationUri;
+
+    /**
+     * 开始剪切图片
+     *
+     * @param uri
+     */
+    private void startCropActivity(Uri uri) {
+//        ImageCropActivity.launch(getContext());
+
+        UCrop.of(uri, mDestinationUri)
+                .withTargetActivity(ImageCropActivity.class)
+                .withAspectRatio(1, 1)
+//                .withMaxResultSize(500, 500)
+                .start(getActivity());
+
+    }
+
+    /**
+     * 处理剪切后的返回值
+     *
+     * @param result
+     */
+    private void handleCropResult(Intent result) {
+        final Uri resultUri = UCrop.getOutput(result);
+        if (resultUri != null) {
+//            imageIv.setImageURI(resultUri);
+            Bitmap bmp;
+            try {
+                bmp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);
+                mPortrait.setImageBitmap(bmp);
+            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
+            }
+        } else {
+            Toast.makeText(getContext(), "无法剪切选择图片", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

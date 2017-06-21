@@ -1,5 +1,7 @@
 package live.itrip.common.util;
 
+import android.util.Log;
+
 import com.orhanobut.logger.Logger;
 
 /**
@@ -31,6 +33,18 @@ public class AppLog {
     }
 
     /**
+     * log.i
+     *
+     * @param msg
+     */
+    public static void i(String tag, String msg) {
+        if (DEBUG) {
+            Log.i(tag, msg);
+        }
+    }
+
+
+    /**
      * log.d
      *
      * @param msg
@@ -38,6 +52,17 @@ public class AppLog {
     public static void d(String msg) {
         if (DEBUG) {
             Logger.d(msg);
+        }
+    }
+
+    /**
+     * log.d
+     *
+     * @param msg
+     */
+    public static void d(String tag, String msg) {
+        if (DEBUG) {
+            Log.d(tag, msg);
         }
     }
 
@@ -53,12 +78,32 @@ public class AppLog {
     }
 
     /**
+     * log.w
+     *
+     * @param msg
+     */
+    public static void w(String tag, String msg) {
+        if (DEBUG) {
+            Log.w(tag, msg);
+        }
+    }
+
+    /**
      * log.e
      *
      * @param msg
      */
     public static void e(String msg) {
         Logger.e(msg);
+    }
+
+    /**
+     * log.e
+     *
+     * @param msg
+     */
+    public static void e(String tag, String msg) {
+        Log.e(tag, msg);
     }
 
     public static void e(Throwable e) {

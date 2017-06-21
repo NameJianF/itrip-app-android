@@ -35,8 +35,8 @@
         <activity android:name=".ui.activity.IntroduceActivity" />
         <activity android:name=".ui.activity.account.LoginActivity" />
         <activity android:name=".ui.activity.SimpleBackActivity" />
-        <activity android:name=".ui.activity.FeedBackActivity"/>
-
+        <activity android:name=".ui.activity.FeedBackActivity" />
+        <activity android:name=".ui.activity.ImageCropActivity" />
 
         <!--service-->
         <service android:name=".service.InitializeService" />
