@@ -23,7 +23,7 @@
     <!--profile-->
     <string name="tv_my_score">积分 0</string>
     <string name="zero">0</string>
-    <string name="main_tab_name_tweet">冒泡</string>
+    <string name="main_tab_name_bubbles">冒泡</string>
     <string name="favorite">收藏</string>
     <string name="following">关注</string>
     <string name="follower">粉丝</string>
@@ -34,6 +34,7 @@
 
     <string name="actionbar_title_setting">设置</string>
     <string name="actionbar_title_about">关于和旅行</string>
+    <string name="actionbar_title_user_information">我的资料</string>
 
     <!--设置中心-->
     <string name="clean_cache">清理缓存</string>
@@ -55,4 +56,12 @@
 
     <string name="qr_code_tip">扫一扫上面的二维码，加我为好友</string>
     <string name="qr_code_tip2">(长按保存到本地)</string>
+
+    <!-- 博客区 -->
+    <string name="follow_done">已关注</string>
+    <string name="join_time">加入于 :</string>
+    <string name="location">所在地区:</string>
+    <string name="development_platform">开发平台:</string>
+    <string name="academic_focus">专长领域:</string>
+
 </resources>

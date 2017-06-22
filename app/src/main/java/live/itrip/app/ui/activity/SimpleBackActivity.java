@@ -1,14 +1,11 @@
 package live.itrip.app.ui.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.NavUtils;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 
@@ -91,15 +88,10 @@ public class SimpleBackActivity extends BaseActivity implements HasComponent<Sim
             mViewPagerAdapter.addFragment(fragment);
             mViewPager.setAdapter(mViewPagerAdapter);
 
-//            Bundle args = data.getBundleExtra(BUNDLE_KEY_ARGS);
-//            if (args != null) {
-//                fragment.setArguments(args);
-//            }
-//
-//            FragmentTransaction trans = getSupportFragmentManager()
-//                    .beginTransaction();
-//            trans.replace(R.id.container, fragment, TAG);
-//            trans.commitAllowingStateLoss();
+            Bundle args = data.getBundleExtra(BUNDLE_KEY_ARGS);
+            if (args != null) {
+                fragment.setArguments(args);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -121,5 +113,9 @@ public class SimpleBackActivity extends BaseActivity implements HasComponent<Sim
                 .applicationComponent(App.get(this).getComponent())
                 .activityModule(new ActivityModule(this))
                 .build();
+    }
+
+    public void setActionBarTitle(String actionBarTitle) {
+        this.mActionBar.setTitle(actionBarTitle);
     }
 }

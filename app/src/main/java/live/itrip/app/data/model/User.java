@@ -9,6 +9,7 @@ import android.os.Parcelable;
 public class User implements Parcelable {
 
     private int id;
+    private String UserName;
     private String login;
 
     public int getId() {
@@ -27,6 +28,13 @@ public class User implements Parcelable {
         this.login = login;
     }
 
+    public String getUserName() {
+        return UserName;
+    }
+
+    public void setUserName(String userName) {
+        UserName = userName;
+    }
 
     @Override
     public int describeContents() {

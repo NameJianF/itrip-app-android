@@ -106,6 +106,10 @@ public class AppLog {
         Log.e(tag, msg);
     }
 
+    public static void e(String msg, Throwable e) {
+        Logger.e(e, msg);
+    }
+
     public static void e(Throwable e) {
         Logger.e(e, "");
     }

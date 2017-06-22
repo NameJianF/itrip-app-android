@@ -4,9 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.view.Gravity;
-import android.widget.StackView;
-import android.widget.Toast;
 
 import live.itrip.app.config.AppConfig;
 import live.itrip.app.di.component.ApplicationComponent;

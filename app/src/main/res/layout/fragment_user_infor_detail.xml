@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/bg_my"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_16">
+
+                <live.itrip.common.widget.PortraitView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:src="@mipmap/logo"/>
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/lay_4"
+                    android:textColor="@color/white"
+                    android:text="@string/app_name"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_material"
+                android:clickable="true"
+                android:padding="@dimen/dimen_16">
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_4"
+                    android:text="@string/join_time" />
+
+                <TextView
+                    android:id="@+id/tv_join_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_material"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_16">
+
+                <TextView
+                    android:id="@id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_4"
+                    android:text="@string/location" />
+
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_material"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_16">
+
+                <TextView
+                    android:id="@id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_4"
+                    android:text="@string/academic_focus" />
+
+                <TextView
+                    android:id="@+id/tv_academic_focus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_material"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_16">
+
+                <TextView
+                    android:id="@id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_14"
+                    android:text="个性签名:" />
+
+                <TextView
+                    android:id="@+id/tv_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</FrameLayout>

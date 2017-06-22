@@ -35,6 +35,13 @@ public class UIUtils {
         context.startActivity(intent);
     }
 
+    public static void showSimpleBack(Context context, SimpleBackPage page,
+                                      Bundle args) {
+        Intent intent = new Intent(context, SimpleBackActivity.class);
+        intent.putExtra(SimpleBackActivity.BUNDLE_KEY_ARGS, args);
+        intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
+        context.startActivity(intent);
+    }
 
     /**
      * 清除app缓存
@@ -85,7 +92,7 @@ public class UIUtils {
 //            showSimpleBack(context, SimpleBackPage.BROWSER, bundle);
 //        } catch (Exception e) {
 //            e.printStackTrace();
-            openExternalBrowser(context, url);
+        openExternalBrowser(context, url);
 //        }
     }
 

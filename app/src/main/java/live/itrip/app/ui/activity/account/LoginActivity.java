@@ -63,7 +63,6 @@ public class LoginActivity extends BaseLoadingActivity implements LoginView, Has
         getComponent().inject(this);
 
         setContentView(R.layout.activity_login);
-//        setTitle(R.string.sign_in);
 
         ButterKnife.bind(this);
 

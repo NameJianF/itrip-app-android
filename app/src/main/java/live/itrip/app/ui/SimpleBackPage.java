@@ -3,6 +3,7 @@ package live.itrip.app.ui;
 import live.itrip.app.R;
 import live.itrip.app.ui.fragment.app.AboutFragment;
 import live.itrip.app.ui.fragment.app.SettingsFragment;
+import live.itrip.app.ui.fragment.app.UserInforDetailFragment;
 
 /**
  * Created by Feng on 2017/5/11.
@@ -14,10 +15,15 @@ public enum SimpleBackPage {
      * 设置页面
      */
     SETTING(15, R.string.actionbar_title_setting, SettingsFragment.class),
+
+    USER_INFORMATION_DETAIL(28, R.string.actionbar_title_user_information,
+            UserInforDetailFragment.class),
+
     /**
      * 关于界面
      */
     ABOUT(17, R.string.actionbar_title_about, AboutFragment.class);
+
 
     private int title;
     private Class<?> clz;

@@ -1,4 +1,4 @@
-package live.itrip.app.ui.activity;
+package live.itrip.app.ui.activity.common;
 
 import android.content.Context;
 import android.content.Intent;
@@ -42,15 +42,13 @@ public class ImageCropActivity extends BaseActivity implements HasComponent<Imag
 
     private static final String TAG = "CropActivity";
 
-//    @BindView(R.id.weixin_act_ucrop)
+    @BindView(R.id.weixin_act_ucrop)
     UCropView mUCropView;
-//    @BindView(R.id.crop_act_save_fab)
-    FloatingActionButton mSaveFab;
-
     GestureCropImageView mGestureCropImageView;
     OverlayView mOverlayView;
 
-    TextView saveTv;
+    @BindView(R.id.crop_act_save_fab)
+    FloatingActionButton mSaveFab;
 
     private Uri mOutputUri;
 
@@ -65,9 +63,6 @@ public class ImageCropActivity extends BaseActivity implements HasComponent<Imag
         setContentView(R.layout.activity_image_crop);
 
         ButterKnife.bind(this);
-
-        mGestureCropImageView = mUCropView.getCropImageView();
-        mOverlayView = mUCropView.getOverlayView();
 
         initViews();
 
@@ -87,8 +82,6 @@ public class ImageCropActivity extends BaseActivity implements HasComponent<Imag
             mActionBar.setTitle("裁剪图片");
         }
 
-        mUCropView = (UCropView) this.findViewById(R.id.weixin_act_ucrop);
-        saveTv = (TextView) this.findViewById(R.id.weixin_act_crop_tv_save);
         mGestureCropImageView = mUCropView.getCropImageView();
         mOverlayView = mUCropView.getOverlayView();
 
