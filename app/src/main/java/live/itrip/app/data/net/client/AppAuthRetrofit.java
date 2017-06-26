@@ -77,15 +77,6 @@ public class AppAuthRetrofit extends BaseRetrofit {
             return builder;
         }
 
-        @Override
-        public OkHttpClient addProgressResponseListener(ProgressResponseListener progressListener) {
-            return null;
-        }
-
-        @Override
-        public OkHttpClient addProgressRequestListener(ProgressRequestListener progressListener) {
-            return null;
-        }
     }
 }
 

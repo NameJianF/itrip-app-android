@@ -37,7 +37,7 @@
         <activity android:name=".ui.activity.SimpleBackActivity" />
         <activity android:name=".ui.activity.FeedBackActivity" />
         <activity android:name=".ui.activity.common.ImageCropActivity" />
-        <activity android:name=".ui.activity.CommonModelListActivity" />
+        <activity android:name=".ui.activity.common.RecyclerViewActivity" />
 
         <!--service-->
         <service android:name=".service.InitializeService" />

@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 import live.itrip.app.di.ApplicationContext;
 import live.itrip.app.di.module.ApplicationModule;
+import live.itrip.app.service.net.RecyclerItemDataService;
 
 /**
  * Created by Feng on 2017/4/25.
@@ -21,4 +22,6 @@ public interface ApplicationComponent {
     Context context();
 
     Application application();
+
+    RecyclerItemDataService recyclerItemDataService();
 }

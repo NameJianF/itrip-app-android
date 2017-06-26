@@ -33,8 +33,8 @@ import live.itrip.app.data.PreferenceData;
 import live.itrip.app.data.model.User;
 import live.itrip.app.ui.SimpleBackPage;
 import live.itrip.app.ui.activity.common.ImageCropActivity;
+import live.itrip.app.ui.activity.common.RecyclerViewActivity;
 import live.itrip.app.ui.base.BaseFragment;
-import live.itrip.app.ui.activity.CommonModelListActivity;
 import live.itrip.app.ui.util.UIUtils;
 import live.itrip.app.ui.view.dialog.QRCodeDialog;
 import live.itrip.app.ui.widget.SelectPicturePopupWindow;
@@ -168,6 +168,9 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
                     break;
                 case R.id.user_view_solar_system:
                     //显示我的资料
+                    if (!PreferenceData.Account.checkLogon(this.getActivity())) {
+                        return;
+                    }
 //                    if (mUserInfo != null)
                 {
                     Bundle userBundle = new Bundle();
@@ -176,7 +179,7 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
                 }
                 break;
                 case R.id.ly_bubbles:
-                    CommonModelListActivity.launchToShowDubbles(getActivity(), PreferenceData.Account.getUserId());
+                    RecyclerViewActivity.launchToShowBubbles(getActivity(), PreferenceData.Account.getUserId().toString());
                     break;
                 case R.id.ly_favorite:
                     break;

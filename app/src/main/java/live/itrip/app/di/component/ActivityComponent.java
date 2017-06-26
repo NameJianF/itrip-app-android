@@ -11,7 +11,8 @@ import live.itrip.app.di.module.ActivityModule;
  */
 
 @PerActivity
-@Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
+@Component(dependencies = ApplicationComponent.class,
+        modules = ActivityModule.class)
 public interface ActivityComponent {
 
     Activity activity();

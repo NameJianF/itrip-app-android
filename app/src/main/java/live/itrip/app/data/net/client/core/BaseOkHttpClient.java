@@ -42,7 +42,7 @@ public abstract class BaseOkHttpClient {
      * @param progressListener
      * @return
      */
-    public abstract OkHttpClient addProgressResponseListener(ProgressResponseListener progressListener);
+//    public abstract OkHttpClient addProgressResponseListener(ProgressResponseListener progressListener);
 
     /**
      * 包装OkHttpClient，用于上传文件的回调
@@ -50,5 +50,5 @@ public abstract class BaseOkHttpClient {
      * @param progressListener
      * @return
      */
-    public abstract OkHttpClient addProgressRequestListener(ProgressRequestListener progressListener);
+//    public abstract OkHttpClient addProgressRequestListener(ProgressRequestListener progressListener);
 }

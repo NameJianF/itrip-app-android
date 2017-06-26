@@ -10,6 +10,8 @@
 
     <string name="sign_in">登录</string>
 
+    <string name="loading">Loading</string>
+
     <!--introduce-->
     <string name="title_1">Welcome, Programmer</string>
     <string name="title_font">CaviarDreams_Bold.ttf</string>
