@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentActivity;
 
 import live.itrip.app.App;
 import live.itrip.app.ui.SimpleBackPage;
@@ -28,6 +29,7 @@ public class UIUtils {
     public static void showAbout(Context context) {
         showSimpleBack(context, SimpleBackPage.ABOUT);
     }
+
 
     public static void showSimpleBack(Context context, SimpleBackPage page) {
         Intent intent = new Intent(context, SimpleBackActivity.class);
@@ -107,4 +109,5 @@ public class UIUtils {
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         context.startActivity(Intent.createChooser(intent, "选择打开的应用"));
     }
+
 }

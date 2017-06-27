@@ -32,6 +32,8 @@ import live.itrip.app.R;
 import live.itrip.app.data.PreferenceData;
 import live.itrip.app.data.model.User;
 import live.itrip.app.ui.SimpleBackPage;
+import live.itrip.app.ui.activity.FootmarksActivity;
+import live.itrip.app.ui.activity.UserMessageActivity;
 import live.itrip.app.ui.activity.common.ImageCropActivity;
 import live.itrip.app.ui.activity.common.RecyclerViewActivity;
 import live.itrip.app.ui.base.BaseFragment;
@@ -143,7 +145,7 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
             R.id.iv_logo_setting, R.id.iv_logo_zxing, R.id.iv_portrait,
             R.id.user_view_solar_system, R.id.ly_bubbles, R.id.ly_favorite,
             R.id.ly_following, R.id.ly_follower, R.id.rl_message, R.id.rl_blog,
-            R.id.rl_info_question
+            R.id.rl_info_footmarks
     })
     public void onClick(View v) {
 
@@ -179,19 +181,25 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
                 }
                 break;
                 case R.id.ly_bubbles:
-                    RecyclerViewActivity.launchToShowBubbles(getActivity(), PreferenceData.Account.getUserId().toString());
+                    RecyclerViewActivity.launchToShowBubbles(getActivity(), PreferenceData.Account.getUserId());
                     break;
                 case R.id.ly_favorite:
+                    RecyclerViewActivity.launchToShowFavorite(getActivity(), PreferenceData.Account.getUserId());
                     break;
                 case R.id.ly_following:
+                    RecyclerViewActivity.launchToShowFollowing(getActivity(), PreferenceData.Account.getUserId());
                     break;
                 case R.id.ly_follower:
+                    RecyclerViewActivity.launchToShowFollower(getActivity(), PreferenceData.Account.getUserId());
                     break;
                 case R.id.rl_message:
+                    UserMessageActivity.launch(getActivity());
                     break;
                 case R.id.rl_blog:
+                    RecyclerViewActivity.launchToShowBlogs(getActivity(), PreferenceData.Account.getUserId());
                     break;
-                case R.id.rl_info_question:
+                case R.id.rl_info_footmarks:
+                    FootmarksActivity.launch(getActivity());
                     break;
                 default:
                     break;

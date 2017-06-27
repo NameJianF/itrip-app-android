@@ -9,12 +9,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.widget.Toast;
 
-import com.gigamole.navigationtabbar.ntb.NavigationTabBar;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import devlight.io.library.ntb.NavigationTabBar;
 import live.itrip.app.App;
 import live.itrip.app.R;
 import live.itrip.app.adapter.ViewPagerAdapter;
@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
 
     private ViewPagerAdapter mViewPagerAdapter;
     private FragmentManager mFragmentManager = getSupportFragmentManager();
-    private ActionBar mToolbar;
+    private ActionBar mActionBar;
 
     public static void launch(Context context) {
         context.startActivity(new Intent(context, MainActivity.class));
@@ -62,8 +62,10 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
     }
 
     private void initViews() {
-        mToolbar = this.getSupportActionBar();
-        mToolbar.hide();
+        mActionBar = this.getSupportActionBar();
+        if (mActionBar != null) {
+            mActionBar.hide();
+        }
 
 
         mViewPagerAdapter = new ViewPagerAdapter(mFragmentManager);

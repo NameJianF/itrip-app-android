@@ -38,6 +38,8 @@
         <activity android:name=".ui.activity.FeedBackActivity" />
         <activity android:name=".ui.activity.common.ImageCropActivity" />
         <activity android:name=".ui.activity.common.RecyclerViewActivity" />
+        <activity android:name=".ui.activity.UserMessageActivity" />
+        <activity android:name=".ui.activity.FootmarksActivity" />
 
         <!--service-->
         <service android:name=".service.InitializeService" />

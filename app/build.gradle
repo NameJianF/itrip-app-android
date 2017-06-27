@@ -105,8 +105,8 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.8.5'
 
     // NavigationTabBar
-    // https://github.com/DevLight-Mobile-Agency/NavigationTabBar
-    compile 'com.github.devlight.navigationtabbar:navigationtabbar:1.2.5'
+    // https://github.com/Devlight/NavigationTabBar
+    compile 'devlight.io:navigationtabbar:1.2.5'
 
     // spots-dialog
     // https://github.com/d-max/spots-dialog

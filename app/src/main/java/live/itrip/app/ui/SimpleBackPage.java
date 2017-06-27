@@ -15,7 +15,9 @@ public enum SimpleBackPage {
      * 设置页面
      */
     SETTING(15, R.string.actionbar_title_setting, SettingsFragment.class),
-
+    /**
+     * 我的资料
+     */
     USER_INFORMATION_DETAIL(28, R.string.actionbar_title_user_information,
             UserInforDetailFragment.class),
 
@@ -67,4 +69,4 @@ public enum SimpleBackPage {
         return null;
     }
 
-}
+    }
