@@ -2,10 +2,9 @@ package live.itrip.app.ui.fragment.app;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,21 +12,23 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.io.File;
-import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import live.itrip.app.App;
 import live.itrip.app.R;
-import live.itrip.app.bean.Version;
 import live.itrip.app.data.PreferenceData;
+import live.itrip.app.data.model.UpdateModel;
+import live.itrip.app.di.component.MainComponent;
+import live.itrip.app.presenter.SettingPresenter;
 import live.itrip.app.ui.activity.FeedBackActivity;
-import live.itrip.app.ui.activity.account.LoginActivity;
 import live.itrip.app.ui.base.BaseFragment;
 import live.itrip.app.ui.util.DialogUtils;
 import live.itrip.app.ui.util.UIUtils;
-import live.itrip.app.update.CheckUpdateManager;
+import live.itrip.common.mvp.view.LceView;
 import live.itrip.common.util.AppLog;
 import live.itrip.common.util.FileUtils;
 
@@ -36,7 +37,7 @@ import live.itrip.common.util.FileUtils;
  *
  * @author
  */
-public class SettingsFragment extends BaseFragment {
+public class SettingsFragment extends BaseFragment implements LceView<UpdateModel> {
 
     private static final int RC_EXTERNAL_STORAGE = 0x04;//存储权限
 
@@ -55,7 +56,10 @@ public class SettingsFragment extends BaseFragment {
     @BindView(R.id.rl_cancel)
     FrameLayout mCancel;
 
-    private Version mVersion;
+//    private Version mVersion;
+
+    @Inject
+    SettingPresenter mPresenter;
 
 
     @Nullable
@@ -65,13 +69,33 @@ public class SettingsFragment extends BaseFragment {
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
         ButterKnife.bind(this, root);
 
-        initData();
         return root;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getComponent(MainComponent.class).inject(this);
+
+        mPresenter.attachView(this);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initData();
     }
 
     public void initData() {
         calculateCacheSize();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
+
 
     @Override
     public void onResume() {
@@ -131,7 +155,7 @@ public class SettingsFragment extends BaseFragment {
                 UIUtils.showAbout(getActivity());
                 break;
             case R.id.rl_check_version:
-                onClickUpdate();
+                mPresenter.checkAppVersion();
                 break;
             case R.id.rl_cancel:
                 // 清理所有缓存
@@ -155,12 +179,6 @@ public class SettingsFragment extends BaseFragment {
         }
     }
 
-    private void onClickUpdate() {
-        CheckUpdateManager manager = new CheckUpdateManager(getActivity(), true);
-//        manager.setCaller();
-        manager.checkUpdate();
-    }
-
     private void onClickCleanCache() {
         DialogUtils.getConfirmDialog(getActivity(), "是否清空缓存?", new DialogInterface.OnClickListener
                 () {
@@ -173,4 +191,35 @@ public class SettingsFragment extends BaseFragment {
         }).show();
     }
 
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
+    }
+
+    @Override
+    public void showContent(UpdateModel data) {
+        // success
+        DialogUtils.getConfirmDialog(getActivity(), "更新提示", data.getDesc(), "现在更新", "稍后更新", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                AppLog.d("现在更新...");
+            }
+        }).show();
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        AppLog.e(e);
+    }
+
+    @Override
+    public void showEmpty() {
+        // TODO
+    }
 }

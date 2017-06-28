@@ -11,7 +11,7 @@ import live.itrip.app.data.net.MessageDataSource;
 @Module
 public class MessageModule {
     @Provides
-    MessageApi provideTrendingApi(MessageDataSource dataSource) {
+    MessageApi provideMessageApi(MessageDataSource dataSource) {
         return dataSource;
     }
 }

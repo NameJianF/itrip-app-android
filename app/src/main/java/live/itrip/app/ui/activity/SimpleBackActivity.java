@@ -3,7 +3,6 @@ package live.itrip.app.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 
@@ -15,8 +14,8 @@ import live.itrip.app.App;
 import live.itrip.app.R;
 import live.itrip.app.adapter.ViewPagerAdapter;
 import live.itrip.app.di.HasComponent;
-import live.itrip.app.di.component.DaggerSimpleBackComponent;
-import live.itrip.app.di.component.SimpleBackComponent;
+import live.itrip.app.di.component.DaggerMainComponent;
+import live.itrip.app.di.component.MainComponent;
 import live.itrip.app.di.module.ActivityModule;
 import live.itrip.app.ui.SimpleBackPage;
 import live.itrip.app.ui.base.BaseActivity;
@@ -27,7 +26,7 @@ import live.itrip.common.util.AppLog;
  * Created by Feng on 2017/6/20.
  */
 
-public class SimpleBackActivity extends BaseActivity implements HasComponent<SimpleBackComponent> {
+public class SimpleBackActivity extends BaseActivity implements HasComponent<MainComponent> {
     @BindView(R.id.vp_horizontal_ntb)
     ViewPager mViewPager;
     private ViewPagerAdapter mViewPagerAdapter;
@@ -108,8 +107,8 @@ public class SimpleBackActivity extends BaseActivity implements HasComponent<Sim
 
 
     @Override
-    public SimpleBackComponent getComponent() {
-        return DaggerSimpleBackComponent.builder()
+    public MainComponent getComponent() {
+        return DaggerMainComponent.builder()
                 .applicationComponent(App.get(this).getComponent())
                 .activityModule(new ActivityModule(this))
                 .build();

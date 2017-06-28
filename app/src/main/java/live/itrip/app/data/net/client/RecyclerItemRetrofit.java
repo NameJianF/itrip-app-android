@@ -2,9 +2,9 @@ package live.itrip.app.data.net.client;
 
 import javax.inject.Inject;
 
+import live.itrip.app.data.net.client.cache.RecyclerViewCacheHttpClient;
 import live.itrip.app.data.net.client.core.ApiEndpoint;
 import live.itrip.app.data.net.client.core.BaseRetrofit;
-import live.itrip.app.data.net.request.RecyclerItemParams;
 import okhttp3.OkHttpClient;
 
 /**
@@ -12,20 +12,13 @@ import okhttp3.OkHttpClient;
  */
 
 public class RecyclerItemRetrofit extends BaseRetrofit {
-    private static final String END_POINT = "http://admin.itrip.live/";
 
-//    private RecyclerItemParams recyclerItemParams;
-
-    RecyclerViewHttpClient mHttpClient;
+    RecyclerViewCacheHttpClient mHttpClient;
 
     @Inject
-    public RecyclerItemRetrofit(RecyclerViewHttpClient httpClient) {
+    public RecyclerItemRetrofit(RecyclerViewCacheHttpClient httpClient) {
         this.mHttpClient = httpClient;
     }
-
-//    public void setRecyclerItemParams(RecyclerItemParams params) {
-//        this.recyclerItemParams = params;
-//    }
 
     @Override
     public ApiEndpoint getApiEndpoint() {

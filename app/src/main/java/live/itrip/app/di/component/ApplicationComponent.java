@@ -10,6 +10,7 @@ import live.itrip.app.di.ApplicationContext;
 import live.itrip.app.di.module.ApplicationModule;
 import live.itrip.app.service.net.MessageService;
 import live.itrip.app.service.net.RecyclerItemDataService;
+import live.itrip.app.service.net.SettingService;
 
 /**
  * Created by Feng on 2017/4/25.
@@ -27,4 +28,6 @@ public interface ApplicationComponent {
     RecyclerItemDataService recyclerItemDataService();
 
     MessageService messageService();
+
+    SettingService settingService();
 }

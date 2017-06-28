@@ -6,6 +6,9 @@ import live.itrip.app.di.PerActivity;
 import live.itrip.app.di.module.ActivityModule;
 import live.itrip.app.di.module.MessageModule;
 import live.itrip.app.di.module.RecyclerViewModule;
+import live.itrip.app.di.module.SettingModule;
+import live.itrip.app.presenter.SettingPresenter;
+import live.itrip.app.ui.fragment.app.SettingsFragment;
 import live.itrip.app.ui.fragment.common.MessageFragment;
 
 /**
@@ -15,9 +18,10 @@ import live.itrip.app.ui.fragment.common.MessageFragment;
 @PerActivity
 @Component(
         dependencies = ApplicationComponent.class,
-        modules = {ActivityModule.class, MessageModule.class, RecyclerViewModule.class})
+        modules = {ActivityModule.class, MessageModule.class, RecyclerViewModule.class, SettingModule.class})
 public interface MainComponent extends ActivityComponent {
 
     void inject(MessageFragment messageFragment);
 
+    void inject(SettingsFragment settingsFragment);
 }

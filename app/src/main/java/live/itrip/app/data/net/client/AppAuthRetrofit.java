@@ -24,7 +24,7 @@ import okhttp3.Response;
  */
 public class AppAuthRetrofit extends BaseRetrofit {
 
-    private static final String END_POINT = "http://admin.itrip.live/";
+    private static final String END_POINT_ADMIN = "http://admin.itrip.live/";
     public static final MediaType APPLICATION_JSON
             = MediaType.parse("application/json; charset=utf-8");
 
@@ -43,7 +43,7 @@ public class AppAuthRetrofit extends BaseRetrofit {
         return new ApiEndpoint() {
             @Override
             public String getEndpoint() {
-                return END_POINT;
+                return END_POINT_ADMIN;
             }
         };
     }
@@ -61,7 +61,7 @@ public class AppAuthRetrofit extends BaseRetrofit {
         }
 
         @Override
-            public OkHttpClient.Builder customize(OkHttpClient.Builder builder) {
+        public OkHttpClient.Builder customize(OkHttpClient.Builder builder) {
 
             builder.addInterceptor(new Interceptor() {
                 @Override

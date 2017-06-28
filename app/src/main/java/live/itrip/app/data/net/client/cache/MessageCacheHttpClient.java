@@ -1,35 +1,25 @@
-package live.itrip.app.data.net.client;
+package live.itrip.app.data.net.client.cache;
 
 import android.app.Application;
-
-import com.alibaba.fastjson.JSON;
 
 import java.io.IOException;
 
 import javax.inject.Inject;
 
 import live.itrip.app.data.PreferenceData;
-import live.itrip.app.data.net.request.RecyclerItemParams;
 import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
- * Created by Feng on 2017/6/26.
+ * Created by Feng on 2017/6/28.
  */
 
-public class RecyclerViewHttpClient extends CacheHttpClient {
-//    private static final MediaType APPLICATION_JSON
-//            = MediaType.parse("application/json; charset=utf-8");
+public class MessageCacheHttpClient extends CacheHttpClient {
 
     @Inject
-    public Application application;
-
-    @Inject
-    public RecyclerViewHttpClient() {
+    public MessageCacheHttpClient() {
     }
 
     public String getAcceptHeader() {
@@ -47,11 +37,11 @@ public class RecyclerViewHttpClient extends CacheHttpClient {
                 Request original = chain.request();
                 Request.Builder requestBuilder = original.newBuilder()
                         .header("Accept", getAcceptHeader())
-                        .header("User-Agent", "");
+                        .header("User-Agent", "itrip");
 
-                if (PreferenceData.Account.isLogon(application)) {
+                if (PreferenceData.Account.isLogon(mContext)) {
                     requestBuilder
-                            .header("Authorization", "token " + PreferenceData.Account.getLogonToken(application));
+                            .header("Authorization", "token " + PreferenceData.Account.getLogonToken(mContext));
                 }
 
                 Request request = requestBuilder.build();

@@ -1,4 +1,4 @@
-package live.itrip.app.data.net.client;
+package live.itrip.app.data.net.client.cache;
 
 import android.app.Application;
 
@@ -36,7 +36,7 @@ public class CacheHttpClient extends BaseOkHttpClient {
     @Override
     public OkHttpClient.Builder customize(OkHttpClient.Builder builder) {
         // set cache dir
-        File cacheFile = new File(mContext.getCacheDir(), "github_repo");
+        File cacheFile = new File(mContext.getCacheDir(), "itrip_cache");
         Cache cache = new Cache(cacheFile, CACHE_SIZE);
         builder.cache(cache);
 
