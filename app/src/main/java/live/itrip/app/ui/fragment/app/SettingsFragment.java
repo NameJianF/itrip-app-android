@@ -1,15 +1,22 @@
 package live.itrip.app.ui.fragment.app;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -28,6 +35,8 @@ import live.itrip.app.ui.activity.FeedBackActivity;
 import live.itrip.app.ui.base.BaseFragment;
 import live.itrip.app.ui.util.DialogUtils;
 import live.itrip.app.ui.util.UIUtils;
+import live.itrip.common.files.download.DownLoadHelper;
+import live.itrip.common.files.download.interfaces.IdownLoadProgress;
 import live.itrip.common.mvp.view.LceView;
 import live.itrip.common.util.AppLog;
 import live.itrip.common.util.FileUtils;
@@ -155,7 +164,9 @@ public class SettingsFragment extends BaseFragment implements LceView<UpdateMode
                 UIUtils.showAbout(getActivity());
                 break;
             case R.id.rl_check_version:
-                mPresenter.checkAppVersion();
+                // 版本更新检测
+//                mPresenter.checkAppVersion();
+                showContent(null);
                 break;
             case R.id.rl_cancel:
                 // 清理所有缓存
@@ -203,14 +214,68 @@ public class SettingsFragment extends BaseFragment implements LceView<UpdateMode
     }
 
     @Override
-    public void showContent(UpdateModel data) {
-        // success
-        DialogUtils.getConfirmDialog(getActivity(), "更新提示", data.getDesc(), "现在更新", "稍后更新", new DialogInterface.OnClickListener() {
+    public void showContent(UpdateModel model) {
+        if (model == null) {
+            model = new UpdateModel();
+        }
+        model.setDesc("======================");
+        DialogUtils.getConfirmDialog(getActivity(), "更新提示", model.getDesc(), "现在更新", "稍后更新", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 AppLog.d("现在更新...");
+                downloadApk(null);
             }
         }).show();
+    }
+
+    private void downloadApk(UpdateModel model) {
+        final ProgressDialog progressDialog = DialogUtils.getProgressDialog(SettingsFragment.this.getActivity(), "下载文件", "Loading...", false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);// 设置水平进度条
+        progressDialog.show();
+
+        DownLoadHelper downLoadHelper = new DownLoadHelper();
+        String url = "http://cdn.other.file.testin.cn/95efac1d70bf4edea5c67b85e8a5167b.apk";
+        final String savePath = App.getContext().getApplicationInfo().dataDir + File.separator;
+        final String fileName = "itrip-app.apk";
+        downLoadHelper.downLoad(url, savePath, fileName, new IdownLoadProgress() {
+            @Override
+            public void onProgress(long progress, long total, boolean done) {
+                progressDialog.setProgress((int) (progress * 100 / total));
+            }
+
+            @Override
+            public void onSucess(String result) {
+                Toast.makeText(getActivity(), "download success !", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+
+                // install apk
+                installApk(savePath, fileName);
+            }
+
+            @Override
+            public void onFailed(Throwable e, String reason) {
+                Toast.makeText(getActivity(), "download failed !", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    private void installApk(String savePath, String fileName) {
+        File file = new File(savePath + File.separator + fileName);
+        if (!file.exists()) {
+            Log.e("==", "apk file no exists.");
+            return;
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(App.getContext(), "live.itrip.app.provider", file);
+            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+        } else {
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        startActivity(intent);
     }
 
     @Override

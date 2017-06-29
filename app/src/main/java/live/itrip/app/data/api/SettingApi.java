@@ -10,4 +10,6 @@ import rx.Observable;
 public interface SettingApi {
 
     Observable<UpdateModel> checkAppVersion();
+
+    
 }

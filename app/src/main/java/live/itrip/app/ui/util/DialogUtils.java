@@ -338,8 +338,7 @@ public class DialogUtils {
     /**
      * 获取一个等待对话框
      */
-    public static ProgressDialog getProgressDialog(
-            Context context, String title, String message, boolean cancelable) {
+    public static ProgressDialog getProgressDialog(Context context, String title, String message, boolean cancelable) {
         ProgressDialog dialog = getProgressDialog(context);
         dialog.setCancelable(cancelable);
         dialog.setTitle(title);
@@ -350,16 +349,14 @@ public class DialogUtils {
     /**
      * 获取一个等待对话框
      */
-    public static ProgressDialog getProgressDialog(
-            Context context, String message, boolean cancelable) {
+    public static ProgressDialog getProgressDialog(Context context, String message, boolean cancelable) {
         ProgressDialog dialog = getProgressDialog(context);
         dialog.setCancelable(cancelable);
         dialog.setMessage(message);
         return dialog;
     }
 
-    public static AlertDialog.Builder getSelectDialog(
-            Context context, String title, String[] items,
+    public static AlertDialog.Builder getSelectDialog(Context context, String title, String[] items,
             String positiveText,
             DialogInterface.OnClickListener itemListener) {
         return getDialog(context)

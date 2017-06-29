@@ -54,4 +54,6 @@ public class SettingPresenter extends RxMvpPresenter<LceView<UpdateModel>> {
                     }
                 }));
     }
+
+
 }

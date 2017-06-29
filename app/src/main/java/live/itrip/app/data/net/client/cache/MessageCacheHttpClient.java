@@ -1,7 +1,5 @@
 package live.itrip.app.data.net.client.cache;
 
-import android.app.Application;
-
 import java.io.IOException;
 
 import javax.inject.Inject;

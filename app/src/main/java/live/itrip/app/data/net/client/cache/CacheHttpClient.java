@@ -8,8 +8,6 @@ import java.io.IOException;
 import javax.inject.Inject;
 
 import live.itrip.app.data.net.client.core.BaseOkHttpClient;
-import live.itrip.app.service.FileLoads.ProgressRequestListener;
-import live.itrip.app.service.FileLoads.ProgressResponseListener;
 import live.itrip.app.ui.util.NetworkUtil;
 import okhttp3.Cache;
 import okhttp3.CacheControl;

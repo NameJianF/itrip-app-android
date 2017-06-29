@@ -10,8 +10,6 @@ import live.itrip.app.data.net.client.core.ApiEndpoint;
 import live.itrip.app.data.net.client.core.BaseOkHttpClient;
 import live.itrip.app.data.net.client.core.BaseRetrofit;
 import live.itrip.app.data.net.request.CreateAuthorization;
-import live.itrip.app.service.FileLoads.ProgressRequestListener;
-import live.itrip.app.service.FileLoads.ProgressResponseListener;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
