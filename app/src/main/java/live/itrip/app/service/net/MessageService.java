@@ -10,9 +10,8 @@ import rx.Observable;
  */
 
 public interface MessageService {
-    @Headers("Cache-Control: public, max-age=600")
-    @GET("messages?languages[]=java&languages[]=swift")
-    Observable<MessageResultResp> getMessages();
 
+    @GET("list/msg?uid=1&page=1&pageSize=20&lastMsgId=0")
+    Observable<MessageResultResp> getMessages();
 
 }

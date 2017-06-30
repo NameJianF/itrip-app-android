@@ -9,6 +9,7 @@ import live.itrip.app.data.model.MessageModel;
 import live.itrip.app.data.net.response.MessageResultResp;
 import live.itrip.app.service.net.MessageService;
 import live.itrip.common.util.AppLog;
+import retrofit2.Call;
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -27,23 +28,24 @@ public class MessageDataSource implements MessageApi {
 
     @Override
     public Observable<ArrayList<MessageModel>> getMessages(@MessageType final int type) {
-        return mMessageService.getMessages()
-                .map(new Func1<MessageResultResp, ArrayList<MessageModel>>() {
-                    @Override
-                    public ArrayList<MessageModel> call(MessageResultResp resp) {
+        Observable<MessageResultResp> list = mMessageService.getMessages();
 
-                        switch (type) {
-                            case FLAG_SYSTEM:
-                                return resp.getSystemMsgs();
-                            case FLAG_USER:
-                                return resp.getUserMsgs();
-                            default:
-                                AppLog.w("unknown language");
-                                break;
-                        }
+        return list.map(new Func1<MessageResultResp, ArrayList<MessageModel>>() {
+            @Override
+            public ArrayList<MessageModel> call(MessageResultResp resp) {
 
-                        return null;
-                    }
-                });
+                switch (type) {
+                    case FLAG_SYSTEM:
+                        return resp.getSystemMsgs();
+//                    case FLAG_USER:
+//                        return resp.getUserMsgs();
+                    default:
+                        AppLog.w("unknown language");
+                        break;
+                }
+
+                return null;
+            }
+        });
     }
 }

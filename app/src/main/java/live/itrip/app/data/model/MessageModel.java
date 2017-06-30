@@ -8,35 +8,44 @@ import android.os.Parcelable;
  */
 
 public class MessageModel implements Parcelable {
-    private Long msgId;
-    private String userImage;
-    private String title;
+    private Long id;
+    private Long userFrom;
+    private Long userTo;
+    private String type;
     private String content;
-    private String sendTime;
+    private Long createTime;
     private String readme;
 
-    public Long getMsgId() {
-        return msgId;
+    public Long getId() {
+        return id;
     }
 
-    public void setMsgId(Long msgId) {
-        this.msgId = msgId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getUserImage() {
-        return userImage;
+    public Long getUserFrom() {
+        return userFrom;
     }
 
-    public void setUserImage(String userImage) {
-        this.userImage = userImage;
+    public void setUserFrom(Long userFrom) {
+        this.userFrom = userFrom;
     }
 
-    public String getTitle() {
-        return title;
+    public Long getUserTo() {
+        return userTo;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setUserTo(Long userTo) {
+        this.userTo = userTo;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getContent() {
@@ -47,15 +56,15 @@ public class MessageModel implements Parcelable {
         this.content = content;
     }
 
-    public String getSendTime() {
-        return sendTime;
+    public Long getCreateTime() {
+        return createTime;
     }
 
-    public void setSendTime(String sendTime) {
-        this.sendTime = sendTime;
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
     }
 
-    public String isReadme() {
+    public String getReadme() {
         return readme;
     }
 
@@ -70,11 +79,12 @@ public class MessageModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.msgId);
-        dest.writeString(this.userImage);
-        dest.writeString(this.title);
+        dest.writeLong(this.id);
+        dest.writeLong(this.userFrom);
+        dest.writeLong(this.userTo);
+        dest.writeString(this.type);
         dest.writeString(this.content);
-        dest.writeString(this.sendTime);
+        dest.writeLong(this.createTime);
         dest.writeString(this.readme);
     }
 
@@ -82,10 +92,12 @@ public class MessageModel implements Parcelable {
     }
 
     protected MessageModel(Parcel in) {
-        this.msgId = in.readLong();
-        this.userImage = in.readString();
-        this.title = in.readString();
-        this.sendTime = in.readString();
+        this.id = in.readLong();
+        this.userFrom = in.readLong();
+        this.userTo = in.readLong();
+        this.createTime = in.readLong();
+        this.type = in.readString();
+        this.content = in.readString();
         this.readme = in.readString();
     }
 

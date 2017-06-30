@@ -43,8 +43,8 @@ public class MessagePresenter extends RxMvpPresenter<LceView<ArrayList<MessageMo
                 })
                 .subscribe(new ResponseObserver<ArrayList<MessageModel>>() {
                     @Override
-                    public void onSuccess(ArrayList<MessageModel> trendingRepos) {
-                        getMvpView().showContent(trendingRepos);
+                    public void onSuccess(ArrayList<MessageModel> msgList) {
+                        getMvpView().showContent(msgList);
                     }
 
                     @Override

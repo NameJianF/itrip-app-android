@@ -111,7 +111,7 @@ public class MessageFragment extends BaseFragment implements LceView<ArrayList<M
         public void onItemClick(View view, int i) {
             MessageModel msg = mAdapter.getItem(i);
 
-            String fullName = StringUtils.replaceAllBlank(msg.getTitle());
+            String fullName = StringUtils.replaceAllBlank(msg.getUserFrom().toString());
             String[] array = fullName.split("\\/");
 //            RepoDetailActivity.launch(getActivity(), array[0], array[1]);
             AppLog.d("Recycler View Item Clicked.");
