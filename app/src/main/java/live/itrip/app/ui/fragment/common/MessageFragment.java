@@ -25,6 +25,7 @@ import live.itrip.app.data.api.MessageApi;
 import live.itrip.app.data.model.MessageModel;
 import live.itrip.app.di.component.MainComponent;
 import live.itrip.app.presenter.MessagePresenter;
+import live.itrip.app.ui.activity.MessageDetailActivity;
 import live.itrip.app.ui.base.BaseFragment;
 import live.itrip.common.mvp.view.LceView;
 import live.itrip.common.util.AppLog;
@@ -35,15 +36,13 @@ import live.itrip.common.util.StringUtils;
  */
 
 public class MessageFragment extends BaseFragment implements LceView<ArrayList<MessageModel>> {
-    @BindView(R.id.repo_list)
-    RecyclerView mRepoListView;
-    @BindView(R.id.refresh_layout)
-    SwipeRefreshLayout mRefreshLayout;
-
-    private MessageRecyclerAdapter mAdapter;
+    @BindView(R.id.mesage_list)
+    RecyclerView mRecyclerView;
 
     @Inject
     MessagePresenter mPresenter;
+
+    private MessageRecyclerAdapter mAdapter;
 
     private int mCurrentMessage;
 
@@ -80,7 +79,12 @@ public class MessageFragment extends BaseFragment implements LceView<ArrayList<M
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter.loadMesages(mCurrentMessage);
+        Long uid = 0L;
+        int page = 1;
+        int pageSize = 30;
+        Long lastMsgId = 0L;
+
+        mPresenter.loadMesages(mCurrentMessage, uid, page, pageSize, lastMsgId);
     }
 
     @Override
@@ -90,20 +94,19 @@ public class MessageFragment extends BaseFragment implements LceView<ArrayList<M
     }
 
     private void initViews() {
-        mRefreshLayout.setOnRefreshListener(mRefreshListener);
-
         mAdapter = new MessageRecyclerAdapter(null);
         mAdapter.setOnRecyclerViewItemClickListener(mItemClickListener);
         mAdapter.setEmptyView(LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null));
 
-        mRepoListView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        mRepoListView.addItemDecoration(new HorizontalDividerItemDecoration
-                .Builder(getActivity())
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration
+                .Builder(this.getActivity())
                 .color(Color.TRANSPARENT)
                 .size(getResources().getDimensionPixelSize(R.dimen.divider_height))
                 .build());
 
-        mRepoListView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
+
     }
 
     private BaseQuickAdapter.OnRecyclerViewItemClickListener mItemClickListener = new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
@@ -111,26 +114,17 @@ public class MessageFragment extends BaseFragment implements LceView<ArrayList<M
         public void onItemClick(View view, int i) {
             MessageModel msg = mAdapter.getItem(i);
 
-            String fullName = StringUtils.replaceAllBlank(msg.getUserFrom().toString());
-            String[] array = fullName.split("\\/");
-//            RepoDetailActivity.launch(getActivity(), array[0], array[1]);
+//            MessageDetailActivity.launch(getActivity(), msg.getId());
             AppLog.d("Recycler View Item Clicked.");
         }
     };
 
     @Override
     public void showLoading() {
-        mRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mRefreshLayout.setRefreshing(true);
-            }
-        });
     }
 
     @Override
     public void dismissLoading() {
-        mRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -150,12 +144,4 @@ public class MessageFragment extends BaseFragment implements LceView<ArrayList<M
     public void showEmpty() {
         // TODO
     }
-
-    private SwipeRefreshLayout.OnRefreshListener mRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
-        @Override
-        public void onRefresh() {
-            AppLog.d("onRefresh, mCurrentMessage:" + mCurrentMessage);
-            mPresenter.loadMesages(mCurrentMessage);
-        }
-    };
 }

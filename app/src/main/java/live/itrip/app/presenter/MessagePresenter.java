@@ -25,8 +25,9 @@ public class MessagePresenter extends RxMvpPresenter<LceView<ArrayList<MessageMo
         this.mMessageApi = api;
     }
 
-    public void loadMesages(@MessageApi.MessageType int type) {
-        mCompositeSubscription.add(mMessageApi.getMessages(type)
+    public void loadMesages(@MessageApi.MessageType int type
+            , Long uid, int page, int pageSize, Long lastMsgId) {
+        mCompositeSubscription.add(mMessageApi.getMessages(type, uid, page, pageSize, lastMsgId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Action0() {

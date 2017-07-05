@@ -27,18 +27,40 @@ public class MessageDataSource implements MessageApi {
     }
 
     @Override
-    public Observable<ArrayList<MessageModel>> getMessages(@MessageType final int type) {
-        Observable<MessageResultResp> list = mMessageService.getMessages();
+    public Observable<ArrayList<MessageModel>> getMessages(@MessageType final int type
+            , Long uid, int page, int pageSize, Long lastMsgId) {
+
+
+        Observable<MessageResultResp> list = mMessageService.getMessages(type, uid, page, pageSize, lastMsgId);
+
 
         return list.map(new Func1<MessageResultResp, ArrayList<MessageModel>>() {
             @Override
             public ArrayList<MessageModel> call(MessageResultResp resp) {
 
+                // test datas
+                ArrayList<MessageModel> models = new ArrayList<MessageModel>();
+
+                for (Integer i = 1; i <= 20; i++) {
+                    MessageModel model = new MessageModel();
+                    model.setId(i.longValue());
+                    model.setUserFrom(i.longValue());
+                    model.setUserName("Name:" + i);
+//                    model.setImg("");
+                    model.setType(String.valueOf(type));
+                    model.setContent("message content ====== ");
+                    model.setCreateTime(System.currentTimeMillis());
+                    model.setReadme("0");
+                    models.add(model);
+                }
+
                 switch (type) {
                     case FLAG_SYSTEM:
-                        return resp.getSystemMsgs();
-//                    case FLAG_USER:
+//                        return resp.getMessageList();
+                        return models;
+                    case FLAG_USER:
 //                        return resp.getUserMsgs();
+                        return models;
                     default:
                         AppLog.w("unknown language");
                         break;

@@ -54,4 +54,8 @@
     <color name="ucrop_color_crop_background">#000</color>
 
 
+    <color name="text_title_color">#111111</color>
+    <color name="text_desc_color">#6a6a6a</color>
+    <color name="text_secondary_color">#9d9d9d</color>
+
 </resources>

@@ -29,5 +29,6 @@ public interface MessageApi {
      * @param type
      * @return
      */
-    Observable<ArrayList<MessageModel>> getMessages(@MessageType int type);
+    Observable<ArrayList<MessageModel>> getMessages(@MessageType int type
+            , Long uid, int page, int pageSize, Long lastMsgId);
 }

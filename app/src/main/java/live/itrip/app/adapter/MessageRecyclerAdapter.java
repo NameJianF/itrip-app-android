@@ -21,7 +21,9 @@ public class MessageRecyclerAdapter extends BaseQuickAdapter<MessageModel> {
 
     @Override
     protected void convert(BaseViewHolder holder, MessageModel msg) {
-        holder.setText(R.id.name, StringUtils.replaceAllBlank(msg.getUserFrom().toString()));
-        holder.setText(R.id.content, StringUtils.trimNewLine(msg.getContent().trim()));
+        holder.setText(R.id.tv_user_name, StringUtils.replaceAllBlank(msg.getUserName()));
+        holder.setText(R.id.identityView, StringUtils.replaceAllBlank(msg.getReadme()));
+        holder.setText(R.id.tv_time, StringUtils.trimNewLine(msg.getCreateTime().toString()));
+        holder.setText(R.id.tv_content, StringUtils.trimNewLine(msg.getContent()));
     }
 }

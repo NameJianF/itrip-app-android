@@ -10,8 +10,10 @@ import android.os.Parcelable;
 public class MessageModel implements Parcelable {
     private Long id;
     private Long userFrom;
+    private String userName; // 发送者姓名
+    private String img; // 发送者头像地址
     private Long userTo;
-    private String type;
+    private String type; // 消息类型， 1：系统，2：私人
     private String content;
     private Long createTime;
     private String readme;
@@ -30,6 +32,22 @@ public class MessageModel implements Parcelable {
 
     public void setUserFrom(Long userFrom) {
         this.userFrom = userFrom;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public Long getUserTo() {
@@ -81,6 +99,8 @@ public class MessageModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(this.id);
         dest.writeLong(this.userFrom);
+        dest.writeString(this.userName);
+        dest.writeString(this.img);
         dest.writeLong(this.userTo);
         dest.writeString(this.type);
         dest.writeString(this.content);
@@ -94,6 +114,8 @@ public class MessageModel implements Parcelable {
     protected MessageModel(Parcel in) {
         this.id = in.readLong();
         this.userFrom = in.readLong();
+        this.userName = in.readString();
+        this.img = in.readString();
         this.userTo = in.readLong();
         this.createTime = in.readLong();
         this.type = in.readString();

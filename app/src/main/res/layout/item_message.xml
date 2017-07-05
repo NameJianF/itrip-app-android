@@ -1,37 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="0dp"
-    app:cardElevation="@dimen/dimen_2"
-    app:contentPadding="@dimen/dimen_10">
+    app:cardElevation="@dimen/dimen_10"
+    app:contentPadding="@dimen/dimen_0">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/name"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="left|center_vertical"
-            android:maxLines="2"
-            android:text="@string/app_name"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/ic_material"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/lay_12"
+            android:paddingLeft="@dimen/lay_16"
+            android:paddingRight="@dimen/lay_16"
+            android:paddingTop="@dimen/lay_16">
 
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_5"
-            android:gravity="left|center_vertical"
-            android:maxLines="4"
-            android:text="@string/app_name"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="12sp" />
+            <live.itrip.common.widget.PortraitView
+                android:id="@+id/iv_user_avatar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:clickable="true"
+                android:src="@mipmap/logo" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:lines="1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/text_title_color"
+                        android:textSize="16sp"
+                        tools:text="Large Text" />
+
+                    <live.itrip.app.ui.widget.IdentityView
+                        android:id="@+id/identityView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/lay_4"
+                        android:layout_marginRight="@dimen/lay_4"
+                        android:text="@string/app_name"/>
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:lines="1"
+                        android:textColor="#9d9d9d"
+                        android:textSize="@dimen/font_12"
+                        tools:text="6分钟" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:clickable="false"
+                    android:ellipsize="end"
+                    android:focusable="false"
+                    android:lines="1"
+                    android:longClickable="false"
+                    android:textSize="14sp"
+                    tools:text="New Text" />
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -71,4 +71,7 @@
     <string name="empty_desc">We couldn\'t find anything.</string>
     <string name="error_desc">Looks like something went wrong!</string>
     <string name="retry_btn_label">Retry</string>
+
+    <string name="copy_success">复制成功</string>
+
 </resources>

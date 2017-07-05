@@ -19,12 +19,12 @@ public class MessageResultResp implements Parcelable {
     private String msg;
 
     @SerializedName("data")
-    private ArrayList<MessageModel> systemMsgs;
+    private ArrayList<MessageModel> messageList;
 
     protected MessageResultResp(Parcel in) {
         op = in.readString();
         msg = in.readString();
-        systemMsgs = in.createTypedArrayList(MessageModel.CREATOR);
+        messageList = in.createTypedArrayList(MessageModel.CREATOR);
     }
 
     public static final Creator<MessageResultResp> CREATOR = new Creator<MessageResultResp>() {
@@ -64,15 +64,12 @@ public class MessageResultResp implements Parcelable {
     }
 
 
-    //    @SerializedName("data")
-//    private ArrayList<MessageModel> userMsgs;
-
-    public ArrayList<MessageModel> getSystemMsgs() {
-        return systemMsgs;
+    public ArrayList<MessageModel> getMessageList() {
+        return messageList;
     }
 
-    public void setSystemMsgs(ArrayList<MessageModel> systemMsgs) {
-        this.systemMsgs = systemMsgs;
+    public void setMessageList(ArrayList<MessageModel> messageList) {
+        this.messageList = messageList;
     }
 
     @Override
@@ -84,14 +81,7 @@ public class MessageResultResp implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(op);
         dest.writeString(msg);
-        dest.writeTypedList(systemMsgs);
+        dest.writeTypedList(messageList);
     }
 
-//    public ArrayList<MessageModel> getUserMsgs() {
-//        return userMsgs;
-//    }
-//
-//    public void setUserMsgs(ArrayList<MessageModel> userMsgs) {
-//        this.userMsgs = userMsgs;
-//    }
 }
