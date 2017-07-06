@@ -4,9 +4,16 @@
     android:layout_height="match_parent"
     android:background="@color/md_white_1000">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/model_list"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingBottom="46dp">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/model_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

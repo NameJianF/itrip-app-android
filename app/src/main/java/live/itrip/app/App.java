@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 
 import live.itrip.app.config.AppConfig;
 import live.itrip.app.di.component.ApplicationComponent;
@@ -18,7 +19,8 @@ import live.itrip.common.util.AppLog;
 
 public class App extends Application {
 
-    static Context context;
+    //    static Context context;
+    static App instance;
 
     @Override
     public void onCreate() {
@@ -31,15 +33,32 @@ public class App extends Application {
 
         AppConfig.CLIENT_VERSION = getVersion();
 
-        context = getApplicationContext();
+//        context = getApplicationContext();
+        instance = this;
     }
 
-    public static App get(Context context) {
-        return (App) context.getApplicationContext();
+    public static App getInstance() {
+//        return (App) context.getApplicationContext();
+        return instance;
     }
 
     public static Context getContext() {
-        return context;
+        return instance.getApplicationContext();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     ApplicationComponent mApplicationComponent;

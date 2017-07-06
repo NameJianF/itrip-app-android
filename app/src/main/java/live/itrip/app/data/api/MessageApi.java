@@ -12,8 +12,8 @@ import rx.Observable;
  */
 
 public interface MessageApi {
-    public int FLAG_SYSTEM = 1;
-    public int FLAG_USER = 2;
+    int FLAG_SYSTEM = 1;
+    int FLAG_USER = 2;
 
     @IntDef({
             FLAG_SYSTEM,
@@ -31,4 +31,8 @@ public interface MessageApi {
      */
     Observable<ArrayList<MessageModel>> getMessages(@MessageType int type
             , Long uid, int page, int pageSize, Long lastMsgId);
+
+
+    Observable<ArrayList<MessageModel>> loadDialogMesages(Long fromUserId, Long toUserId, Long lastMsgId);
+
 }

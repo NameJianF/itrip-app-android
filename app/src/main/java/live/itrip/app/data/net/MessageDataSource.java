@@ -62,11 +62,23 @@ public class MessageDataSource implements MessageApi {
 //                        return resp.getUserMsgs();
                         return models;
                     default:
-                        AppLog.w("unknown language");
+                        AppLog.w("unknown data");
                         break;
                 }
 
                 return null;
+            }
+        });
+    }
+
+    @Override
+    public Observable<ArrayList<MessageModel>> loadDialogMesages(Long fromUserId, Long toUserId, Long lastMsgId) {
+        Observable<MessageResultResp> list = mMessageService.loadDialogMesages(fromUserId, toUserId, lastMsgId);
+
+        return list.map(new Func1<MessageResultResp, ArrayList<MessageModel>>() {
+            @Override
+            public ArrayList<MessageModel> call(MessageResultResp resp) {
+                return resp.getMessageList();
             }
         });
     }

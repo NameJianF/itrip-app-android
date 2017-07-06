@@ -109,7 +109,7 @@ public class LoginActivity extends BaseLoadingActivity implements LoginView, Has
     @Override
     public AccountComponent getComponent() {
         return DaggerAccountComponent.builder()
-                .applicationComponent(App.get(this).getComponent())
+                .applicationComponent(App.getInstance().getComponent())
                 .activityModule(new ActivityModule(this))
                 .accountModule(new AccountModule())
                 .build();

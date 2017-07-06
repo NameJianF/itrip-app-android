@@ -37,7 +37,7 @@ public class AboutFragment extends BaseFragment {
     }
 
     public void initData() {
-        mTvVersionName.setText(App.get(this.getContext()).getVersion());
+        mTvVersionName.setText(App.getInstance().getVersion());
     }
 
 

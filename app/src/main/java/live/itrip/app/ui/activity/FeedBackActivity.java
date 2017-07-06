@@ -64,7 +64,7 @@ public class FeedBackActivity extends BaseActivity implements HasComponent<FeedB
     @Override
     public FeedBackComponent getComponent() {
         return DaggerFeedBackComponent.builder()
-                .applicationComponent(App.get(this).getComponent())
+                .applicationComponent(App.getInstance().getComponent())
                 .activityModule(new ActivityModule(this))
                 .build();
     }

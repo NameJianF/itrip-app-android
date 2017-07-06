@@ -40,6 +40,7 @@
         <activity android:name=".ui.activity.common.RecyclerViewActivity" />
         <activity android:name=".ui.activity.UserMessageActivity" />
         <activity android:name=".ui.activity.FootmarksActivity" />
+        <activity android:name=".ui.activity.DialogMessageActivity" />
 
         <!--service-->
         <service android:name=".service.InitializeService" />

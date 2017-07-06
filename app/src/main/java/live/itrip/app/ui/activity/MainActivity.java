@@ -199,7 +199,7 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
     @Override
     public MainComponent getComponent() {
         return DaggerMainComponent.builder()
-                .applicationComponent(App.get(this).getComponent())
+                .applicationComponent(App.getInstance().getComponent())
                 .activityModule(new ActivityModule(this))
                 .build();
     }

@@ -22,7 +22,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // define the IconicsLayoutInflater
         // this is compatible with calligraphy and other libs which wrap the baseContext
-        LayoutInflaterCompat.setFactory(getLayoutInflater(), new IconicsLayoutInflater(getDelegate()));
+//        LayoutInflaterCompat.setFactory(getLayoutInflater(), new IconicsLayoutInflater(getDelegate()));
 
         super.onCreate(savedInstanceState);
     }
@@ -31,7 +31,7 @@ public class BaseActivity extends AppCompatActivity {
         if (mActivityComponent == null) {
             mActivityComponent = DaggerActivityComponent.builder()
                     .activityModule(new ActivityModule(this))
-                    .applicationComponent(App.get(this).getComponent())
+                    .applicationComponent(App.getInstance().getComponent())
                     .build();
         }
         return mActivityComponent;

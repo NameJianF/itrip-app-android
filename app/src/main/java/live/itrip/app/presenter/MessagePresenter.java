@@ -54,4 +54,33 @@ public class MessagePresenter extends RxMvpPresenter<LceView<ArrayList<MessageMo
                     }
                 }));
     }
+
+    public void loadDialogMesages(Long fromUserId, Long toUserId, Long lastMsgId) {
+        mCompositeSubscription.add(mMessageApi.loadDialogMesages(fromUserId, toUserId, lastMsgId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        getMvpView().showLoading();
+                    }
+                })
+                .doOnTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        getMvpView().dismissLoading();
+                    }
+                })
+                .subscribe(new ResponseObserver<ArrayList<MessageModel>>() {
+                    @Override
+                    public void onSuccess(ArrayList<MessageModel> msgList) {
+                        getMvpView().showContent(msgList);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        getMvpView().showError(e);
+                    }
+                }));
+    }
 }

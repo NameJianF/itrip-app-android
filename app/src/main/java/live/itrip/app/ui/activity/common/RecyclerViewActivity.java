@@ -255,7 +255,7 @@ public class RecyclerViewActivity extends BaseLoadingActivity implements LceView
     @Override
     protected void onResume() {
         super.onResume();
-        AppLog.d("trace===FeedBackActivity onResume");
+        AppLog.d("trace===RecyclerViewActivity onResume");
     }
 
     @Override
@@ -267,7 +267,7 @@ public class RecyclerViewActivity extends BaseLoadingActivity implements LceView
     @Override
     public RecyclerViewComponent getComponent() {
         return DaggerRecyclerViewComponent.builder()
-                .applicationComponent(App.get(this).getComponent())
+                .applicationComponent(App.getInstance().getComponent())
                 .activityModule(new ActivityModule(this))
                 .recyclerViewModule(new RecyclerViewModule())
                 .build();

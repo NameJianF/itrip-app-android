@@ -247,7 +247,7 @@ public class ImageCropActivity extends BaseActivity implements HasComponent<Imag
     @Override
     public ImageCropComponent getComponent() {
         return DaggerImageCropComponent.builder()
-                .applicationComponent(App.get(this).getComponent())
+                .applicationComponent(App.getInstance().getComponent())
                 .activityModule(new ActivityModule(this))
                 .build();
     }

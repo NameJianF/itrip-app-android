@@ -3,7 +3,6 @@ package live.itrip.app.ui.fragment.common;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,11 +24,10 @@ import live.itrip.app.data.api.MessageApi;
 import live.itrip.app.data.model.MessageModel;
 import live.itrip.app.di.component.MainComponent;
 import live.itrip.app.presenter.MessagePresenter;
-import live.itrip.app.ui.activity.MessageDetailActivity;
+import live.itrip.app.ui.activity.DialogMessageActivity;
 import live.itrip.app.ui.base.BaseFragment;
 import live.itrip.common.mvp.view.LceView;
 import live.itrip.common.util.AppLog;
-import live.itrip.common.util.StringUtils;
 
 /**
  * Created by Feng on 2017/6/27.
@@ -40,9 +38,9 @@ public class MessageFragment extends BaseFragment implements LceView<ArrayList<M
     RecyclerView mRecyclerView;
 
     @Inject
-    MessagePresenter mPresenter;
+    MessagePresenter mMessagePresenter;
 
-    private MessageRecyclerAdapter mAdapter;
+    private MessageRecyclerAdapter mMessageRecyclerAdapter;
 
     private int mCurrentMessage;
 
@@ -73,7 +71,7 @@ public class MessageFragment extends BaseFragment implements LceView<ArrayList<M
         getComponent(MainComponent.class).inject(this);
 
         mCurrentMessage = getArguments().getInt(EXTRA_MSG, MessageApi.FLAG_SYSTEM);
-        mPresenter.attachView(this);
+        mMessagePresenter.attachView(this);
     }
 
     @Override
@@ -84,19 +82,19 @@ public class MessageFragment extends BaseFragment implements LceView<ArrayList<M
         int pageSize = 30;
         Long lastMsgId = 0L;
 
-        mPresenter.loadMesages(mCurrentMessage, uid, page, pageSize, lastMsgId);
+        mMessagePresenter.loadMesages(mCurrentMessage, uid, page, pageSize, lastMsgId);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mPresenter.detachView();
+        mMessagePresenter.detachView();
     }
 
     private void initViews() {
-        mAdapter = new MessageRecyclerAdapter(null);
-        mAdapter.setOnRecyclerViewItemClickListener(mItemClickListener);
-        mAdapter.setEmptyView(LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null));
+        mMessageRecyclerAdapter = new MessageRecyclerAdapter(null);
+        mMessageRecyclerAdapter.setOnRecyclerViewItemClickListener(mItemClickListener);
+        mMessageRecyclerAdapter.setEmptyView(LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null));
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration
@@ -105,33 +103,38 @@ public class MessageFragment extends BaseFragment implements LceView<ArrayList<M
                 .size(getResources().getDimensionPixelSize(R.dimen.divider_height))
                 .build());
 
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mMessageRecyclerAdapter);
 
     }
 
     private BaseQuickAdapter.OnRecyclerViewItemClickListener mItemClickListener = new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
         @Override
         public void onItemClick(View view, int i) {
-            MessageModel msg = mAdapter.getItem(i);
+            MessageModel msg = mMessageRecyclerAdapter.getItem(i);
 
-//            MessageDetailActivity.launch(getActivity(), msg.getId());
+            msg.setUserFrom(11L);
+            msg.setUserTo(1L);
+
+            DialogMessageActivity.launch(getActivity(), msg.getUserFrom(), msg.getUserTo());
             AppLog.d("Recycler View Item Clicked.");
         }
     };
 
     @Override
     public void showLoading() {
+
     }
 
     @Override
     public void dismissLoading() {
+
     }
 
     @Override
     public void showContent(ArrayList<MessageModel> data) {
         AppLog.d("data:" + data);
         if (data != null) {
-            mAdapter.setNewData(data);
+            mMessageRecyclerAdapter.setNewData(data);
         }
     }
 
