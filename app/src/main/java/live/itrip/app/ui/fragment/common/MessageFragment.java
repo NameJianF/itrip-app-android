@@ -3,6 +3,7 @@ package live.itrip.app.ui.fragment.common;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,6 +37,8 @@ import live.itrip.common.util.AppLog;
 public class MessageFragment extends BaseFragment implements LceView<ArrayList<MessageModel>> {
     @BindView(R.id.mesage_list)
     RecyclerView mRecyclerView;
+    @BindView(R.id.refresh_layout)
+    SwipeRefreshLayout mRefreshLayout;
 
     @Inject
     MessagePresenter mMessagePresenter;
@@ -92,6 +95,8 @@ public class MessageFragment extends BaseFragment implements LceView<ArrayList<M
     }
 
     private void initViews() {
+        mRefreshLayout.setOnRefreshListener(mRefreshListener);
+
         mMessageRecyclerAdapter = new MessageRecyclerAdapter(null);
         mMessageRecyclerAdapter.setOnRecyclerViewItemClickListener(mItemClickListener);
         mMessageRecyclerAdapter.setEmptyView(LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null));
@@ -122,12 +127,17 @@ public class MessageFragment extends BaseFragment implements LceView<ArrayList<M
 
     @Override
     public void showLoading() {
-
+        mRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshLayout.setRefreshing(true);
+            }
+        });
     }
 
     @Override
     public void dismissLoading() {
-
+        mRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -147,4 +157,17 @@ public class MessageFragment extends BaseFragment implements LceView<ArrayList<M
     public void showEmpty() {
         // TODO
     }
+
+    private SwipeRefreshLayout.OnRefreshListener mRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            AppLog.d("onRefresh, mCurrentMessage:" + mCurrentMessage);
+            Long uid = 0L;
+            int page = 1;
+            int pageSize = 30;
+            Long lastMsgId = 0L;
+
+            mMessagePresenter.loadMesages(mCurrentMessage, uid, page, pageSize, lastMsgId);
+        }
+    };
 }

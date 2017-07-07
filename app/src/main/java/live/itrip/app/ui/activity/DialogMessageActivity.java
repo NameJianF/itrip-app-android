@@ -29,7 +29,7 @@ import live.itrip.app.di.component.MessageDetailComponent;
 import live.itrip.app.di.module.ActivityModule;
 import live.itrip.app.di.module.MessageModule;
 import live.itrip.app.presenter.MessagePresenter;
-import live.itrip.app.ui.base.BaseLoadingActivity;
+import live.itrip.app.ui.base.BaseActivity;
 import live.itrip.common.mvp.view.LceView;
 import live.itrip.common.util.AppLog;
 
@@ -37,13 +37,13 @@ import live.itrip.common.util.AppLog;
  * Created by Feng on 2017/7/5.
  */
 
-public class DialogMessageActivity extends BaseLoadingActivity implements LceView<ArrayList<MessageModel>>, HasComponent<MessageDetailComponent> {
+public class DialogMessageActivity extends BaseActivity implements LceView<ArrayList<MessageModel>>, HasComponent<MessageDetailComponent> {
 
     private ActionBar mActionBar;
     @BindView(R.id.root)
     CoordinatorLayout mCoordinatorLayout;
-//    @BindView(R.id.refreshLayout)
-//    SwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.refreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
@@ -76,6 +76,8 @@ public class DialogMessageActivity extends BaseLoadingActivity implements LceVie
     }
 
     private void initViews() {
+        mSwipeRefreshLayout.setOnRefreshListener(mRefreshListener);
+
         mActionBar = this.getSupportActionBar();
         if (mActionBar != null) {
             mActionBar.setDisplayHomeAsUpEnabled(true);
@@ -118,14 +120,25 @@ public class DialogMessageActivity extends BaseLoadingActivity implements LceVie
     }
 
     @Override
-    public String getLoadingMessage() {
-        return getString(R.string.loading);
-    }
-
-    @Override
     public void showContent(ArrayList<MessageModel> data) {
         mMessageRecyclerAdapter.setNewData(data);
     }
+
+    @Override
+    public void showLoading() {
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(true);
+            }
+        });
+    }
+
+    @Override
+    public void dismissLoading() {
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
 
     @Override
     public void showError(Throwable e) {
@@ -148,6 +161,17 @@ public class DialogMessageActivity extends BaseLoadingActivity implements LceVie
         onBackPressed();
         return true;
     }
+
+    private SwipeRefreshLayout.OnRefreshListener mRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            AppLog.d("onRefresh, DialogMessageActivity");
+            Long fromUserId = getIntent().getLongExtra(EXTRA_FROM_USER_ID, 0L);
+            Long toUserId = getIntent().getLongExtra(EXTRA_TO_USER_ID, 0L);
+
+            mMessagePresenter.loadDialogMesages(fromUserId, toUserId, 0L);
+        }
+    };
 
     @Override
     public MessageDetailComponent getComponent() {
