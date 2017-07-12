@@ -7,10 +7,12 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import live.itrip.app.data.net.client.HomePageRetrofit;
 import live.itrip.app.data.net.client.MessageRetrofit;
 import live.itrip.app.data.net.client.RecyclerItemRetrofit;
 import live.itrip.app.data.net.client.SettingRetrofit;
 import live.itrip.app.di.ApplicationContext;
+import live.itrip.app.service.net.HomePageServive;
 import live.itrip.app.service.net.MessageService;
 import live.itrip.app.service.net.RecyclerItemDataService;
 import live.itrip.app.service.net.SettingService;
@@ -54,5 +56,11 @@ public class ApplicationModule {
     @Singleton
     SettingService provideSettingService(SettingRetrofit retrofit) {
         return retrofit.get().create(SettingService.class);
+    }
+
+    @Provides
+    @Singleton
+    HomePageServive provideHomePageServive(HomePageRetrofit retrofit) {
+        return retrofit.get().create(HomePageServive.class);
     }
 }

@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 import live.itrip.app.di.ApplicationContext;
 import live.itrip.app.di.module.ApplicationModule;
+import live.itrip.app.service.net.HomePageServive;
 import live.itrip.app.service.net.MessageService;
 import live.itrip.app.service.net.RecyclerItemDataService;
 import live.itrip.app.service.net.SettingService;
@@ -30,4 +31,6 @@ public interface ApplicationComponent {
     MessageService messageService();
 
     SettingService settingService();
+
+    HomePageServive homePageServive();
 }
