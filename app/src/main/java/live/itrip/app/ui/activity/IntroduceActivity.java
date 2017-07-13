@@ -32,7 +32,7 @@ public class IntroduceActivity extends AppIntro2 {
                 getString(R.string.desc_1),
                 getString(R.string.desc_font),
                 R.drawable.ic_slide1,
-                getResources().getColor(R.color.md_indigo_400)
+                getResources().getColor(R.color.indigo_400)
         ));
 
         addSlide(AppIntroFragment.newInstance(
@@ -41,7 +41,7 @@ public class IntroduceActivity extends AppIntro2 {
                 getString(R.string.desc_2),
                 getString(R.string.desc_font),
                 R.drawable.ic_slide2,
-                getResources().getColor(R.color.md_cyan_500)
+                getResources().getColor(R.color.cyan_500)
         ));
 
         addSlide(AppIntroFragment.newInstance(
@@ -50,7 +50,7 @@ public class IntroduceActivity extends AppIntro2 {
                 getString(R.string.desc_3),
                 getString(R.string.desc_font),
                 R.drawable.ic_slide3,
-                getResources().getColor(R.color.md_green_500)
+                getResources().getColor(R.color.green_500)
         ));
         addSlide(AppIntroFragment.newInstance(
                 getString(R.string.title_3),
@@ -58,7 +58,7 @@ public class IntroduceActivity extends AppIntro2 {
                 getString(R.string.desc_3),
                 getString(R.string.desc_font),
                 R.drawable.ic_slide4,
-                getResources().getColor(R.color.md_green_500)
+                getResources().getColor(R.color.green_500)
         ));
     }
 

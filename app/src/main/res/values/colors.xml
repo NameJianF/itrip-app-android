@@ -58,4 +58,10 @@
     <color name="text_desc_color">#6a6a6a</color>
     <color name="text_secondary_color">#9d9d9d</color>
 
+    <!-- 黑色字体颜色 -->
+    <color name="font_color_dark">#000000</color>
+    <!-- 黑灰色字体颜色 -->
+    <color name="font_color_black">#444444</color>
+    <!-- 灰色字体颜色 -->
+    <color name="font_color_gray">#9A9A9A</color>
 </resources>

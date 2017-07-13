@@ -34,6 +34,7 @@ import live.itrip.app.ui.util.BannerImageLoader;
 import live.itrip.common.mvp.view.LceView;
 import live.itrip.common.util.AppLog;
 
+
 /**
  * Created by Feng on 2017/4/25.
  */
@@ -119,6 +120,7 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
         mHomePageRecyclerAdapter.setOnRecyclerViewItemClickListener(mItemClickListener);
         mHomePageRecyclerAdapter.setEmptyView(LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null));
 
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration
                 .Builder(this.getActivity())
@@ -168,6 +170,17 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
     @Override
     public void showError(Throwable e) {
         AppLog.e(e);
+
+        // test data
+        ArrayList<HomePageModel> list = new ArrayList<HomePageModel>();
+        for (int i = 0; i < 10; i++) {
+            HomePageModel model = new HomePageModel();
+            model.setImgUrl(Constants.mUrls[0]);
+            model.setTitle(Constants.mSubTitles[1]);
+            model.setContent(Constants.mSubTitles[1]);
+            list.add(model);
+        }
+        this.showContent(list);
     }
 
     @Override
