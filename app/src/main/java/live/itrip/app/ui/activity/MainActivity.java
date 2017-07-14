@@ -143,7 +143,7 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
 //        navigationTabBar.setBgColor(Color.BLACK);
 //        navigationTabBar.setBadgeSize(10);
 //        navigationTabBar.setTitleSize(10);
-//        navigationTabBar.setIconSizeFraction(0.5);
+//        navigationTabBar.setIconSizeFraction(0.4f);
 
         navigationTabBar.setModels(models);
         navigationTabBar.setViewPager(mViewPager, 0);

@@ -8,10 +8,10 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import java.util.ArrayList;
 
 /**
- * Created by Feng on 2017/7/12.
+ * Created by Feng on 2017/7/14.
  */
 
-public class HomePageModel extends MultiItemEntity implements Parcelable {
+public class TravelPageModel extends MultiItemEntity implements Parcelable {
     public static final int ITEM_BANNER = 0;
     public static final int ITEM_NAV = 1;
     public static final int ITEM_HOT = 2;
@@ -30,11 +30,11 @@ public class HomePageModel extends MultiItemEntity implements Parcelable {
     private ArrayList itemList;
 
 
-    public HomePageModel() {
+    public TravelPageModel() {
 
     }
 
-    protected HomePageModel(Parcel in) {
+    protected TravelPageModel(Parcel in) {
         id = in.readLong();
         title = in.readString();
         content = in.readString();

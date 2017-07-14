@@ -10,14 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
+import com.alibaba.fastjson.JSON;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.inject.Inject;
 
@@ -26,11 +22,11 @@ import butterknife.ButterKnife;
 import live.itrip.app.R;
 import live.itrip.app.adapter.HomePageRecyclerAdapter;
 import live.itrip.app.config.Constants;
+import live.itrip.app.data.model.ChildMultiItem;
 import live.itrip.app.data.model.HomePageModel;
 import live.itrip.app.di.component.MainComponent;
 import live.itrip.app.presenter.HomePagePresenter;
 import live.itrip.app.ui.base.BaseFragment;
-import live.itrip.app.ui.util.BannerImageLoader;
 import live.itrip.common.mvp.view.LceView;
 import live.itrip.common.util.AppLog;
 
@@ -43,8 +39,7 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
 
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
-    @BindView(R.id.banner)
-    Banner mBanner;
+
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
@@ -83,7 +78,44 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mHomePagePresenter.loadDatas();
+//        mHomePagePresenter.loadDatas();
+
+        // test data
+        ArrayList<HomePageModel> list = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            HomePageModel model = new HomePageModel();
+
+            if (i == 0) {
+                model.setItemType(HomePageModel.ITEM_BANNER);
+            } else if (i == 1) {
+                model.setItemType(HomePageModel.ITEM_NAV);
+            } else if (i == 2) {
+                model.setItemType(HomePageModel.ITEM_HOT);
+            } else if (i == 3) {
+                model.setItemType(HomePageModel.ITEM_CATEGORY);
+
+                ArrayList<ChildMultiItem> items = new ArrayList<>();
+                for (int j = 0; j < 4; j++) {
+                    ChildMultiItem bean = new ChildMultiItem();
+                    bean.setId(j + 1L);
+                    bean.setImageUrl(Constants.mBannerUrls[j]);
+                    bean.setTitle(Constants.mBannerNames[j]);
+                    bean.setItemType(ChildMultiItem.IMG_TEXT);
+                    items.add(bean);
+                }
+                model.setItemList(items);
+            } else {
+                model.setItemType(HomePageModel.ITEM_AD);
+            }
+
+            model.setImgUrl(Constants.mUrls[i]);
+            model.setTitle(Constants.mBannerNames[i]);
+            model.setContent(Constants.mSubTitles[i]);
+            list.add(model);
+        }
+
+        System.err.println(JSON.toJSONString(list));
+        this.showContent(list);
     }
 
     @Override
@@ -93,31 +125,10 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
     }
 
     private void initViews() {
-
-        // banner
-        //设置banner样式
-        mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
-        //设置图片加载器
-        mBanner.setImageLoader(new BannerImageLoader());
-        //设置图片集合
-        mBanner.setImages(Arrays.asList(Constants.mBannerUrls));
-        //设置banner动画效果
-        mBanner.setBannerAnimation(Transformer.DepthPage);
-        //设置标题集合（当banner样式有显示title时）
-        mBanner.setBannerTitles(Arrays.asList(Constants.mBannerNames));
-        //设置自动轮播，默认为true
-        mBanner.isAutoPlay(true);
-        //设置轮播时间
-        mBanner.setDelayTime(1500);
-        //设置指示器位置（当banner模式中有指示器时）
-        mBanner.setIndicatorGravity(BannerConfig.RIGHT);
-        //banner设置方法全部调用完毕时最后调用
-        mBanner.start();
-
         mRefreshLayout.setOnRefreshListener(mRefreshListener);
 
         mHomePageRecyclerAdapter = new HomePageRecyclerAdapter(null);
-        mHomePageRecyclerAdapter.setOnRecyclerViewItemClickListener(mItemClickListener);
+//        mHomePageRecyclerAdapter.setOnRecyclerViewItemClickListener(mItemClickListener);
         mHomePageRecyclerAdapter.setEmptyView(LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null));
 
 
@@ -132,15 +143,15 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
 
     }
 
-    private BaseQuickAdapter.OnRecyclerViewItemClickListener mItemClickListener = new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
-        @Override
-        public void onItemClick(View view, int i) {
-            HomePageModel model = mHomePageRecyclerAdapter.getItem(i);
-
-//            DialogMessageActivity.launch(getActivity(), msg.getUserFrom(), msg.getUserTo());
-            AppLog.d("Recycler View Item Clicked.");
-        }
-    };
+//    private BaseMultiItemQuickAdapter.OnRecyclerViewItemClickListener mItemClickListener = new BaseMultiItemQuickAdapter.OnRecyclerViewItemClickListener() {
+//        @Override
+//        public void onItemClick(View view, int i) {
+//            HomePageModel model = (HomePageModel) mHomePageRecyclerAdapter.getItem(i);
+//
+////            DialogMessageActivity.launch(getActivity(), msg.getUserFrom(), msg.getUserTo());
+//            AppLog.d("Recycler View Item Clicked.");
+//        }
+//    };
 
     @Override
     public void showLoading() {
@@ -162,7 +173,6 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
         AppLog.d("data:" + data);
         if (data != null) {
             //
-
             mHomePageRecyclerAdapter.setNewData(data);
         }
     }
@@ -170,17 +180,6 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
     @Override
     public void showError(Throwable e) {
         AppLog.e(e);
-
-        // test data
-        ArrayList<HomePageModel> list = new ArrayList<HomePageModel>();
-        for (int i = 0; i < 10; i++) {
-            HomePageModel model = new HomePageModel();
-            model.setImgUrl(Constants.mUrls[0]);
-            model.setTitle(Constants.mSubTitles[1]);
-            model.setContent(Constants.mSubTitles[1]);
-            list.add(model);
-        }
-        this.showContent(list);
     }
 
     @Override
@@ -192,8 +191,7 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
         @Override
         public void onRefresh() {
             AppLog.d("onRefresh, HomeFragement.");
-
-            mHomePagePresenter.loadDatas();
+//            mHomePagePresenter.loadDatas();
         }
     };
 }

@@ -11,11 +11,13 @@ import live.itrip.app.data.net.client.HomePageRetrofit;
 import live.itrip.app.data.net.client.MessageRetrofit;
 import live.itrip.app.data.net.client.RecyclerItemRetrofit;
 import live.itrip.app.data.net.client.SettingRetrofit;
+import live.itrip.app.data.net.client.VisibilityPageRetrofit;
 import live.itrip.app.di.ApplicationContext;
 import live.itrip.app.service.net.HomePageServive;
 import live.itrip.app.service.net.MessageService;
 import live.itrip.app.service.net.RecyclerItemDataService;
 import live.itrip.app.service.net.SettingService;
+import live.itrip.app.service.net.VisibilityPageServive;
 
 /**
  * Created by Feng on 2017/4/25.
@@ -62,5 +64,11 @@ public class ApplicationModule {
     @Singleton
     HomePageServive provideHomePageServive(HomePageRetrofit retrofit) {
         return retrofit.get().create(HomePageServive.class);
+    }
+
+    @Provides
+    @Singleton
+    VisibilityPageServive provideVisibilityPageServive(VisibilityPageRetrofit retrofit) {
+        return retrofit.get().create(VisibilityPageServive.class);
     }
 }

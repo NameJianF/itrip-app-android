@@ -12,6 +12,7 @@ import live.itrip.app.service.net.HomePageServive;
 import live.itrip.app.service.net.MessageService;
 import live.itrip.app.service.net.RecyclerItemDataService;
 import live.itrip.app.service.net.SettingService;
+import live.itrip.app.service.net.VisibilityPageServive;
 
 /**
  * Created by Feng on 2017/4/25.
@@ -33,4 +34,6 @@ public interface ApplicationComponent {
     SettingService settingService();
 
     HomePageServive homePageServive();
+
+    VisibilityPageServive visibilityPageService();
 }

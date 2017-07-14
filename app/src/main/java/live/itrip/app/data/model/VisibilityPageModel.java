@@ -11,8 +11,7 @@ import java.util.ArrayList;
  * Created by Feng on 2017/7/12.
  */
 
-public class HomePageModel extends MultiItemEntity implements Parcelable {
-    public static final int ITEM_BANNER = 0;
+public class VisibilityPageModel extends MultiItemEntity implements Parcelable {
     public static final int ITEM_NAV = 1;
     public static final int ITEM_HOT = 2;
     public static final int ITEM_CATEGORY = 3;
@@ -30,11 +29,11 @@ public class HomePageModel extends MultiItemEntity implements Parcelable {
     private ArrayList itemList;
 
 
-    public HomePageModel() {
+    public VisibilityPageModel() {
 
     }
 
-    protected HomePageModel(Parcel in) {
+    protected VisibilityPageModel(Parcel in) {
         id = in.readLong();
         title = in.readString();
         content = in.readString();
@@ -44,15 +43,15 @@ public class HomePageModel extends MultiItemEntity implements Parcelable {
         itemList = in.readArrayList(ChildMultiItem.class.getClassLoader());
     }
 
-    public static final Creator<HomePageModel> CREATOR = new Creator<HomePageModel>() {
+    public static final Creator<VisibilityPageModel> CREATOR = new Creator<VisibilityPageModel>() {
         @Override
-        public HomePageModel createFromParcel(Parcel in) {
-            return new HomePageModel(in);
+        public VisibilityPageModel createFromParcel(Parcel in) {
+            return new VisibilityPageModel(in);
         }
 
         @Override
-        public HomePageModel[] newArray(int size) {
-            return new HomePageModel[size];
+        public VisibilityPageModel[] newArray(int size) {
+            return new VisibilityPageModel[size];
         }
     };
 
