@@ -97,7 +97,7 @@ public class VisibilityFragment extends BaseFragment implements LceView<ArrayLis
                     bean.setId(j + 1L);
                     bean.setImageUrl(Constants.mBannerUrls[j]);
                     bean.setTitle(Constants.mBannerNames[j]);
-                    bean.setItemType(ChildMultiItem.IMG_TEXT);
+                    bean.setItemType(ChildMultiItem.ITEM_PLAN);
                     items.add(bean);
                 }
                 model.setItemList(items);

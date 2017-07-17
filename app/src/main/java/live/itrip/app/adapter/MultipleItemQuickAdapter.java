@@ -21,24 +21,24 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<ChildMul
 
     public MultipleItemQuickAdapter(ArrayList<ChildMultiItem> data) {
         super(data);
-        addItemType(ChildMultiItem.TEXT, R.layout.item_img_text_view);
-        addItemType(ChildMultiItem.IMG, R.layout.item_img_text_view);
-        addItemType(ChildMultiItem.IMG_TEXT, R.layout.item_img_text_view);
+        addItemType(ChildMultiItem.ITEM_PLAN, R.layout.item_plan_view);
+        addItemType(ChildMultiItem.ITEM_BOLG, R.layout.item_blog_view);
+//        addItemType(ChildMultiItem.IMG_TEXT, R.layout.item_plan_view);
     }
 
     @Override
     protected void convert(BaseViewHolder holder, ChildMultiItem bean) {
         try {
             switch (holder.getItemViewType()) {
-                case ChildMultiItem.TEXT:
-                    initViewText(holder, bean);
+                case ChildMultiItem.ITEM_PLAN:
+                    initViewItemPlan(holder, bean);
                     break;
-                case ChildMultiItem.IMG:
-                    initViewImage(holder, bean);
+                case ChildMultiItem.ITEM_BOLG:
+                    initViewItemBlog(holder, bean);
                     break;
-                case ChildMultiItem.IMG_TEXT:
-                    initViewImageText(holder, bean);
-                    break;
+//                case ChildMultiItem.IMG_TEXT:
+//                    initViewImageText(holder, bean);
+//                    break;
             }
         } catch (Exception e) {
             AppLog.e(e);
@@ -46,21 +46,26 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<ChildMul
 
     }
 
-    private void initViewText(BaseViewHolder holder, ChildMultiItem bean) {
-
-    }
-
-    private void initViewImage(BaseViewHolder holder, ChildMultiItem bean) {
-
-    }
-
-    private void initViewImageText(BaseViewHolder holder, ChildMultiItem bean) {
+    private void initViewItemPlan(BaseViewHolder holder, ChildMultiItem bean) {
         Picasso.with(this.mContext)
                 .load(bean.getImageUrl())
                 .placeholder(R.drawable.place_holder)
                 .error(R.drawable.place_holder)
                 .into((ImageView) holder.getView(R.id.iv));
         holder.setText(R.id.tv, StringUtils.trimNewLine(bean.getTitle()));
+    }
+
+    private void initViewItemBlog(BaseViewHolder holder, ChildMultiItem bean) {
+        Picasso.with(this.mContext)
+                .load(bean.getImageUrl())
+                .placeholder(R.drawable.place_holder)
+                .error(R.drawable.place_holder)
+                .into((ImageView) holder.getView(R.id.iv));
+        holder.setText(R.id.tv, StringUtils.trimNewLine(bean.getTitle()));
+    }
+
+    private void initViewImageText(BaseViewHolder holder, ChildMultiItem bean) {
+
     }
 
 

@@ -37,6 +37,10 @@ public class Constants {
             "基督山伯爵",
             "侄子之手",
             "夏目友人帐",
+            "陪我西西里看海",
+            "陪我西西里看海",
+            "陪我西西里看海",
+            "陪我西西里看海",
             "陪我西西里看海"
     };
 
@@ -46,6 +50,10 @@ public class Constants {
             "经得住多大的诋毁，才受得住多大的赞美。",
             "经得住多大的诋毁，才受得住多大的赞美。",
             "经得住多大的诋毁，才受得住多大的赞美。",
+            "陪我到可可西里看一看海，不要未来 只要你来。",
+            "陪我到可可西里看一看海，不要未来 只要你来。",
+            "陪我到可可西里看一看海，不要未来 只要你来。",
+            "陪我到可可西里看一看海，不要未来 只要你来。",
             "陪我到可可西里看一看海，不要未来 只要你来。"
     };
     public static final String[] mBannerUrls = {
@@ -54,6 +62,10 @@ public class Constants {
             "http://file.juzimi.com/weibopic/jxzlmx4.jpg",
             "http://file.juzimi.com/weibopic/jpzame3.jpg",
             "http://file.juzimi.com/weibopic/jizdmu3.jpg",
+            "http://file.juzimi.com/weibopic/jizlml6.jpg",
+            "http://file.juzimi.com/weibopic/jizlml6.jpg",
+            "http://file.juzimi.com/weibopic/jizlml6.jpg",
+            "http://file.juzimi.com/weibopic/jizlml6.jpg",
             "http://file.juzimi.com/weibopic/jizlml6.jpg"
     };
 }

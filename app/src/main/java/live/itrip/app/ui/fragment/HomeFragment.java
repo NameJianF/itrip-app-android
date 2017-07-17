@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.alibaba.fastjson.JSON;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -21,18 +20,23 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import live.itrip.app.R;
 import live.itrip.app.adapter.HomePageRecyclerAdapter;
-import live.itrip.app.config.Constants;
-import live.itrip.app.data.model.ChildMultiItem;
 import live.itrip.app.data.model.HomePageModel;
 import live.itrip.app.di.component.MainComponent;
 import live.itrip.app.presenter.HomePagePresenter;
 import live.itrip.app.ui.base.BaseFragment;
+import live.itrip.app.ui.util.DatasConvertUtils;
 import live.itrip.common.mvp.view.LceView;
 import live.itrip.common.util.AppLog;
 
 
 /**
  * Created by Feng on 2017/4/25.
+ * 1. banner
+ * 2. nav  内置导航
+ * 3. new plan  最新行程
+ * 4. hot 热门行程
+ * 5. list 猜你喜欢
+ * 6. bolgs 热门博客
  */
 
 public class HomeFragment extends BaseFragment implements LceView<ArrayList<HomePageModel>> {
@@ -49,11 +53,7 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
 
 
     public static HomeFragment newInstance() {
-//        Bundle args = new Bundle();
-//        args.putString("msg", text);
-        HomeFragment fragment = new HomeFragment();
-//        fragment.setArguments(args);
-        return fragment;
+        return new HomeFragment();
     }
 
 
@@ -80,42 +80,7 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
 
 //        mHomePagePresenter.loadDatas();
 
-        // test data
-        ArrayList<HomePageModel> list = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            HomePageModel model = new HomePageModel();
-
-            if (i == 0) {
-                model.setItemType(HomePageModel.ITEM_BANNER);
-            } else if (i == 1) {
-                model.setItemType(HomePageModel.ITEM_NAV);
-            } else if (i == 2) {
-                model.setItemType(HomePageModel.ITEM_HOT);
-            } else if (i == 3) {
-                model.setItemType(HomePageModel.ITEM_CATEGORY);
-
-                ArrayList<ChildMultiItem> items = new ArrayList<>();
-                for (int j = 0; j < 4; j++) {
-                    ChildMultiItem bean = new ChildMultiItem();
-                    bean.setId(j + 1L);
-                    bean.setImageUrl(Constants.mBannerUrls[j]);
-                    bean.setTitle(Constants.mBannerNames[j]);
-                    bean.setItemType(ChildMultiItem.IMG_TEXT);
-                    items.add(bean);
-                }
-                model.setItemList(items);
-            } else {
-                model.setItemType(HomePageModel.ITEM_AD);
-            }
-
-            model.setImgUrl(Constants.mUrls[i]);
-            model.setTitle(Constants.mBannerNames[i]);
-            model.setContent(Constants.mSubTitles[i]);
-            list.add(model);
-        }
-
-        System.err.println(JSON.toJSONString(list));
-        this.showContent(list);
+        this.showContent(DatasConvertUtils.converHomePageDatas());
     }
 
     @Override

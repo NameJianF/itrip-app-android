@@ -12,12 +12,13 @@ import java.util.ArrayList;
  */
 
 public class HomePageModel extends MultiItemEntity implements Parcelable {
-    public static final int ITEM_BANNER = 0;
-    public static final int ITEM_NAV = 1;
-    public static final int ITEM_HOT = 2;
-    public static final int ITEM_CATEGORY = 3;
-    public static final int ITEM_LIST = 4;
-    public static final int ITEM_AD = 5;
+    public static final int ITEM_BANNER = 0;   // banner
+    public static final int ITEM_NAV = 1;      // 内置导航
+    public static final int ITEM_NEW_PLAN = 2; // 最新行程
+    public static final int ITEM_HOT = 3;      // 热门行程
+    public static final int ITEM_LIST = 4;     // 猜你喜欢
+    public static final int ITEM_BLOG = 5;     // 热门博客
+    public static final int ITEM_AD = 6;       // 广告
 
 
     private Long id;

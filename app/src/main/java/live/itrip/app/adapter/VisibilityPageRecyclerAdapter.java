@@ -16,7 +16,6 @@ import live.itrip.app.R;
 import live.itrip.app.data.model.ChildMultiItem;
 import live.itrip.app.data.model.VisibilityPageModel;
 import live.itrip.app.ui.util.ToastUtils;
-import live.itrip.common.util.StringUtils;
 
 /**
  * Created by Feng on 2017/7/12.
@@ -31,8 +30,8 @@ public class VisibilityPageRecyclerAdapter extends BaseMultiItemQuickAdapter<Vis
         addItemType(VisibilityPageModel.ITEM_HOT, R.layout.fragment_visi_hot);
         addItemType(VisibilityPageModel.ITEM_CATEGORY, R.layout.fragment_visi_category);
         // test
-        addItemType(VisibilityPageModel.ITEM_LIST, R.layout.item_img_text_view);
-        addItemType(VisibilityPageModel.ITEM_AD, R.layout.item_img_text_view);
+        addItemType(VisibilityPageModel.ITEM_LIST, R.layout.item_plan_view);
+        addItemType(VisibilityPageModel.ITEM_AD, R.layout.item_plan_view);
     }
 
     @Override
@@ -127,7 +126,7 @@ public class VisibilityPageRecyclerAdapter extends BaseMultiItemQuickAdapter<Vis
                 .placeholder(R.drawable.place_holder)
                 .error(R.drawable.place_holder)
                 .into((ImageView) holder.getView(R.id.iv));
-        holder.setText(R.id.tv, StringUtils.trimNewLine(model.getTitle()));
+//        holder.setText(R.id.tv, StringUtils.trimNewLine(model.getTitle()));
     }
 
     private void initViewAd(BaseViewHolder holder, VisibilityPageModel model) {
@@ -136,7 +135,7 @@ public class VisibilityPageRecyclerAdapter extends BaseMultiItemQuickAdapter<Vis
                 .placeholder(R.drawable.place_holder)
                 .error(R.drawable.place_holder)
                 .into((ImageView) holder.getView(R.id.iv));
-        holder.setText(R.id.tv, StringUtils.trimNewLine(model.getTitle()));
+//        holder.setText(R.id.tv, StringUtils.trimNewLine(model.getTitle()));
     }
 
 }

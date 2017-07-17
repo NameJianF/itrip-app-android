@@ -4,6 +4,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -18,8 +19,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import live.itrip.app.R;
-import live.itrip.app.data.model.ChildMultiItem;
 import live.itrip.app.config.Constants;
+import live.itrip.app.data.model.ChildMultiItem;
 import live.itrip.app.data.model.HomePageModel;
 import live.itrip.app.ui.util.BannerImageLoader;
 import live.itrip.app.ui.util.ToastUtils;
@@ -31,16 +32,15 @@ import live.itrip.common.util.StringUtils;
 
 public class HomePageRecyclerAdapter extends BaseMultiItemQuickAdapter<HomePageModel> {
 
-
     public HomePageRecyclerAdapter(List<HomePageModel> data) {
         super(data);
         addItemType(HomePageModel.ITEM_BANNER, R.layout.fragment_home_banner);
         addItemType(HomePageModel.ITEM_NAV, R.layout.fragment_home_nav);
+        addItemType(HomePageModel.ITEM_NEW_PLAN, R.layout.fragment_home_new_plan);
         addItemType(HomePageModel.ITEM_HOT, R.layout.fragment_home_hot);
-        addItemType(HomePageModel.ITEM_CATEGORY, R.layout.fragment_home_category);
-        // test
-        addItemType(HomePageModel.ITEM_LIST, R.layout.item_img_text_view);
-        addItemType(HomePageModel.ITEM_AD, R.layout.item_img_text_view);
+        addItemType(HomePageModel.ITEM_LIST, R.layout.fragment_home_hot);
+        addItemType(HomePageModel.ITEM_BLOG, R.layout.fragment_home_hot);
+        addItemType(HomePageModel.ITEM_AD, R.layout.fragment_home_ad);
     }
 
     @Override
@@ -52,21 +52,25 @@ public class HomePageRecyclerAdapter extends BaseMultiItemQuickAdapter<HomePageM
             case HomePageModel.ITEM_NAV:
                 initViewNav(holder, homePageModel);
                 break;
+            case HomePageModel.ITEM_NEW_PLAN:
+                initViewNewPlan(holder, homePageModel);
+                break;
             case HomePageModel.ITEM_HOT:
                 initViewHot(holder, homePageModel);
-                break;
-            case HomePageModel.ITEM_CATEGORY:
-                initViewCategory(holder, homePageModel);
                 break;
             case HomePageModel.ITEM_LIST:
                 initViewList(holder, homePageModel);
                 break;
+            case HomePageModel.ITEM_BLOG:
+                initViewBlog(holder, homePageModel);
+                break;
             case HomePageModel.ITEM_AD:
-                initViewAd(holder, homePageModel);
+                initViewAD(holder, homePageModel);
                 break;
         }
 
     }
+
 
     private void initViewBanner(BaseViewHolder holder, final HomePageModel homePageModel) {
 
@@ -130,24 +134,39 @@ public class HomePageRecyclerAdapter extends BaseMultiItemQuickAdapter<HomePageM
         });
     }
 
-    private void initViewHot(final BaseViewHolder holder, HomePageModel homePageModel) {
+    private void initViewNewPlan(final BaseViewHolder holder, HomePageModel homePageModel) {
+        TextView title = holder.getView(R.id.tvCategoryName);
+        title.setText("最新行程");
+
+        ImageView imageView = holder.getView(R.id.new_plan_img);
         Picasso.with(this.mContext)
                 .load(homePageModel.getImgUrl())
                 .placeholder(R.drawable.place_holder)
                 .error(R.drawable.place_holder)
-                .into((ImageView) holder.getView(R.id.hot_img));
-        holder.setText(R.id.hot_title_tv, StringUtils.replaceAllBlank(homePageModel.getTitle()));
-//        holder.setText(R.id.hot_sub_tv, StringUtils.trimNewLine(homePageModel.getContent()));
+                .into(imageView);
+        holder.setText(R.id.new_plan_title_tv, StringUtils.replaceAllBlank(homePageModel.getTitle()));
 
-        holder.getView(R.id.linearLayout_hot).setOnClickListener(new View.OnClickListener() {
+        // image click
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showToast("Hot clicked.");
+                ToastUtils.showToast("hot image clicked.");
+            }
+        });
+
+        // more click
+        holder.getView(R.id.tvCategoryMore).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.showToast("hot more clicked.");
             }
         });
     }
 
-    private void initViewCategory(BaseViewHolder holder, HomePageModel homePageModel) {
+    private void initViewHot(BaseViewHolder holder, HomePageModel homePageModel) {
+        TextView title = holder.getView(R.id.tvCategoryName);
+        title.setText("热门线路");
+
         if (homePageModel.getItemList() != null) {
             RecyclerView mRecyclerView = holder.getView(R.id.rv_list);
             final ArrayList<ChildMultiItem> data = homePageModel.getItemList();
@@ -168,21 +187,68 @@ public class HomePageRecyclerAdapter extends BaseMultiItemQuickAdapter<HomePageM
     }
 
     private void initViewList(BaseViewHolder holder, HomePageModel homePageModel) {
-        Picasso.with(this.mContext)
-                .load(homePageModel.getImgUrl())
-                .placeholder(R.drawable.place_holder)
-                .error(R.drawable.place_holder)
-                .into((ImageView) holder.getView(R.id.iv));
-        holder.setText(R.id.tv, StringUtils.trimNewLine(homePageModel.getTitle()));
+        TextView title = holder.getView(R.id.tvCategoryName);
+        title.setText("猜你喜欢");
+
+        if (homePageModel.getItemList() != null) {
+            RecyclerView mRecyclerView = holder.getView(R.id.rv_list);
+            final ArrayList<ChildMultiItem> data = homePageModel.getItemList();
+            final MultipleItemQuickAdapter multipleItemAdapter = new MultipleItemQuickAdapter(data);
+            final GridLayoutManager manager = new GridLayoutManager(this.mContext, 2);
+            mRecyclerView.setLayoutManager(manager);
+
+            multipleItemAdapter.setOnRecyclerViewItemClickListener(new OnRecyclerViewItemClickListener() {
+                @Override
+                public void onItemClick(View view, int i) {
+                    ToastUtils.showToast("Hot clicked : " + i);
+                }
+            });
+
+            mRecyclerView.setAdapter(multipleItemAdapter);
+
+        }
     }
 
-    private void initViewAd(BaseViewHolder holder, HomePageModel homePageModel) {
+    private void initViewBlog(BaseViewHolder holder, HomePageModel homePageModel) {
+        TextView title = holder.getView(R.id.tvCategoryName);
+        title.setText("推荐博客");
+
+        if (homePageModel.getItemList() != null) {
+            RecyclerView mRecyclerView = holder.getView(R.id.rv_list);
+            final ArrayList<ChildMultiItem> data = homePageModel.getItemList();
+            final MultipleItemQuickAdapter multipleItemAdapter = new MultipleItemQuickAdapter(data);
+            final GridLayoutManager manager = new GridLayoutManager(this.mContext, 2);
+            mRecyclerView.setLayoutManager(manager);
+
+            multipleItemAdapter.setOnRecyclerViewItemClickListener(new OnRecyclerViewItemClickListener() {
+                @Override
+                public void onItemClick(View view, int i) {
+                    ToastUtils.showToast("Hot clicked : " + i);
+                }
+            });
+
+            mRecyclerView.setAdapter(multipleItemAdapter);
+
+        }
+    }
+
+
+    private void initViewAD(BaseViewHolder holder, HomePageModel homePageModel) {
+
+        ImageView imageView = holder.getView(R.id.ad_img);
         Picasso.with(this.mContext)
                 .load(homePageModel.getImgUrl())
                 .placeholder(R.drawable.place_holder)
                 .error(R.drawable.place_holder)
-                .into((ImageView) holder.getView(R.id.iv));
-        holder.setText(R.id.tv, StringUtils.trimNewLine(homePageModel.getTitle()));
+                .into(imageView);
+        // image click
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.showToast("ad image clicked.");
+            }
+        });
+
     }
 
 }

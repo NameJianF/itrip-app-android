@@ -7,9 +7,9 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
  */
 
 public class ChildMultiItem extends MultiItemEntity {
-    public static final int TEXT = 1;
-    public static final int IMG = 2;
-    public static final int IMG_TEXT = 3;
+    public static final int ITEM_PLAN = 1;
+    public static final int ITEM_BOLG = 2;
+//    public static final int IMG_TEXT = 3;
 
     private Long id;
     private String title;
