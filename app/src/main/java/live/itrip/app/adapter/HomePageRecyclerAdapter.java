@@ -1,5 +1,6 @@
 package live.itrip.app.adapter;
 
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -22,8 +23,11 @@ import live.itrip.app.R;
 import live.itrip.app.config.Constants;
 import live.itrip.app.data.model.ChildMultiItem;
 import live.itrip.app.data.model.HomePageModel;
+import live.itrip.app.ui.DetailPage;
+import live.itrip.app.ui.fragment.blog.BlogDetailFragment;
 import live.itrip.app.ui.util.BannerImageLoader;
 import live.itrip.app.ui.util.ToastUtils;
+import live.itrip.app.ui.util.UIUtils;
 import live.itrip.common.util.StringUtils;
 
 /**
@@ -223,7 +227,12 @@ public class HomePageRecyclerAdapter extends BaseMultiItemQuickAdapter<HomePageM
             multipleItemAdapter.setOnRecyclerViewItemClickListener(new OnRecyclerViewItemClickListener() {
                 @Override
                 public void onItemClick(View view, int i) {
-                    ToastUtils.showToast("Hot clicked : " + i);
+//                    ToastUtils.showToast("Hot clicked : " + i);
+
+                    ChildMultiItem item = data.get(i);
+                    Bundle bundle = new Bundle();
+                    bundle.putLong(BlogDetailFragment.EXTRA_BLOG_ID, item.getId());
+                    UIUtils.showDetailActivity(mContext, DetailPage.BLOG_DETAIL, bundle);
                 }
             });
 

@@ -8,7 +8,7 @@ import java.io.IOException;
 import javax.inject.Inject;
 
 import live.itrip.app.data.net.client.core.BaseOkHttpClient;
-import live.itrip.app.ui.util.NetworkUtil;
+import live.itrip.app.ui.util.NetworkUtils;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -48,7 +48,7 @@ public class CacheHttpClient extends BaseOkHttpClient {
             Request request = chain.request();
 
             // Add FORCE_CACHE cache control for each request if network is not available.
-            if (!NetworkUtil.isNetworkAvailable(mContext)) {
+            if (!NetworkUtils.isNetworkAvailable(mContext)) {
                 request = request.newBuilder()
                         .cacheControl(CacheControl.FORCE_CACHE)
                         .build();
@@ -56,7 +56,7 @@ public class CacheHttpClient extends BaseOkHttpClient {
 
             Response originalResponse = chain.proceed(request);
 
-            if (NetworkUtil.isNetworkAvailable(mContext)) {
+            if (NetworkUtils.isNetworkAvailable(mContext)) {
 
                 String cacheControl = request.cacheControl().toString();
 

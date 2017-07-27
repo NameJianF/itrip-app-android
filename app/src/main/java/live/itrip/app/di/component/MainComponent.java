@@ -3,6 +3,7 @@ package live.itrip.app.di.component;
 import dagger.Component;
 import live.itrip.app.di.PerActivity;
 import live.itrip.app.di.module.ActivityModule;
+import live.itrip.app.di.module.BlogModule;
 import live.itrip.app.di.module.HomePageModule;
 import live.itrip.app.di.module.MessageModule;
 import live.itrip.app.di.module.RecyclerViewModule;
@@ -11,6 +12,7 @@ import live.itrip.app.di.module.VisibilityPageModule;
 import live.itrip.app.ui.fragment.HomeFragment;
 import live.itrip.app.ui.fragment.VisibilityFragment;
 import live.itrip.app.ui.fragment.app.SettingsFragment;
+import live.itrip.app.ui.fragment.blog.BlogDetailFragment;
 import live.itrip.app.ui.fragment.common.MessageFragment;
 
 /**
@@ -21,8 +23,9 @@ import live.itrip.app.ui.fragment.common.MessageFragment;
 @Component(
         dependencies = ApplicationComponent.class,
         modules = {ActivityModule.class, HomePageModule.class, VisibilityPageModule.class,
-                MessageModule.class, RecyclerViewModule.class, SettingModule.class})
+                MessageModule.class, RecyclerViewModule.class, SettingModule.class, BlogModule.class})
 public interface MainComponent extends ActivityComponent {
+
     void inject(HomeFragment homeFragment);
 
     void inject(VisibilityFragment visibilityFragment);
@@ -30,4 +33,7 @@ public interface MainComponent extends ActivityComponent {
     void inject(MessageFragment messageFragment);
 
     void inject(SettingsFragment settingsFragment);
+
+    void inject(BlogDetailFragment blogDetailFragment);
+
 }

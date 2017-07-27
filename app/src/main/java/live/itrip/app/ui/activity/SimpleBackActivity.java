@@ -35,8 +35,6 @@ public class SimpleBackActivity extends BaseActivity implements HasComponent<Mai
 
     public final static String BUNDLE_KEY_PAGE = "BUNDLE_KEY_PAGE";
     public final static String BUNDLE_KEY_ARGS = "BUNDLE_KEY_ARGS";
-    private static final String TAG = "FLAG_TAG";
-    protected WeakReference<BaseFragment> mFragment;
     protected int mPageValue = -1;
 
     @Override

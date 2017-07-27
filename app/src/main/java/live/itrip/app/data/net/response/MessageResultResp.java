@@ -23,6 +23,7 @@ public class MessageResultResp implements Parcelable {
 
     protected MessageResultResp(Parcel in) {
         op = in.readString();
+        code = in.readInt();
         msg = in.readString();
         messageList = in.createTypedArrayList(MessageModel.CREATOR);
     }
@@ -80,6 +81,7 @@ public class MessageResultResp implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(op);
+        dest.writeInt(code);
         dest.writeString(msg);
         dest.writeTypedList(messageList);
     }

@@ -12,4 +12,6 @@ public class AppConfig {
     public static String CLIENT_VERSION = "";
 
     public static final String DEFAULT_SAVE_FILE_PATH = "";
+    public static final String KEY_LOAD_IMAGE = "KEY_LOAD_IMAGE";
+
 }

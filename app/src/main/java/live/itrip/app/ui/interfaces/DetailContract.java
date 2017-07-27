@@ -1,0 +1,25 @@
+package live.itrip.app.ui.interfaces;
+
+import live.itrip.app.data.model.BlogModel;
+import live.itrip.app.data.model.CommentModel;
+
+/**
+ * Created by Feng on 2017/7/21.
+ */
+
+public interface DetailContract {
+
+    interface EmptyView {
+        void hideEmptyLayout();
+
+        void showErrorLayout(int errorType);
+
+        void showGetDetailSuccess(BlogModel bean);
+
+        void showFavReverseSuccess(boolean isFav, int favCount, int strId);
+
+        void showCommentSuccess(CommentModel comment);
+
+        void showCommentError(String message);
+    }
+}

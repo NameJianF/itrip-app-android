@@ -96,4 +96,30 @@
         <item name="android:ellipsize">end</item>
         <item name="android:textColor">@color/font_color_gray</item>
     </style>
+
+    <declare-styleable name="SquareLayout">
+        <attr name="oscAccordTo" format="integer">
+            <enum name="width" value="1" />
+            <enum name="height" value="2" />
+            <enum name="useMin" value="3" />
+        </attr>
+    </declare-styleable>
+
+    <style name="share_dialog" parent="@style/Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:windowTitleStyle">@style/RtlOverlay.DialogWindowTitle.AppCompat</item>
+        <item name="android:windowTitleBackgroundStyle">
+            @style/Base.DialogWindowTitleBackground.AppCompat
+        </item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@style/Animation.AppCompat.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowActionModeOverlay">true</item>>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">@dimen/font_14</item>
+    </style>
 </resources>

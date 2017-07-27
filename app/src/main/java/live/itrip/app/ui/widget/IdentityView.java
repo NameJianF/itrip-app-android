@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 
 import live.itrip.app.R;
-import live.itrip.app.ui.util.DeviceUtil;
+import live.itrip.app.ui.util.DeviceUtils;
 
 /**
  * Created by Feng on 2017/7/5.
@@ -54,7 +54,7 @@ public class IdentityView extends AppCompatTextView {
         setColor(mColor);
         setText(R.string.app_name);
 
-        final int padding = (int) DeviceUtil.dipToPx(getResources(), 2);
+        final int padding = (int) DeviceUtils.dipToPx(getResources(), 2);
         setPadding(padding + padding, padding, padding + padding, padding);
 
 //        if (isInEditMode()) {

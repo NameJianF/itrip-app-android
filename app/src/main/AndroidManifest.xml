@@ -41,6 +41,7 @@
         <activity android:name=".ui.activity.UserMessageActivity" />
         <activity android:name=".ui.activity.FootmarksActivity" />
         <activity android:name=".ui.activity.DialogMessageActivity" />
+        <activity android:name=".ui.activity.DetailActivity" />
 
         <!--service-->
         <service android:name=".service.InitializeService" />

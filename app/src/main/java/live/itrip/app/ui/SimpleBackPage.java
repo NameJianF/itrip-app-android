@@ -31,7 +31,7 @@ public enum SimpleBackPage {
     private Class<?> clz;
     private int value;
 
-    private SimpleBackPage(int value, int title, Class<?> clz) {
+    SimpleBackPage(int value, int title, Class<?> clz) {
         this.value = value;
         this.title = title;
         this.clz = clz;

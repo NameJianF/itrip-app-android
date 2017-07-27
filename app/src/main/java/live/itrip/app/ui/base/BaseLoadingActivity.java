@@ -1,9 +1,10 @@
 package live.itrip.app.ui.base;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 
-import live.itrip.app.ui.view.loading.LoadingView;
+import dmax.dialog.SpotsDialog;
 import live.itrip.common.mvp.view.LoadView;
 
 /**
@@ -11,21 +12,22 @@ import live.itrip.common.mvp.view.LoadView;
  */
 public abstract class BaseLoadingActivity extends BaseActivity implements LoadView {
 
-    private LoadingView mLoadingView;
+    private AlertDialog mLoadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mLoadingView = new LoadingView(this, getLoadingMessage());
+        mLoadingDialog = new SpotsDialog(this, getLoadingMessage());
     }
 
     @Override
     public void showLoading() {
-        mLoadingView.show();
+        mLoadingDialog.show();
     }
 
     @Override
     public void dismissLoading() {
-        mLoadingView.dismiss();
+        mLoadingDialog.dismiss();
     }
 
     public abstract String getLoadingMessage();

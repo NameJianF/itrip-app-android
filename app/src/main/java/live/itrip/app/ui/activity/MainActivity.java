@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.view.View;
 import android.widget.Toast;
 
 
@@ -28,12 +29,18 @@ import live.itrip.app.ui.fragment.PositionFragment;
 import live.itrip.app.ui.fragment.ProfileFragment;
 import live.itrip.app.ui.fragment.TravelFragment;
 import live.itrip.app.ui.fragment.VisibilityFragment;
+import live.itrip.common.navigation.SpaceItem;
+import live.itrip.common.navigation.SpaceNavigationView;
+import live.itrip.common.navigation.SpaceOnClickListener;
+import live.itrip.common.navigation.SpaceOnLongClickListener;
 import live.itrip.common.util.AppLog;
 
 public class MainActivity extends BaseActivity implements HasComponent<MainComponent> {
 
     @BindView(R.id.vp_horizontal_ntb)
     ViewPager mViewPager;
+    @BindView(R.id.space)
+    SpaceNavigationView mSpaceNavigationView;
 
     private ViewPagerAdapter mViewPagerAdapter;
     private FragmentManager mFragmentManager = getSupportFragmentManager();
@@ -44,11 +51,17 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mSpaceNavigationView.onSaveInstanceState(outState);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
+        mSpaceNavigationView.initWithSaveInstanceState(savedInstanceState);
 
         initViews();
 
@@ -71,115 +84,69 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
         mViewPagerAdapter = new ViewPagerAdapter(mFragmentManager);
         mViewPagerAdapter.addFragment(HomeFragment.newInstance());
         mViewPagerAdapter.addFragment(VisibilityFragment.newInstance());
-        mViewPagerAdapter.addFragment(PositionFragment.newInstance());
         mViewPagerAdapter.addFragment(TravelFragment.newInstance());
         mViewPagerAdapter.addFragment(ProfileFragment.newInstance());
         mViewPager.setAdapter(mViewPagerAdapter);
-
-        final String[] colors = getResources().getStringArray(R.array.default_preview);
-
-        final NavigationTabBar navigationTabBar = (NavigationTabBar) findViewById(R.id.ntb_horizontal);
-        final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_first),
-                        Color.parseColor(colors[2]))
-                        .selectedIcon(getResources().getDrawable(R.drawable.ic_sixth))
-                        .title("首页")
-//                        .badgeTitle("NTB")
-                        .build()
-        );
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_second),
-                        Color.parseColor(colors[2]))
-                        .selectedIcon(getResources().getDrawable(R.drawable.ic_eighth))
-                        .title("发现")
-//                        .badgeTitle("with")
-                        .build()
-        );
-
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_fifth),
-                        Color.parseColor(colors[4]))
-                        .selectedIcon(getResources().getDrawable(R.drawable.ic_eighth))
-                        .title("位置")
-//                        .badgeTitle("777")
-                        .build()
-        );
-
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_third),
-                        Color.parseColor(colors[2]))
-                        .selectedIcon(getResources().getDrawable(R.drawable.ic_seventh))
-                        .title("行程")
-//                        .badgeTitle("state")
-                        .build()
-        );
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_fourth),
-                        Color.parseColor(colors[2]))
-                        .selectedIcon(getResources().getDrawable(R.drawable.ic_eighth))
-                        .title("我的")
-//                        .badgeTitle("icon")
-                        .build()
-        );
-
-
-        navigationTabBar.setTitleMode(NavigationTabBar.TitleMode.ACTIVE);
-//        navigationTabBar.setBadgeGravity(NavigationTabBar.BadgeGravity.BOTTOM);
-//        navigationTabBar.setBadgePosition(NavigationTabBar.BadgePosition.CENTER);
-//        navigationTabBar.setTypeface("fonts/custom_font.ttf");
-//        navigationTabBar.setIsBadged(true);
-//        navigationTabBar.setIsTitled(true);
-//        navigationTabBar.setIsTinted(true);
-//        navigationTabBar.setIsBadgeUseTypeface(true);
-//        navigationTabBar.setBadgeBgColor(Color.RED);
-//        navigationTabBar.setBadgeTitleColor(Color.WHITE);
-//        navigationTabBar.setIsSwiped(true);
-//        navigationTabBar.setBgColor(Color.BLACK);
-//        navigationTabBar.setBadgeSize(10);
-//        navigationTabBar.setTitleSize(10);
-//        navigationTabBar.setIconSizeFraction(0.4f);
-
-        navigationTabBar.setModels(models);
-        navigationTabBar.setViewPager(mViewPager, 0);
-        navigationTabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
 
             @Override
-            public void onPageSelected(final int position) {
-                final NavigationTabBar.Model model = navigationTabBar.getModels().get(position);
-//                navPage.hideBadge();
-                AppLog.d("selected page:" + model.getTitle());
+            public void onPageSelected(int position) {
+                mSpaceNavigationView.changeCurrentItem(position);
             }
 
             @Override
-            public void onPageScrollStateChanged(final int state) {
+            public void onPageScrollStateChanged(int state) {
 
             }
         });
 
-//        navigationTabBar.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                for (int i = 0; i < navigationTabBar.getModels().size(); i++) {
-//                    final NavigationTabBar.Model model = navigationTabBar.getModels().get(i);
-//                    navigationTabBar.postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            model.showBadge();
-//                        }
-//                    }, i * 100);
-//                }
-//            }
-//        }, 500);
+
+        mSpaceNavigationView.addSpaceItem(new SpaceItem("首页", R.drawable.home));
+        mSpaceNavigationView.addSpaceItem(new SpaceItem("发现", R.drawable.heart));
+        mSpaceNavigationView.addSpaceItem(new SpaceItem("行程", R.drawable.near_me));
+        mSpaceNavigationView.addSpaceItem(new SpaceItem("我的", R.drawable.account));
+
+//        mSpaceNavigationView.shouldShowFullBadgeText(true);
+//        mSpaceNavigationView.setCentreButtonIconColorFilterEnabled(false);
+
+        mSpaceNavigationView.setCentreButtonIcon(R.drawable.camera);
+//        mSpaceNavigationView.showIconOnly();
+
+        mSpaceNavigationView.setSpaceOnClickListener(new SpaceOnClickListener() {
+            @Override
+            public void onCentreButtonClick() {
+                AppLog.d("onCentreButtonClick ", "onCentreButtonClick");
+//                mSpaceNavigationView.shouldShowFullBadgeText(true);
+
+            }
+
+            @Override
+            public void onItemClick(int itemIndex, String itemName) {
+                AppLog.d("onItemClick ", "" + itemIndex + " " + itemName);
+                mViewPager.setCurrentItem(itemIndex);
+            }
+
+            @Override
+            public void onItemReselected(int itemIndex, String itemName) {
+                AppLog.d("onItemReselected ", "" + itemIndex + " " + itemName);
+            }
+        });
+
+        mSpaceNavigationView.setSpaceOnLongClickListener(new SpaceOnLongClickListener() {
+            @Override
+            public void onCentreButtonLongClick() {
+                Toast.makeText(MainActivity.this, "onCentreButtonLongClick", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemLongClick(int itemIndex, String itemName) {
+                Toast.makeText(MainActivity.this, itemIndex + " " + itemName, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private long mLastBackTime = 0;
