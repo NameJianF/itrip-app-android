@@ -48,11 +48,7 @@ public class VisibilityFragment extends BaseFragment implements LceView<ArrayLis
 
 
     public static VisibilityFragment newInstance() {
-//        Bundle args = new Bundle();
-//        args.putString("msg", text);
-        VisibilityFragment fragment = new VisibilityFragment();
-//        fragment.setArguments(args);
-        return fragment;
+        return new VisibilityFragment();
     }
 
     @Nullable
@@ -76,43 +72,7 @@ public class VisibilityFragment extends BaseFragment implements LceView<ArrayLis
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-//        mVisibilityPagePresenter.loadDatas();
-
-        // test data
-        ArrayList<VisibilityPageModel> list = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            VisibilityPageModel model = new VisibilityPageModel();
-
-            if (i == 0) {
-                model.setItemType(VisibilityPageModel.ITEM_NAV);
-            } else if (i == 1) {
-                model.setItemType(VisibilityPageModel.ITEM_HOT);
-            } else if (i == 2) {
-                model.setItemType(VisibilityPageModel.ITEM_CATEGORY);
-
-                ArrayList<ChildMultiItem> items = new ArrayList<>();
-                for (int j = 0; j < 4; j++) {
-                    ChildMultiItem bean = new ChildMultiItem();
-                    bean.setId(j + 1L);
-                    bean.setImageUrl(Constants.mBannerUrls[j]);
-                    bean.setTitle(Constants.mBannerNames[j]);
-                    bean.setItemType(ChildMultiItem.ITEM_PLAN);
-                    items.add(bean);
-                }
-                model.setItemList(items);
-            } else {
-                model.setItemType(VisibilityPageModel.ITEM_AD);
-            }
-
-            model.setImgUrl(Constants.mUrls[i]);
-            model.setTitle(Constants.mBannerNames[i]);
-            model.setContent(Constants.mSubTitles[i]);
-            list.add(model);
-        }
-
-        System.err.println(JSON.toJSONString(list));
-        this.showContent(list);
+        mVisibilityPagePresenter.loadDatas();
     }
 
     @Override
@@ -158,7 +118,6 @@ public class VisibilityFragment extends BaseFragment implements LceView<ArrayLis
     public void showContent(ArrayList<VisibilityPageModel> data) {
         AppLog.d("data:" + data);
         if (data != null) {
-            //
             mVisibilityPageRecyclerAdapter.setNewData(data);
             mRecyclerView.scrollToPosition(0);
         }

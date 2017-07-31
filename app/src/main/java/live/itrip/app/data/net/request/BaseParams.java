@@ -1,5 +1,7 @@
 package live.itrip.app.data.net.request;
 
+import org.json.JSONObject;
+
 import live.itrip.app.config.AppConfig;
 
 /**
@@ -11,16 +13,13 @@ public class BaseParams {
     private long timestamp; // 时间戳
     private String op; // op
     private String source;// 来源包括第三方
-    private String uid;   // 第三方登录的uid
     private String clientVersion; // 客户端版本
     private String sig;
 
     public BaseParams() {
         this.setApiKey(AppConfig.API_KEY);
         this.setTimestamp(System.currentTimeMillis());
-//        this.setOp("");
         this.setSource(AppConfig.SOURCE);
-//        this.setUid("");
         this.setClientVersion(AppConfig.CLIENT_VERSION);
     }
 
@@ -54,14 +53,6 @@ public class BaseParams {
 
     public void setSource(String source) {
         this.source = source;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
     }
 
     public String getClientVersion() {

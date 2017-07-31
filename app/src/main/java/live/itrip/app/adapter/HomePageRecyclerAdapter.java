@@ -77,19 +77,28 @@ public class HomePageRecyclerAdapter extends BaseMultiItemQuickAdapter<HomePageM
 
 
     private void initViewBanner(BaseViewHolder holder, final HomePageModel homePageModel) {
+        // reset values
+        ArrayList<String> urls = new ArrayList<>();
+        ArrayList<String> titles = new ArrayList<>();
+        if (homePageModel.getItems() != null) {
+            for (ChildMultiItem item : homePageModel.getItems()) {
+                urls.add(item.getImageUrl());
+                titles.add(item.getTitle());
+            }
+        }
 
-        final Banner mBanner = holder.getView(R.id.banner);//     @BindView(R.id.banner)
+        final Banner mBanner = holder.getView(R.id.banner);
         // banner
         //设置banner样式
         mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         //设置图片加载器
         mBanner.setImageLoader(new BannerImageLoader());
         //设置图片集合
-        mBanner.setImages(Arrays.asList(Constants.mBannerUrls));
+        mBanner.setImages(urls);
         //设置banner动画效果
         mBanner.setBannerAnimation(Transformer.DepthPage);
         //设置标题集合（当banner样式有显示title时）
-        mBanner.setBannerTitles(Arrays.asList(Constants.mBannerNames));
+        mBanner.setBannerTitles(titles);
         //设置自动轮播，默认为true
         mBanner.isAutoPlay(true);
         //设置轮播时间
@@ -99,9 +108,9 @@ public class HomePageRecyclerAdapter extends BaseMultiItemQuickAdapter<HomePageM
         mBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                if (homePageModel.getItemList() != null) {
-                    HomePageModel item = (HomePageModel) homePageModel.getItemList().get(position);
-                    ToastUtils.showToast("Position ID : " + item.getId());
+                if (homePageModel.getItems() != null) {
+                    ChildMultiItem childMultiItem = homePageModel.getItems().get(position);
+                    ToastUtils.showToast("Position ID : " + childMultiItem.getId());
                 }
             }
         });
@@ -171,9 +180,9 @@ public class HomePageRecyclerAdapter extends BaseMultiItemQuickAdapter<HomePageM
         TextView title = holder.getView(R.id.tvCategoryName);
         title.setText("热门线路");
 
-        if (homePageModel.getItemList() != null) {
+        if (homePageModel.getItems() != null) {
             RecyclerView mRecyclerView = holder.getView(R.id.rv_list);
-            final ArrayList<ChildMultiItem> data = homePageModel.getItemList();
+            final ArrayList<ChildMultiItem> data = homePageModel.getItems();
             final MultipleItemQuickAdapter multipleItemAdapter = new MultipleItemQuickAdapter(data);
             final GridLayoutManager manager = new GridLayoutManager(this.mContext, 2);
             mRecyclerView.setLayoutManager(manager);
@@ -194,9 +203,9 @@ public class HomePageRecyclerAdapter extends BaseMultiItemQuickAdapter<HomePageM
         TextView title = holder.getView(R.id.tvCategoryName);
         title.setText("猜你喜欢");
 
-        if (homePageModel.getItemList() != null) {
+        if (homePageModel.getItems() != null) {
             RecyclerView mRecyclerView = holder.getView(R.id.rv_list);
-            final ArrayList<ChildMultiItem> data = homePageModel.getItemList();
+            final ArrayList<ChildMultiItem> data = homePageModel.getItems();
             final MultipleItemQuickAdapter multipleItemAdapter = new MultipleItemQuickAdapter(data);
             final GridLayoutManager manager = new GridLayoutManager(this.mContext, 2);
             mRecyclerView.setLayoutManager(manager);
@@ -217,9 +226,9 @@ public class HomePageRecyclerAdapter extends BaseMultiItemQuickAdapter<HomePageM
         TextView title = holder.getView(R.id.tvCategoryName);
         title.setText("推荐博客");
 
-        if (homePageModel.getItemList() != null) {
+        if (homePageModel.getItems() != null) {
             RecyclerView mRecyclerView = holder.getView(R.id.rv_list);
-            final ArrayList<ChildMultiItem> data = homePageModel.getItemList();
+            final ArrayList<ChildMultiItem> data = homePageModel.getItems();
             final MultipleItemQuickAdapter multipleItemAdapter = new MultipleItemQuickAdapter(data);
             final GridLayoutManager manager = new GridLayoutManager(this.mContext, 2);
             mRecyclerView.setLayoutManager(manager);

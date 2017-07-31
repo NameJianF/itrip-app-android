@@ -3,29 +3,40 @@ package live.itrip.app.data.net.response;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
+import live.itrip.app.data.model.UserModel;
+
 /**
  * Created by Feng on 2017/4/26.
  */
 
 public class AuthorizationResp implements Parcelable {
-    private int id;
-    private String token;
+    private String op;
+    private Integer code;
+    private String msg;
+    @SerializedName("data")
+    private UserModel author;
 
-    public int getId() {
-        return id;
+
+    protected AuthorizationResp(Parcel in) {
+        op = in.readString();
+        code = in.readInt();
+        msg = in.readString();
+        author = in.readParcelable(UserModel.class.getClassLoader());
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public static final Creator<AuthorizationResp> CREATOR = new Creator<AuthorizationResp>() {
+        @Override
+        public AuthorizationResp createFromParcel(Parcel in) {
+            return new AuthorizationResp(in);
+        }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
+        @Override
+        public AuthorizationResp[] newArray(int size) {
+            return new AuthorizationResp[size];
+        }
+    };
 
     @Override
     public int describeContents() {
@@ -34,27 +45,41 @@ public class AuthorizationResp implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
-        dest.writeString(this.token);
+        dest.writeString(op);
+        dest.writeInt(code);
+        dest.writeString(msg);
+        dest.writeParcelable(author, flags);
     }
 
-    public AuthorizationResp() {
+    public String getOp() {
+        return op;
     }
 
-    protected AuthorizationResp(Parcel in) {
-        this.id = in.readInt();
-        this.token = in.readString();
+    public void setOp(String op) {
+        this.op = op;
     }
 
-    public static final Parcelable.Creator<AuthorizationResp> CREATOR = new Parcelable.Creator<AuthorizationResp>() {
-        @Override
-        public AuthorizationResp createFromParcel(Parcel source) {
-            return new AuthorizationResp(source);
-        }
+    public Integer getCode() {
+        return code;
+    }
 
-        @Override
-        public AuthorizationResp[] newArray(int size) {
-            return new AuthorizationResp[size];
-        }
-    };
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public UserModel getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(UserModel author) {
+        this.author = author;
+    }
 }

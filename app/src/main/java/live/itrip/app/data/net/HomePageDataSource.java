@@ -31,7 +31,17 @@ public class HomePageDataSource implements HomePageApi {
         return list.map(new Func1<HomePageResultResp, ArrayList<HomePageModel>>() {
             @Override
             public ArrayList<HomePageModel> call(HomePageResultResp resp) {
-                return resp.getDataList();
+                // reset datas
+                ArrayList<HomePageModel> list = new ArrayList<HomePageModel>();
+                list.add(resp.getBanner());
+                list.add(resp.getNav());
+                list.add(resp.getNewPlan());
+                list.add(resp.getHot());
+                list.add(resp.getLove());
+                list.add(resp.getBlog());
+                list.add(resp.getAd());
+
+                return list;
             }
         });
     }

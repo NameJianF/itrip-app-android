@@ -90,6 +90,9 @@ public class BaseFragment extends Fragment {
         AppLog.d("onStop:" + this);
     }
 
+
+
+
     /**
      * Gets a component for dependency injection by its type.
      */

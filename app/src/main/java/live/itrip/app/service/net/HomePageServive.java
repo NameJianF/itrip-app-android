@@ -3,6 +3,7 @@ package live.itrip.app.service.net;
 import live.itrip.app.data.net.response.HomePageResultResp;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -17,6 +18,6 @@ public interface HomePageServive {
      * @return
      */
     @Headers("Cache-Control: public, max-age=3600")
-    @GET("msg/list")
+    @GET("home/list")
     Observable<HomePageResultResp> loadDatas();
 }

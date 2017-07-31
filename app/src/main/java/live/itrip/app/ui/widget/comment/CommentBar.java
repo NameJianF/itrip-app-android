@@ -20,12 +20,11 @@ import live.itrip.app.ui.activity.account.LoginActivity;
 public class CommentBar {
     private Context mContext;
     private View mRootView;
-    private FrameLayout mFrameLayout;
     private ViewGroup mParent;
     private ImageButton mFavView;
     private ImageButton mShareView;
     private TextView mCommentText;
-    private BottomSheetBar mDelegation;
+    private BottomSheetBar mBottomSheetBar;
     private LinearLayout mCommentLayout;
 
 
@@ -37,14 +36,13 @@ public class CommentBar {
         CommentBar bar = new CommentBar(context);
         bar.mRootView = LayoutInflater.from(context).inflate(R.layout.layout_comment_bar, parent, false);
         bar.mParent = parent;
-        bar.mDelegation = BottomSheetBar.delegation(context);
+        bar.mBottomSheetBar = BottomSheetBar.delegation(context);
         bar.mParent.addView(bar.mRootView);
         bar.initView();
         return bar;
     }
 
     private void initView() {
-        //((CoordinatorLayout.LayoutParams) mRootView.getLayoutParams()).setBehavior(new FloatingAutoHideDownBehavior());
         mFavView = (ImageButton) mRootView.findViewById(R.id.ib_fav);
         mShareView = (ImageButton) mRootView.findViewById(R.id.ib_share);
         mCommentText = (TextView) mRootView.findViewById(R.id.tv_comment);
@@ -53,7 +51,7 @@ public class CommentBar {
             @Override
             public void onClick(View v) {
                 if (PreferenceData.Account.isLogon(mContext)) {
-                    mDelegation.show(mCommentText.getHint().toString());
+                    mBottomSheetBar.show(mCommentText.getHint().toString());
                 } else {
                     LoginActivity.launch(mContext);
                 }
@@ -79,9 +77,9 @@ public class CommentBar {
         mFavView.setOnClickListener(listener);
     }
 
-    public void setCommentListener(View.OnClickListener listener) {
-        mCommentText.setOnClickListener(listener);
-    }
+//    public void setCommentListener(View.OnClickListener listener) {
+//        mCommentText.setOnClickListener(listener);
+//    }
 
     public void setCommentHint(String text) {
         mCommentText.setHint(text);
@@ -92,27 +90,27 @@ public class CommentBar {
     }
 
     public BottomSheetBar getBottomSheet() {
-        return mDelegation;
+        return mBottomSheetBar;
     }
 
     public void setCommitButtonEnable(boolean enable) {
-        mDelegation.getBtnCommit().setEnabled(enable);
+        mBottomSheetBar.getBtnCommit().setEnabled(enable);
     }
 
-    public void hideShare() {
-        mShareView.setVisibility(View.GONE);
-    }
-
-    public void hideFav() {
-        mFavView.setVisibility(View.GONE);
-    }
+//    public void hideShare() {
+//        mShareView.setVisibility(View.GONE);
+//    }
+//
+//    public void hideFav() {
+//        mFavView.setVisibility(View.GONE);
+//    }
 
     public TextView getCommentText() {
         return mCommentText;
     }
 
 
-    public void performClick() {
-        mCommentLayout.performClick();
-    }
+//    public void performClick() {
+//        mCommentLayout.performClick();
+//    }
 }

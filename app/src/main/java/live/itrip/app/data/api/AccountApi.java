@@ -1,6 +1,8 @@
 package live.itrip.app.data.api;
 
-import live.itrip.app.data.model.User;
+import org.json.JSONException;
+
+import live.itrip.app.data.model.UserModel;
 import rx.Observable;
 
 /**
@@ -9,5 +11,5 @@ import rx.Observable;
 
 public interface AccountApi {
 
-    Observable<User> login(String username, String password);
+    Observable<UserModel> login(String username, String password) throws JSONException;
 }

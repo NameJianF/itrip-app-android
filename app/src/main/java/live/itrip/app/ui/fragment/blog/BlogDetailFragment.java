@@ -20,8 +20,9 @@ import live.itrip.app.R;
 import live.itrip.app.data.model.BlogModel;
 import live.itrip.app.di.component.MainComponent;
 import live.itrip.app.presenter.blog.BlogPresenter;
+import live.itrip.app.presenter.interfaces.IDetailPresenter;
 import live.itrip.app.ui.activity.DetailActivity;
-import live.itrip.app.ui.base.BaseFragment;
+import live.itrip.app.ui.base.BaseDetailFragment;
 import live.itrip.app.ui.util.ToastUtils;
 import live.itrip.app.ui.widget.DetailRecommendView;
 import live.itrip.app.ui.widget.EmptyLayout;
@@ -33,7 +34,7 @@ import live.itrip.common.mvp.view.LceView;
  * Created by Feng on 2017/7/24.
  */
 
-public class BlogDetailFragment extends BaseFragment implements LceView<BlogModel> {
+public class BlogDetailFragment extends BaseDetailFragment implements LceView<BlogModel> {
     @BindView(R.id.iv_label_today)
     ImageView mImageToday;
     @BindView(R.id.iv_label_recommend)
@@ -64,11 +65,12 @@ public class BlogDetailFragment extends BaseFragment implements LceView<BlogMode
     DetailRecommendView mDetailRecommendView;
 
     public static final String EXTRA_BLOG_ID = "extra_blog_id";
-    BlogModel mBlog;
+    private BlogModel mBlog;
+    private Long blogId;
 
     @Inject
     BlogPresenter mBlogPresenter;
-    Long blogId;
+
 
     @Nullable
     @Override
@@ -177,5 +179,10 @@ public class BlogDetailFragment extends BaseFragment implements LceView<BlogMode
     public void showEmpty() {
         DetailActivity activity = (DetailActivity) getActivity();
         activity.getEmptyLayout().setErrorType(EmptyLayout.NODATA);
+    }
+
+    @Override
+    public IDetailPresenter getDetailPresenter() {
+        return this.mBlogPresenter;
     }
 }

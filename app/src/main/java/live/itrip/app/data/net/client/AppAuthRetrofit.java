@@ -21,8 +21,9 @@ import okhttp3.Response;
  * Created by Feng on 2017/4/26.
  */
 public class AppAuthRetrofit extends BaseRetrofit {
-
-    private static final String END_POINT_ADMIN = "http://admin.itrip.live/";
+    // test url
+    //private static final String END_POINT_ADMIN = "http://10.32.22.207:8080/";
+    private static final String END_POINT_ADMIN = "http://sso.tourin.cn/";
     public static final MediaType APPLICATION_JSON
             = MediaType.parse("application/json; charset=utf-8");
 

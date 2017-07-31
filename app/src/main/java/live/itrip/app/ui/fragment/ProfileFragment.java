@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import live.itrip.app.R;
 import live.itrip.app.data.PreferenceData;
-import live.itrip.app.data.model.User;
+import live.itrip.app.data.model.UserModel;
 import live.itrip.app.ui.SimpleBackPage;
 import live.itrip.app.ui.activity.FootmarksActivity;
 import live.itrip.app.ui.activity.UserMessageActivity;
@@ -107,7 +107,7 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
     private float mPx;
     private float mPy;
 
-    private User mUserInfo;
+    private UserModel mUserInfo;
 
 
     public static ProfileFragment newInstance() {
@@ -158,7 +158,7 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
 //            if (!PreferenceData.Account.checkLogon(this.getActivity())) {
 //                return;
 //            }
-
+            // User currentUser = PreferenceData.Account;
             switch (id) {
                 case R.id.iv_logo_zxing:
                     QRCodeDialog dialog = new QRCodeDialog(getActivity());
@@ -181,22 +181,22 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
                 }
                 break;
                 case R.id.ly_bubbles:
-                    RecyclerViewActivity.launchToShowBubbles(getActivity(), PreferenceData.Account.getUserId());
+                    RecyclerViewActivity.launchToShowBubbles(getActivity());
                     break;
                 case R.id.ly_favorite:
-                    RecyclerViewActivity.launchToShowFavorite(getActivity(), PreferenceData.Account.getUserId());
+                    RecyclerViewActivity.launchToShowFavorite(getActivity());
                     break;
                 case R.id.ly_following:
-                    RecyclerViewActivity.launchToShowFollowing(getActivity(), PreferenceData.Account.getUserId());
+                    RecyclerViewActivity.launchToShowFollowing(getActivity());
                     break;
                 case R.id.ly_follower:
-                    RecyclerViewActivity.launchToShowFollower(getActivity(), PreferenceData.Account.getUserId());
+                    RecyclerViewActivity.launchToShowFollower(getActivity());
                     break;
                 case R.id.rl_message:
                     UserMessageActivity.launch(getActivity());
                     break;
                 case R.id.rl_blog:
-                    RecyclerViewActivity.launchToShowBlogs(getActivity(), PreferenceData.Account.getUserId());
+                    RecyclerViewActivity.launchToShowBlogs(getActivity());
                     break;
                 case R.id.rl_info_footmarks:
                     FootmarksActivity.launch(getActivity());

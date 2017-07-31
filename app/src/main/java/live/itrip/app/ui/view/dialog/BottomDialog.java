@@ -37,11 +37,11 @@ public class BottomDialog extends BottomSheetDialog {
         initialize(view);
     }
 
-    @Override
-    public void show() {
-        super.show();
-        //behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-    }
+//    @Override
+//    public void show() {
+//        super.show();
+//        //behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+//    }
 
     private void initialize(final View view) {
         ViewGroup parent = (ViewGroup) view.getParent();

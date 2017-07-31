@@ -29,9 +29,8 @@ public class VisibilityPageRecyclerAdapter extends BaseMultiItemQuickAdapter<Vis
         addItemType(VisibilityPageModel.ITEM_NAV, R.layout.fragment_visi_nav);
         addItemType(VisibilityPageModel.ITEM_HOT, R.layout.fragment_visi_hot);
         addItemType(VisibilityPageModel.ITEM_CATEGORY, R.layout.fragment_visi_category);
-        // test
-        addItemType(VisibilityPageModel.ITEM_LIST, R.layout.item_plan_view);
-        addItemType(VisibilityPageModel.ITEM_AD, R.layout.item_plan_view);
+        addItemType(VisibilityPageModel.ITEM_BLOG, R.layout.fragment_visi_blog);
+        addItemType(VisibilityPageModel.ITEM_AD, R.layout.fragment_home_ad);
     }
 
     @Override
@@ -46,8 +45,8 @@ public class VisibilityPageRecyclerAdapter extends BaseMultiItemQuickAdapter<Vis
             case VisibilityPageModel.ITEM_CATEGORY:
                 initViewCategory(holder, model);
                 break;
-            case VisibilityPageModel.ITEM_LIST:
-                initViewList(holder, model);
+            case VisibilityPageModel.ITEM_BLOG:
+                initViewBlog(holder, model);
                 break;
             case VisibilityPageModel.ITEM_AD:
                 initViewAd(holder, model);
@@ -101,9 +100,9 @@ public class VisibilityPageRecyclerAdapter extends BaseMultiItemQuickAdapter<Vis
     }
 
     private void initViewCategory(BaseViewHolder holder, VisibilityPageModel model) {
-        if (model.getItemList() != null) {
+        if (model.getItems() != null) {
             RecyclerView mRecyclerView = holder.getView(R.id.rv_list);
-            final ArrayList<ChildMultiItem> data = model.getItemList();
+            final ArrayList<ChildMultiItem> data = model.getItems();
             final MultipleItemQuickAdapter multipleItemAdapter = new MultipleItemQuickAdapter(data);
             final GridLayoutManager manager = new GridLayoutManager(this.mContext, 2);
             mRecyclerView.setLayoutManager(manager);
@@ -120,22 +119,39 @@ public class VisibilityPageRecyclerAdapter extends BaseMultiItemQuickAdapter<Vis
         }
     }
 
-    private void initViewList(BaseViewHolder holder, VisibilityPageModel model) {
-        Picasso.with(this.mContext)
-                .load(model.getImgUrl())
-                .placeholder(R.drawable.place_holder)
-                .error(R.drawable.place_holder)
-                .into((ImageView) holder.getView(R.id.iv));
-//        holder.setText(R.id.tv, StringUtils.trimNewLine(model.getTitle()));
+    private void initViewBlog(BaseViewHolder holder, VisibilityPageModel model) {
+        if (model.getItems() != null) {
+            RecyclerView mRecyclerView = holder.getView(R.id.rv_list);
+            final ArrayList<ChildMultiItem> data = model.getItems();
+            final MultipleItemQuickAdapter multipleItemAdapter = new MultipleItemQuickAdapter(data);
+            final GridLayoutManager manager = new GridLayoutManager(this.mContext, 2);
+            mRecyclerView.setLayoutManager(manager);
+
+            multipleItemAdapter.setOnRecyclerViewItemClickListener(new OnRecyclerViewItemClickListener() {
+                @Override
+                public void onItemClick(View view, int i) {
+                    ToastUtils.showToast("Hot clicked : " + i);
+                }
+            });
+
+            mRecyclerView.setAdapter(multipleItemAdapter);
+        }
     }
 
     private void initViewAd(BaseViewHolder holder, VisibilityPageModel model) {
+        ImageView imageView = holder.getView(R.id.ad_img);
         Picasso.with(this.mContext)
                 .load(model.getImgUrl())
                 .placeholder(R.drawable.place_holder)
                 .error(R.drawable.place_holder)
-                .into((ImageView) holder.getView(R.id.iv));
-//        holder.setText(R.id.tv, StringUtils.trimNewLine(model.getTitle()));
+                .into(imageView);
+        // image click
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.showToast("ad image clicked.");
+            }
+        });
     }
 
 }

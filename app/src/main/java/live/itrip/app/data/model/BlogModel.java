@@ -24,11 +24,11 @@ public class BlogModel implements Parcelable {
     private List<Image> images;
     private Statistics statistics;
 
-    private User author;
+    private UserModel author;
 
     protected BlogModel(Parcel in) {
         id = in.readLong();
-        author = in.readParcelable(User.class.getClassLoader());
+        author = in.readParcelable(UserModel.class.getClassLoader());
     }
 
     public static final Creator<BlogModel> CREATOR = new Creator<BlogModel>() {
@@ -107,11 +107,11 @@ public class BlogModel implements Parcelable {
         this.statistics = statistics;
     }
 
-    public User getAuthor() {
+    public UserModel getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(UserModel author) {
         this.author = author;
     }
 

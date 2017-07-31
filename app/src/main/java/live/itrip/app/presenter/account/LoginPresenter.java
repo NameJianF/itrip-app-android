@@ -2,11 +2,13 @@ package live.itrip.app.presenter.account;
 
 import android.app.Application;
 
+import org.json.JSONException;
+
 import javax.inject.Inject;
 
 import live.itrip.app.data.PreferenceData;
 import live.itrip.app.data.api.AccountApi;
-import live.itrip.app.data.model.User;
+import live.itrip.app.data.model.UserModel;
 import live.itrip.app.data.observer.ResponseObserver;
 import live.itrip.app.presenter.base.RxMvpPresenter;
 import live.itrip.app.ui.activity.account.view.LoginView;
@@ -31,7 +33,7 @@ public class LoginPresenter extends RxMvpPresenter<LoginView> {
     @Inject
     Application mContext;
 
-    public void login(String username, String password) {
+    public void login(String username, String password) throws JSONException {
         mCompositeSubscription.add(mAccountApi.login(username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -47,14 +49,19 @@ public class LoginPresenter extends RxMvpPresenter<LoginView> {
                         getMvpView().dismissLoading();
                     }
                 })
-                .subscribe(new ResponseObserver<User>() {
+                .subscribe(new ResponseObserver<UserModel>() {
                     @Override
-                    public void onSuccess(User user) {
-                        // save user
-                        PreferenceData.Account.saveLogonUser(mContext, user);
+                    public void onSuccess(UserModel user) {
+                        if (user != null) {
+                            // save user
+                            PreferenceData.Account.saveLogonUser(mContext, user);
 
-                        AppLog.d("user:" + user.getLogin());
-                        getMvpView().loginSuccess(user);
+                            // save token
+                            PreferenceData.Account.saveLoginToken(mContext, user.getToken());
+                            AppLog.d("user:" + user.getToken());
+
+                            getMvpView().loginSuccess(user);
+                        }
                     }
 
                     @Override

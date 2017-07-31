@@ -205,42 +205,45 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback, D
         mShare.setImageUrl(imageUrl);
 
         if (!TextUtils.isEmpty(imageUrl)) {
-            AppOperatorUtils.runOnThread(new Runnable() {
-                @Override
-                public void run() {
-                    Picasso
-                            .with(getContext())
-                            .load(imageUrl)
-                            .placeholder(R.drawable.place_holder)
-                            .error(R.drawable.place_holder)
-                            .into(new Target() {
-                                @Override
-                                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                    //为微博和微信加入分享的详情icon
-                                    mShare.setThumbBitmap(bitmap);
-                                }
 
-                                @Override
-                                public void onBitmapFailed(Drawable errorDrawable) {
+            Picasso
+                    .with(mActivity)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.place_holder)
+                    .error(R.drawable.place_holder)
+                    .into(new Target() {
+                        @Override
+                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                            //为微博和微信加入分享的详情icon
+                            mShare.setThumbBitmap(bitmap);
+                        }
 
-                                }
+                        @Override
+                        public void onBitmapFailed(Drawable errorDrawable) {
 
-                                @Override
-                                public void onPrepareLoad(Drawable placeHolderDrawable) {
+                        }
 
-                                }
-                            });
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
 
+                        }
+                    });
 
-//                        Bitmap thumbBitmap = Glide.with(getContext())
-//                                .load(imageUrl)
-//                                .asBitmap().into(100, 100).get();
+//            AppOperatorUtils.runOnThread(new Runnable() {
+//                @Override
+//                public void run() {
 //
-//                        //为微博和微信加入分享的详情icon
-//                        mShare.setThumbBitmap(thumbBitmap);
-
-                }
-            });
+//
+//
+////                        Bitmap thumbBitmap = Glide.with(getContext())
+////                                .load(imageUrl)
+////                                .asBitmap().into(100, 100).get();
+////
+////                        //为微博和微信加入分享的详情icon
+////                        mShare.setThumbBitmap(thumbBitmap);
+//
+//                }
+//            });
         }
 
         return this;

@@ -1,5 +1,7 @@
 package live.itrip.app.data.net.request;
 
+import org.json.JSONObject;
+
 /**
  * Created by Feng on 2017/6/26.
  */
@@ -51,4 +53,5 @@ public class RecyclerItemParams extends BaseParams {
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
+
 }

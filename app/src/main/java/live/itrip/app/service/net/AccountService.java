@@ -1,6 +1,7 @@
 package live.itrip.app.service.net;
 
-import live.itrip.app.data.model.User;
+import live.itrip.app.config.Constants;
+import live.itrip.app.data.model.UserModel;
 import live.itrip.app.data.net.request.CreateAuthorization;
 import live.itrip.app.data.net.response.AuthorizationResp;
 import retrofit2.http.Body;
@@ -14,9 +15,9 @@ import rx.Observable;
  */
 public interface AccountService {
 
-    @POST("/sso.action")
+    @POST(Constants.ApiAction.ACTION_SSO)
     Observable<AuthorizationResp> createAuthorization(@Body CreateAuthorization createAuthorization);
 
-    @GET("/user.action")
-    rx.Observable<User> getUserInfo(@Query("access_token") String accessToken);
+//    @GET(Constants.ApiAction.ACTION_USER)
+//    rx.Observable<UserModel> getUserInfo(@Query("token") String accessToken);
 }

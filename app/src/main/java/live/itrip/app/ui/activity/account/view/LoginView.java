@@ -1,6 +1,6 @@
 package live.itrip.app.ui.activity.account.view;
 
-import live.itrip.app.data.model.User;
+import live.itrip.app.data.model.UserModel;
 import live.itrip.common.mvp.view.LoadView;
 
 /**
@@ -9,5 +9,5 @@ import live.itrip.common.mvp.view.LoadView;
 
 public interface LoginView extends LoadView {
 
-    void loginSuccess(User user);
+    void loginSuccess(UserModel user);
 }

@@ -35,7 +35,7 @@ public class VisibilityPageCacheHttpClient extends CacheHttpClient {
                 Request original = chain.request();
                 Request.Builder requestBuilder = original.newBuilder()
                         .header("Accept", getAcceptHeader())
-                        .header("User-Agent", "itrip");
+                        .header("UserModel-Agent", "itrip");
 
                 if (PreferenceData.Account.isLogon(mContext)) {
                     requestBuilder

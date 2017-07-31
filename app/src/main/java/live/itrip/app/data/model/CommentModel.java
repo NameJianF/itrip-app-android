@@ -1,5 +1,7 @@
 package live.itrip.app.data.model;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * Created by Feng on 2017/7/21.
  */
@@ -10,7 +12,7 @@ public class CommentModel {
     public static final int VOTE_STATE_DOWN = 2;
 
     private long id;
-    private User author;
+    private UserModel author;
     private String content;
     private String pubDate;
     private int appClient;
@@ -28,11 +30,11 @@ public class CommentModel {
         this.id = id;
     }
 
-    public User getAuthor() {
+    public UserModel getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(UserModel author) {
         this.author = author;
     }
 
@@ -102,17 +104,6 @@ public class CommentModel {
 
     @Override
     public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", author=" + author +
-                ", content='" + content + '\'' +
-                ", pubDate='" + pubDate + '\'' +
-                ", appClient=" + appClient +
-                ", vote=" + vote +
-                ", voteState=" + voteState +
-                ", best=" + best +
-//                ", refer=" + Arrays.toString(refer) +
-//                ", reply=" + Arrays.toString(reply) +
-                '}';
+        return JSON.toJSONString(this);
     }
 }

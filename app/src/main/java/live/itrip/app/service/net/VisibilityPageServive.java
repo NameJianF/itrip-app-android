@@ -17,6 +17,6 @@ public interface VisibilityPageServive {
      * @return
      */
     @Headers("Cache-Control: public, max-age=3600")
-    @GET("msg/list")
+    @GET("visi/list")
     Observable<VisibilityPageResultResp> loadDatas();
 }

@@ -21,8 +21,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import live.itrip.app.App;
@@ -36,11 +34,11 @@ import live.itrip.app.di.HasComponent;
 import live.itrip.app.di.component.DaggerMainComponent;
 import live.itrip.app.di.component.MainComponent;
 import live.itrip.app.di.module.ActivityModule;
-import live.itrip.app.presenter.blog.BlogPresenter;
+import live.itrip.app.presenter.interfaces.IDetailPresenter;
 import live.itrip.app.ui.DetailPage;
 import live.itrip.app.ui.activity.account.LoginActivity;
 import live.itrip.app.ui.base.BaseActivity;
-import live.itrip.app.ui.base.BaseFragment;
+import live.itrip.app.ui.base.BaseDetailFragment;
 import live.itrip.app.ui.interfaces.DetailContract;
 import live.itrip.app.ui.util.HTMLUtils;
 import live.itrip.app.ui.util.ToastUtils;
@@ -69,6 +67,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
     public final static String BUNDLE_KEY_ARGS = "BUNDLE_KEY_ARGS";
     protected int mPageValue = -1;
 
+    private BaseDetailFragment mDetailFragment;
     private ActionBar mActionBar;
     private CommentBar mCommentBar;
     private ShareDialog mAlertDialog;
@@ -79,10 +78,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
     private BlogModel mBlogModel;
     private long mCommentId;
     private long mCommentAuthorId;
-    private boolean mInputDoubleEmpty = false;
-
-    @Inject
-    BlogPresenter mBlogPresenter;
+    private boolean mInputEmpty = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,12 +112,15 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
             mActionBar.setTitle("博客详情");
         }
 
+        if (TextUtils.isEmpty(mCommentHint))
+            mCommentHint = getString(R.string.pub_comment_hint);
+
         mEmptyLayout.setOnLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mEmptyLayout.getErrorState() != EmptyLayout.NETWORK_LOADING) {
                     mEmptyLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
-                    mBlogPresenter.loadBlogDetail(extraBlogId);
+                    getDetailPresenter().loadDetail(extraBlogId);
                 }
             }
         });
@@ -142,19 +141,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
                     LoginActivity.launch(DetailActivity.this);
                     return;
                 }
-                mBlogPresenter.favReverse();
-            }
-        });
-
-        mCommentBar.getBottomSheet().setMentionListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ((PreferenceData.Account.isLogon(DetailActivity.this))) {
-//                    UserSelectFriendsActivity.show(DetailActivity.this, mCommentBar.getBottomSheet().getEditText());
-                    ToastUtils.showToast("UserSelectFriendsActivity show.");
-                } else {
-                    LoginActivity.launch(DetailActivity.this);
-                }
+                getDetailPresenter().favReverse();
             }
         });
 
@@ -181,37 +168,45 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
         mCommentBar.getBottomSheet().setCommitListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCommentBar == null) return;
+                if (mCommentBar == null) {
+                    return;
+                }
+
                 mCommentBar.getBottomSheet().dismiss();
                 mCommentBar.setCommitButtonEnable(false);
-                mBlogPresenter.addComment(mBlogModel.getId(),
-                        mBlogModel.getType(),
-                        mCommentBar.getBottomSheet().getCommentText(),
-                        0,
-                        mCommentId,
-                        mCommentAuthorId);
+                if (mBlogModel != null) {
+                    getDetailPresenter().addComment(mBlogModel.getId(),
+                            mBlogModel.getType(),
+                            mCommentBar.getBottomSheet().getCommentText(),
+                            0,
+                            mCommentId,
+                            mCommentAuthorId);
+                }
             }
         });
 
         mCommentBar.getBottomSheet().getEditText().setOnKeyArrivedListener(new OnKeyArrivedListenerAdapter(this));
 
         try {
-            BaseFragment fragment = (BaseFragment) page.getClz().newInstance();
+            mDetailFragment = (BaseDetailFragment) page.getClz().newInstance();
 
             ViewPagerAdapter mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-            mViewPagerAdapter.addFragment(fragment);
+            mViewPagerAdapter.addFragment(mDetailFragment);
             mViewPager.setAdapter(mViewPagerAdapter);
 
             Bundle args = data.getBundleExtra(BUNDLE_KEY_ARGS);
             if (args != null) {
-                fragment.setArguments(args);
+                mDetailFragment.setArguments(args);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             throw new IllegalArgumentException(
                     "generate fragment error. by value:" + pageValue);
         }
+    }
+
+    private IDetailPresenter getDetailPresenter() {
+        return mDetailFragment.getDetailPresenter();
     }
 
 
@@ -291,6 +286,20 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
      */
     @SuppressWarnings({"LoopStatementThatDoesntLoop", "SuspiciousMethodCalls"})
     protected boolean toShare(String title, String content, String url) {
+
+        // test data
+        // 分享
+        if (mAlertDialog == null) {
+            mAlertDialog = new ShareDialog(this, 0L)
+                    .type(1)
+                    .title(title)
+                    .content(content)
+                    .imageUrl("http://img.blog.csdn.net/20151123180434692")
+                    .url(url).with();
+        }
+        mAlertDialog.show();
+
+        /*
         if (TextUtils.isEmpty(title) || TextUtils.isEmpty(url) || mBlogModel == null)
             return false;
 
@@ -342,7 +351,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
                     .url(url).with();
         }
         mAlertDialog.show();
-
+*/
         return true;
     }
 
@@ -350,20 +359,20 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
      * backspage 退格
      */
     protected void handleKeyDel() {
-        if (mCommentId != mBlogModel.getId()) {
-            if (TextUtils.isEmpty(mCommentBar.getBottomSheet().getCommentText())) {
-                if (mInputDoubleEmpty) {
-                    mCommentId = mBlogModel.getId();
-                    mCommentAuthorId = 0;
-                    mCommentBar.setCommentHint(mCommentHint);
-                    mCommentBar.getBottomSheet().getEditText().setHint(mCommentHint);
-                } else {
-                    mInputDoubleEmpty = true;
-                }
-            } else {
-                mInputDoubleEmpty = false;
-            }
-        }
+//        if (mCommentId != mBlogModel.getId()) {
+//            if (TextUtils.isEmpty(mCommentBar.getBottomSheet().getCommentText())) {
+//                if (mInputEmpty) {
+//                    mCommentId = mBlogModel.getId();
+//                    mCommentAuthorId = 0;
+//                    mCommentBar.setCommentHint(mCommentHint);
+//                    mCommentBar.getBottomSheet().getEditText().setHint(mCommentHint);
+//                } else {
+//                    mInputEmpty = true;
+//                }
+//            } else {
+//                mInputEmpty = false;
+//            }
+//        }
     }
 
 

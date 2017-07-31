@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ public class VisibilityPageModel extends MultiItemEntity implements Parcelable {
     public static final int ITEM_NAV = 1;
     public static final int ITEM_HOT = 2;
     public static final int ITEM_CATEGORY = 3;
-    public static final int ITEM_LIST = 4;
+    public static final int ITEM_BLOG = 4;
     public static final int ITEM_AD = 5;
 
 
@@ -26,12 +27,8 @@ public class VisibilityPageModel extends MultiItemEntity implements Parcelable {
     private String type; // 记录类型
     private String imgUrl; // 图片地址
 
-    private ArrayList itemList;
-
-
-    public VisibilityPageModel() {
-
-    }
+    @SerializedName("items")
+    private ArrayList<ChildMultiItem> items;
 
     protected VisibilityPageModel(Parcel in) {
         id = in.readLong();
@@ -40,7 +37,8 @@ public class VisibilityPageModel extends MultiItemEntity implements Parcelable {
         createTime = in.readLong();
         type = in.readString();
         imgUrl = in.readString();
-        itemList = in.readArrayList(ChildMultiItem.class.getClassLoader());
+        itemType = in.readInt();
+        items = in.createTypedArrayList(ChildMultiItem.CREATOR);
     }
 
     public static final Creator<VisibilityPageModel> CREATOR = new Creator<VisibilityPageModel>() {
@@ -68,7 +66,8 @@ public class VisibilityPageModel extends MultiItemEntity implements Parcelable {
         dest.writeLong(createTime);
         dest.writeString(type);
         dest.writeString(imgUrl);
-        dest.writeList(itemList);
+        dest.writeInt(itemType);
+        dest.writeTypedList(items);
     }
 
     public Long getId() {
@@ -119,11 +118,11 @@ public class VisibilityPageModel extends MultiItemEntity implements Parcelable {
         this.imgUrl = imgUrl;
     }
 
-    public ArrayList getItemList() {
-        return itemList;
+    public ArrayList<ChildMultiItem> getItems() {
+        return items;
     }
 
-    public void setItemList(ArrayList itemList) {
-        this.itemList = itemList;
+    public void setItems(ArrayList<ChildMultiItem> items) {
+        this.items = items;
     }
 }

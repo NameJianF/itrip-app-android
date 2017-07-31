@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import org.json.JSONException;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -19,7 +21,7 @@ import butterknife.OnClick;
 import live.itrip.app.App;
 import live.itrip.app.R;
 import live.itrip.app.data.PreferenceData;
-import live.itrip.app.data.model.User;
+import live.itrip.app.data.model.UserModel;
 import live.itrip.app.di.HasComponent;
 import live.itrip.app.di.component.AccountComponent;
 import live.itrip.app.di.component.DaggerAccountComponent;
@@ -95,7 +97,11 @@ public class LoginActivity extends BaseLoadingActivity implements LoginView, Has
 
         if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
             InputMethodUtils.hideSoftInput(this);
-            mPresenter.login(username, password);
+            try {
+                mPresenter.login(username, password);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -116,7 +122,7 @@ public class LoginActivity extends BaseLoadingActivity implements LoginView, Has
     }
 
     @Override
-    public void loginSuccess(User user) {
+    public void loginSuccess(UserModel user) {
         Snackbar.make(mLoginBtn, "Login Success", Snackbar.LENGTH_LONG).show();
         PreferenceData.Account.saveLogonUser(this, user);
         finish();

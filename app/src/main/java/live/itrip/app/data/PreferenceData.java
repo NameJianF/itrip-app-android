@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 
 import live.itrip.app.App;
-import live.itrip.app.data.model.User;
+import live.itrip.app.data.model.UserModel;
 import live.itrip.app.ui.activity.account.LoginActivity;
 
 /**
@@ -87,7 +87,7 @@ public class PreferenceData {
             return getPreference(context).getString(KEY_LOGIN_TOKEN, "");
         }
 
-        public static void saveLogonUser(Context context, User user) {
+        public static void saveLogonUser(Context context, UserModel user) {
             String userJson = new Gson().toJson(user);
             getPreference(context).edit().putString(KEY_LOGON_USER, userJson).apply();
         }
@@ -96,11 +96,11 @@ public class PreferenceData {
             getPreference(context).edit().remove(KEY_LOGON_USER).apply();
         }
 
-        public static User getLogonUser(Context context) {
-            User user = null;
+        public static UserModel getLogonUser(Context context) {
+            UserModel user = null;
             String userJson = getPreference(context).getString(KEY_LOGON_USER, "");
             if (!TextUtils.isEmpty(userJson)) {
-                user = new Gson().fromJson(userJson, User.class);
+                user = new Gson().fromJson(userJson, UserModel.class);
             }
             return user;
         }
@@ -118,23 +118,23 @@ public class PreferenceData {
             return true;
         }
 
-        public static boolean isSelf(Context context, String username) {
-            User user = getLogonUser(context);
-            return user != null
-                    && !TextUtils.isEmpty(username)
-                    && username.equals(user.getLogin());
-        }
+//        public static boolean isSelf(Context context, String username) {
+//            UserModel user = getLogonUser(context);
+//            return user != null
+//                    && !TextUtils.isEmpty(username)
+//                    && username.equals(user.getLogin());
+//        }
 
         public static void clearUserCache() {
 
         }
 
-        public static Integer getUserId() {
-            User user = getLogonUser(App.getContext());
+        public static Long getUserId() {
+            UserModel user = getLogonUser(App.getContext());
             if (user != null) {
                 return user.getId();
             }
-            return -1;
+            return 0L;
         }
     }
 

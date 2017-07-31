@@ -30,7 +30,14 @@ public class VisibilityPageDataSource implements VisibilityPageApi {
         return list.map(new Func1<VisibilityPageResultResp, ArrayList<VisibilityPageModel>>() {
             @Override
             public ArrayList<VisibilityPageModel> call(VisibilityPageResultResp resp) {
-                return resp.getDataList();
+                ArrayList<VisibilityPageModel> list = new ArrayList<VisibilityPageModel>();
+                list.add(resp.getNav());
+                list.add(resp.getHot());
+                list.add(resp.getBlog());
+                list.add(resp.getCategory());
+                list.add(resp.getAd());
+
+                return list;
             }
         });
     }

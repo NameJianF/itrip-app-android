@@ -5,22 +5,36 @@ package live.itrip.app.data.net.request;
  */
 
 public class CreateAuthorization extends BaseParams {
-    private String email;// 用户帐号
-    private String password;// 用户密码
 
-    public String getEmail() {
-        return email;
+    private LoginData data;
+
+    public LoginData getData() {
+        return data;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setData(LoginData data) {
+        this.data = data;
     }
 
-    public String getPassword() {
-        return password;
+    public static class LoginData{
+        private String email;// 用户帐号
+        private String password;// 用户密码
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

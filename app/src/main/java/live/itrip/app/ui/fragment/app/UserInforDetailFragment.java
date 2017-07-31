@@ -6,19 +6,14 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.google.zxing.common.StringUtils;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import live.itrip.app.R;
 import live.itrip.app.data.PreferenceData;
-import live.itrip.app.data.model.User;
+import live.itrip.app.data.model.UserModel;
 import live.itrip.app.ui.activity.SimpleBackActivity;
 import live.itrip.app.ui.base.BaseFragment;
 import live.itrip.common.util.AppLog;
-import live.itrip.common.widget.PortraitView;
 
 /**
  * Created by Feng on 2017/6/22.
@@ -43,14 +38,14 @@ public class UserInforDetailFragment extends BaseFragment {
 //    @BindView(R.id.tv_desc)
 //    TextView mDesc;
 
-    private User userInfo;
+    private UserModel userInfo;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         if (arguments != null && arguments.getSerializable("user_info") != null) {
-            userInfo = (User) arguments.getSerializable("user_info");
+            userInfo = (UserModel) arguments.getSerializable("user_info");
         }
     }
 

@@ -48,44 +48,44 @@ public class RecyclerViewActivity extends BaseLoadingActivity implements LceView
 
     private RecyclerViewAdapter mRecyclerViewAdapter;
 
-    private static final String EXTRA_USER_NAME = "extra_user_id";
+//    private static final String EXTRA_USER_NAME = "extra_user_id";
     private static final String ACTION_BUBBLES = "bubbles"; // 冒泡
     private static final String ACTION_FAVORITE = "favorite"; // 收藏
     private static final String ACTION_FOLLOWING = "following"; //关注
     private static final String ACTION_FOLLOWER = "follower"; //粉丝
     private static final String ACTION_BLOGS = "blogs"; //我的博客
 
-    public static void launchToShowBubbles(Context context, Integer userid) {
+    public static void launchToShowBubbles(Context context) {
         Intent intent = new Intent(context, RecyclerViewActivity.class);
-        intent.putExtra(EXTRA_USER_NAME, userid);
+//        intent.putExtra(EXTRA_USER_NAME, userid);
         intent.setAction(ACTION_BUBBLES);
         context.startActivity(intent);
     }
 
-    public static void launchToShowFavorite(Context context, Integer userid) {
+    public static void launchToShowFavorite(Context context) {
         Intent intent = new Intent(context, RecyclerViewActivity.class);
-        intent.putExtra(EXTRA_USER_NAME, userid);
+//        intent.putExtra(EXTRA_USER_NAME, userid);
         intent.setAction(ACTION_FAVORITE);
         context.startActivity(intent);
     }
 
-    public static void launchToShowFollowing(Context context, Integer userid) {
+    public static void launchToShowFollowing(Context context) {
         Intent intent = new Intent(context, RecyclerViewActivity.class);
-        intent.putExtra(EXTRA_USER_NAME, userid);
+//        intent.putExtra(EXTRA_USER_NAME, userid);
         intent.setAction(ACTION_FOLLOWING);
         context.startActivity(intent);
     }
 
-    public static void launchToShowFollower(Context context, Integer userid) {
+    public static void launchToShowFollower(Context context) {
         Intent intent = new Intent(context, RecyclerViewActivity.class);
-        intent.putExtra(EXTRA_USER_NAME, userid);
+//        intent.putExtra(EXTRA_USER_NAME, userid);
         intent.setAction(ACTION_FOLLOWER);
         context.startActivity(intent);
     }
 
-    public static void launchToShowBlogs(Context context, Integer userid) {
+    public static void launchToShowBlogs(Context context) {
         Intent intent = new Intent(context, RecyclerViewActivity.class);
-        intent.putExtra(EXTRA_USER_NAME, userid);
+//        intent.putExtra(EXTRA_USER_NAME, userid);
         intent.setAction(ACTION_BLOGS);
         context.startActivity(intent);
     }
@@ -138,7 +138,7 @@ public class RecyclerViewActivity extends BaseLoadingActivity implements LceView
         ArrayList<RecyclerViewItem> list = new ArrayList<RecyclerViewItem>();
 
         String action = getIntent().getAction();
-        String username = getIntent().getStringExtra(EXTRA_USER_NAME);
+//        String username = getIntent().getStringExtra(EXTRA_USER_NAME);
 
         if (ACTION_BUBBLES.equals(action)) {
             if (mActionBar != null) {

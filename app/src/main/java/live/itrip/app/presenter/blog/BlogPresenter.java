@@ -6,6 +6,7 @@ import live.itrip.app.data.api.BlogApi;
 import live.itrip.app.data.model.BlogModel;
 import live.itrip.app.data.observer.ResponseObserver;
 import live.itrip.app.presenter.base.RxMvpPresenter;
+import live.itrip.app.presenter.interfaces.IDetailPresenter;
 import live.itrip.common.mvp.view.LceView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
@@ -15,7 +16,7 @@ import rx.schedulers.Schedulers;
  * Created by Feng on 2017/7/24.
  */
 
-public class BlogPresenter extends RxMvpPresenter<LceView<BlogModel>> {
+public class BlogPresenter extends RxMvpPresenter<LceView<BlogModel>> implements IDetailPresenter {
     private final BlogApi mBlogApi;
 
     @Inject
@@ -23,8 +24,19 @@ public class BlogPresenter extends RxMvpPresenter<LceView<BlogModel>> {
         this.mBlogApi = api;
     }
 
-    public void loadBlogDetail(Long blogId) {
-        mCompositeSubscription.add(mBlogApi.getBlogDetail(blogId)
+
+    /**
+     * 关注
+     *
+     * @param userId
+     */
+    public void addUserRelation(Long userId) {
+
+    }
+
+    @Override
+    public void loadDetail(Long itemId) {
+        mCompositeSubscription.add(mBlogApi.getBlogDetail(itemId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Action0() {
@@ -52,10 +64,6 @@ public class BlogPresenter extends RxMvpPresenter<LceView<BlogModel>> {
                 }));
     }
 
-    public void addUserRelation(int id) {
-
-    }
-
     /**
      * 收藏/取消收藏
      */
@@ -64,6 +72,16 @@ public class BlogPresenter extends RxMvpPresenter<LceView<BlogModel>> {
 
     }
 
+    /**
+     * 添加评论
+     *
+     * @param id
+     * @param type
+     * @param commentText
+     * @param i
+     * @param mCommentId
+     * @param mCommentAuthorId
+     */
     public void addComment(Long id, int type, String commentText, int i, long mCommentId, long mCommentAuthorId) {
 
     }

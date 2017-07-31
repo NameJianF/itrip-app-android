@@ -24,9 +24,9 @@ public class BlogDataSource implements BlogApi {
 
     @Override
     public Observable<BlogModel> getBlogDetail(Long blogId) {
-        Observable<BlogResultResp> list = mBlogService.getBlogDetail(blogId);
+        Observable<BlogResultResp> blogDetail = mBlogService.getBlogDetail(blogId);
 
-        return list.map(new Func1<BlogResultResp, BlogModel>() {
+        return blogDetail.map(new Func1<BlogResultResp, BlogModel>() {
             @Override
             public BlogModel call(BlogResultResp resp) {
                 return resp.getBlogModel();

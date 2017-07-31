@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.fastjson.JSON;
+import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -77,10 +80,8 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-//        mHomePagePresenter.loadDatas();
-
-        this.showContent(DatasConvertUtils.converHomePageDatas());
+        // load datas
+        mHomePagePresenter.loadDatas();
     }
 
     @Override
@@ -93,9 +94,14 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
         mRefreshLayout.setOnRefreshListener(mRefreshListener);
 
         mHomePageRecyclerAdapter = new HomePageRecyclerAdapter(null);
-//        mHomePageRecyclerAdapter.setOnRecyclerViewItemClickListener(mItemClickListener);
+        mHomePageRecyclerAdapter.setOnRecyclerViewItemClickListener(mItemClickListener);
         mHomePageRecyclerAdapter.setEmptyView(LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null));
-
+        mHomePageRecyclerAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                AppLog.d("HomePageRecyclerAdapter onLoadMoreRequested.");
+            }
+        });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration
@@ -104,19 +110,20 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
                 .size(getResources().getDimensionPixelSize(R.dimen.divider_height))
                 .build());
 
+
         mRecyclerView.setAdapter(mHomePageRecyclerAdapter);
 
     }
 
-//    private BaseMultiItemQuickAdapter.OnRecyclerViewItemClickListener mItemClickListener = new BaseMultiItemQuickAdapter.OnRecyclerViewItemClickListener() {
-//        @Override
-//        public void onItemClick(View view, int i) {
-//            HomePageModel model = (HomePageModel) mHomePageRecyclerAdapter.getItem(i);
-//
-////            DialogMessageActivity.launch(getActivity(), msg.getUserFrom(), msg.getUserTo());
-//            AppLog.d("Recycler View Item Clicked.");
-//        }
-//    };
+    private BaseMultiItemQuickAdapter.OnRecyclerViewItemClickListener mItemClickListener = new BaseMultiItemQuickAdapter.OnRecyclerViewItemClickListener() {
+        @Override
+        public void onItemClick(View view, int i) {
+            HomePageModel model = (HomePageModel) mHomePageRecyclerAdapter.getItem(i);
+
+//            DialogMessageActivity.launch(getActivity(), msg.getUserFrom(), msg.getUserTo());
+            AppLog.d("Recycler View Item Clicked.");
+        }
+    };
 
     @Override
     public void showLoading() {
@@ -135,9 +142,8 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
 
     @Override
     public void showContent(ArrayList<HomePageModel> data) {
-        AppLog.d("data:" + data);
+        AppLog.d("data:" + JSON.toJSONString(data));
         if (data != null) {
-            //
             mHomePageRecyclerAdapter.setNewData(data);
         }
     }
@@ -156,7 +162,7 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
         @Override
         public void onRefresh() {
             AppLog.d("onRefresh, HomeFragement.");
-//            mHomePagePresenter.loadDatas();
+            mHomePagePresenter.loadDatas();
         }
     };
 }

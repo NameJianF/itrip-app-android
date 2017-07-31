@@ -41,18 +41,6 @@
         android:paddingRight="@dimen/lay_16">
 
         <ImageButton
-            android:id="@+id/ib_mention"
-            android:layout_width="@dimen/lay_28"
-            android:layout_height="@dimen/lay_28"
-            android:layout_marginRight="@dimen/lay_4"
-            android:background="@drawable/ic_material_ripple"
-            android:contentDescription="@null"
-            android:padding="@dimen/lay_4"
-            android:scaleType="centerInside"
-            android:src="@mipmap/ic_tweet_mention_normal"
-            tools:ignore="RtlHardcoded" />
-
-        <ImageButton
             android:id="@+id/ib_face"
             android:layout_width="@dimen/lay_28"
             android:layout_height="@dimen/lay_28"
@@ -63,19 +51,6 @@
             android:scaleType="centerInside"
             android:src="@mipmap/ic_tweet_expression_normal"
             tools:ignore="RtlHardcoded" />
-
-
-        <!--<CheckBox-->
-            <!--android:id="@+id/cb_sync"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="32dp"-->
-            <!--android:button="@drawable/ic_selector_checkbox"-->
-            <!--android:checked="false"-->
-            <!--android:contentDescription="@null"-->
-            <!--android:text="@string/send_tweet"-->
-            <!--android:textColor="@color/text_secondary_color"-->
-            <!--android:textSize="@dimen/font_12"-->
-            <!--tools:visibility="visible" />-->
 
         <Space
             android:layout_width="0dp"

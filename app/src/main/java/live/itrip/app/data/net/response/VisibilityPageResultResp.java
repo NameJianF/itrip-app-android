@@ -18,28 +18,27 @@ public class VisibilityPageResultResp implements Parcelable {
     private String op;
     private Integer code;
     private String msg;
-    @SerializedName("data")
-    private ArrayList<VisibilityPageModel> dataList;
+    @SerializedName("nav")
+    private VisibilityPageModel nav;
+    @SerializedName("hot")
+    private VisibilityPageModel hot;
+    @SerializedName("blog")
+    private VisibilityPageModel blog;
+    @SerializedName("category")
+    private VisibilityPageModel category;
+    @SerializedName("ad")
+    private VisibilityPageModel ad;
 
 
     protected VisibilityPageResultResp(Parcel in) {
         op = in.readString();
         code = in.readInt();
         msg = in.readString();
-        dataList = in.createTypedArrayList(VisibilityPageModel.CREATOR);
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(op);
-        dest.writeInt(code);
-        dest.writeString(msg);
-        dest.writeTypedList(dataList);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+        nav = in.readParcelable(VisibilityPageModel.class.getClassLoader());
+        hot = in.readParcelable(VisibilityPageModel.class.getClassLoader());
+        blog = in.readParcelable(VisibilityPageModel.class.getClassLoader());
+        category = in.readParcelable(VisibilityPageModel.class.getClassLoader());
+        ad = in.readParcelable(VisibilityPageModel.class.getClassLoader());
     }
 
     public static final Creator<VisibilityPageResultResp> CREATOR = new Creator<VisibilityPageResultResp>() {
@@ -53,6 +52,23 @@ public class VisibilityPageResultResp implements Parcelable {
             return new VisibilityPageResultResp[size];
         }
     };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(op);
+        dest.writeInt(code);
+        dest.writeString(msg);
+        dest.writeParcelable(nav, flags);
+        dest.writeParcelable(hot, flags);
+        dest.writeParcelable(blog, flags);
+        dest.writeParcelable(category, flags);
+        dest.writeParcelable(ad, flags);
+    }
 
     public String getOp() {
         return op;
@@ -78,11 +94,43 @@ public class VisibilityPageResultResp implements Parcelable {
         this.msg = msg;
     }
 
-    public ArrayList<VisibilityPageModel> getDataList() {
-        return dataList;
+    public VisibilityPageModel getNav() {
+        return nav;
     }
 
-    public void setDataList(ArrayList<VisibilityPageModel> dataList) {
-        this.dataList = dataList;
+    public void setNav(VisibilityPageModel nav) {
+        this.nav = nav;
+    }
+
+    public VisibilityPageModel getHot() {
+        return hot;
+    }
+
+    public void setHot(VisibilityPageModel hot) {
+        this.hot = hot;
+    }
+
+    public VisibilityPageModel getBlog() {
+        return blog;
+    }
+
+    public void setBlog(VisibilityPageModel blog) {
+        this.blog = blog;
+    }
+
+    public VisibilityPageModel getCategory() {
+        return category;
+    }
+
+    public void setCategory(VisibilityPageModel category) {
+        this.category = category;
+    }
+
+    public VisibilityPageModel getAd() {
+        return ad;
+    }
+
+    public void setAd(VisibilityPageModel ad) {
+        this.ad = ad;
     }
 }
