@@ -2,8 +2,7 @@ package live.itrip.app.data.net.client;
 
 import javax.inject.Inject;
 
-import live.itrip.app.data.net.client.cache.BlogCacheHttpClient;
-import live.itrip.app.data.net.client.cache.HomePageCacheHttpClient;
+import live.itrip.app.data.net.client.cache.BlogDetailCacheHttpClient;
 import live.itrip.app.data.net.client.core.ApiEndpoint;
 import live.itrip.app.data.net.client.core.BaseRetrofit;
 import okhttp3.OkHttpClient;
@@ -12,12 +11,12 @@ import okhttp3.OkHttpClient;
  * Created by Feng on 2017/7/25.
  */
 
-public class BlogRetrofit extends BaseRetrofit {
-    BlogCacheHttpClient mHttpClient;
+public class BlogDetailRetrofit extends BaseRetrofit {
+    BlogDetailCacheHttpClient mHttpClient;
 
 
     @Inject
-    public BlogRetrofit(BlogCacheHttpClient mHttpClient) {
+    public BlogDetailRetrofit(BlogDetailCacheHttpClient mHttpClient) {
         this.mHttpClient = mHttpClient;
     }
 

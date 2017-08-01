@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Date;
 
-import live.itrip.app.data.model.BlogModel;
+import live.itrip.app.data.model.BlogDetailModel;
 import live.itrip.common.util.AppLog;
 
 
@@ -56,7 +56,7 @@ public class DetailCache {
     /**
      * 添加到缓存文件
      */
-    public static void addCache(BlogModel model) {
+    public static void addCache(BlogDetailModel model) {
         if (model == null)
             return;
         String name = model.getId() + String.valueOf(model.getType());
@@ -85,7 +85,7 @@ public class DetailCache {
     /**
      * 读取缓存
      */
-    static BlogModel readCache(BlogModel bean) {
+    static BlogDetailModel readCache(BlogDetailModel bean) {
         if (bean == null || bean.getId() <= 0)
             return null;
         String path = (bean.getFavorite() == 1 ? COLLECTION_CACHE : CUSTOM_CACHE)
@@ -94,9 +94,9 @@ public class DetailCache {
         FileReader reader = null;
         try {
             reader = new FileReader(file);
-            Type type = new TypeToken<BlogModel>() {
+            Type type = new TypeToken<BlogDetailModel>() {
             }.getType();
-            BlogModel subBean = new Gson().fromJson(reader, type);
+            BlogDetailModel subBean = new Gson().fromJson(reader, type);
             reader.close();
             return subBean;
         } catch (Exception e) {

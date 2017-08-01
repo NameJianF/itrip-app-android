@@ -16,15 +16,14 @@ import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import live.itrip.app.R;
-import live.itrip.app.config.Constants;
 import live.itrip.app.data.model.ChildMultiItem;
 import live.itrip.app.data.model.HomePageModel;
 import live.itrip.app.ui.DetailPage;
 import live.itrip.app.ui.fragment.blog.BlogDetailFragment;
+import live.itrip.app.ui.fragment.plan.PlanDetailFragment;
 import live.itrip.app.ui.util.BannerImageLoader;
 import live.itrip.app.ui.util.ToastUtils;
 import live.itrip.app.ui.util.UIUtils;
@@ -110,7 +109,9 @@ public class HomePageRecyclerAdapter extends BaseMultiItemQuickAdapter<HomePageM
             public void OnBannerClick(int position) {
                 if (homePageModel.getItems() != null) {
                     ChildMultiItem childMultiItem = homePageModel.getItems().get(position);
-                    ToastUtils.showToast("Position ID : " + childMultiItem.getId());
+                    Bundle bundle = new Bundle();
+                    bundle.putLong(PlanDetailFragment.EXTRA_PLAN_ID, childMultiItem.getId());
+                    UIUtils.showPlanDetailActivity(mContext, bundle);
                 }
             }
         });
@@ -124,6 +125,7 @@ public class HomePageRecyclerAdapter extends BaseMultiItemQuickAdapter<HomePageM
         holder.getView(R.id.relId1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 ToastUtils.showToast("自由行 clicked.");
             }
         });
@@ -241,7 +243,7 @@ public class HomePageRecyclerAdapter extends BaseMultiItemQuickAdapter<HomePageM
                     ChildMultiItem item = data.get(i);
                     Bundle bundle = new Bundle();
                     bundle.putLong(BlogDetailFragment.EXTRA_BLOG_ID, item.getId());
-                    UIUtils.showDetailActivity(mContext, DetailPage.BLOG_DETAIL, bundle);
+                    UIUtils.showBlogDetailActivity(mContext, bundle);
                 }
             });
 
@@ -249,7 +251,6 @@ public class HomePageRecyclerAdapter extends BaseMultiItemQuickAdapter<HomePageM
 
         }
     }
-
 
     private void initViewAD(BaseViewHolder holder, HomePageModel homePageModel) {
 

@@ -18,11 +18,25 @@ public class ChildMultiItem extends MultiItemEntity implements Parcelable {
     private String title;
     private String imageUrl;
 
+    // 行程采用
+    private Integer price; // 价格
+    private Integer participate; // 参与人数
+
+    // 博客采用
+    private String author; // 作者
+    private Integer toView; // 查看
+    private Integer favorite; // 收藏
+
     protected ChildMultiItem(Parcel in) {
         id = in.readLong();
         title = in.readString();
         imageUrl = in.readString();
         itemType = in.readInt();
+        price = in.readInt();
+        participate = in.readInt();
+        author = in.readString();
+        toView = in.readInt();
+        favorite = in.readInt();
     }
 
     public static final Creator<ChildMultiItem> CREATOR = new Creator<ChildMultiItem>() {
@@ -61,6 +75,46 @@ public class ChildMultiItem extends MultiItemEntity implements Parcelable {
         this.imageUrl = imageUrl;
     }
 
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Integer getParticipate() {
+        return participate;
+    }
+
+    public void setParticipate(Integer participate) {
+        this.participate = participate;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public Integer getToView() {
+        return toView;
+    }
+
+    public void setToView(Integer toView) {
+        this.toView = toView;
+    }
+
+    public Integer getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(Integer favorite) {
+        this.favorite = favorite;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -72,5 +126,10 @@ public class ChildMultiItem extends MultiItemEntity implements Parcelable {
         dest.writeString(title);
         dest.writeString(imageUrl);
         dest.writeInt(itemType);
+        dest.writeInt(price);
+        dest.writeInt(participate);
+        dest.writeString(author);
+        dest.writeInt(toView);
+        dest.writeInt(favorite);
     }
 }

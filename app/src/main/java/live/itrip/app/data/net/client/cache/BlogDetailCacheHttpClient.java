@@ -14,9 +14,9 @@ import okhttp3.Response;
  * Created by Feng on 2017/7/25.
  */
 
-public class BlogCacheHttpClient extends CacheHttpClient {
+public class BlogDetailCacheHttpClient extends CacheHttpClient {
     @Inject
-    public BlogCacheHttpClient() {
+    public BlogDetailCacheHttpClient() {
     }
 
     public String getAcceptHeader() {

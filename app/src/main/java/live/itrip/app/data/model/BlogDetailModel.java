@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Feng on 2017/7/24.
  */
 
-public class BlogModel implements Parcelable {
+public class BlogDetailModel implements Parcelable {
     private Long id;
     /**
      * 1：收藏，0：未收藏
@@ -26,20 +26,20 @@ public class BlogModel implements Parcelable {
 
     private UserModel author;
 
-    protected BlogModel(Parcel in) {
+    protected BlogDetailModel(Parcel in) {
         id = in.readLong();
         author = in.readParcelable(UserModel.class.getClassLoader());
     }
 
-    public static final Creator<BlogModel> CREATOR = new Creator<BlogModel>() {
+    public static final Creator<BlogDetailModel> CREATOR = new Creator<BlogDetailModel>() {
         @Override
-        public BlogModel createFromParcel(Parcel in) {
-            return new BlogModel(in);
+        public BlogDetailModel createFromParcel(Parcel in) {
+            return new BlogDetailModel(in);
         }
 
         @Override
-        public BlogModel[] newArray(int size) {
-            return new BlogModel[size];
+        public BlogDetailModel[] newArray(int size) {
+            return new BlogDetailModel[size];
         }
     };
 

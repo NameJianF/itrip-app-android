@@ -33,6 +33,7 @@ public class UIUtils {
     private final static String STATUS_BAR_NAME = "status_bar_height";
     private final static String STATUS_CLASS_NAME = "com.android.internal.R$dimen";
     private final static String STATUS_CLASS_FIELD = "status_bar_height";
+
     /**
      * 显示设置界面
      *
@@ -47,21 +48,34 @@ public class UIUtils {
     }
 
 
-    public static void showSimpleBack(Context context, SimpleBackPage page) {
+    public static void showUserInfo(Context context, Bundle args) {
+        showSimpleBack(context, SimpleBackPage.USER_INFORMATION_DETAIL, args);
+    }
+
+    private static void showSimpleBack(Context context, SimpleBackPage page) {
         Intent intent = new Intent(context, SimpleBackActivity.class);
         intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
         context.startActivity(intent);
     }
 
-    public static void showSimpleBack(Context context, SimpleBackPage page,
-                                      Bundle args) {
+    private static void showSimpleBack(Context context, SimpleBackPage page,
+                                       Bundle args) {
         Intent intent = new Intent(context, SimpleBackActivity.class);
         intent.putExtra(SimpleBackActivity.BUNDLE_KEY_ARGS, args);
         intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
         context.startActivity(intent);
     }
 
-    public static void showDetailActivity(Context context, DetailPage page, Bundle args) {
+
+    public static void showPlanDetailActivity(Context context,Bundle args){
+        showDetailActivity(context, DetailPage.DETAIL_PLAN, args);
+    }
+
+    public static void showBlogDetailActivity(Context context, Bundle args) {
+        showDetailActivity(context, DetailPage.DETAIL_BLOG, args);
+    }
+
+    private static void showDetailActivity(Context context, DetailPage page, Bundle args) {
         Intent intent = new Intent(context, DetailActivity.class);
         intent.putExtra(DetailActivity.BUNDLE_KEY_ARGS, args);
         intent.putExtra(DetailActivity.BUNDLE_KEY_PAGE, page.getValue());

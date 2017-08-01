@@ -47,21 +47,36 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<ChildMul
     }
 
     private void initViewItemPlan(BaseViewHolder holder, ChildMultiItem bean) {
+        // image
         Picasso.with(this.mContext)
                 .load(bean.getImageUrl())
                 .placeholder(R.drawable.place_holder)
                 .error(R.drawable.place_holder)
                 .into((ImageView) holder.getView(R.id.iv));
-        holder.setText(R.id.tv, StringUtils.trimNewLine(bean.getTitle()));
+        // title
+        holder.setText(R.id.tvTitle, StringUtils.trimNewLine(bean.getTitle()));
+        // price
+        holder.setText(R.id.tvPlanPrice, StringUtils.trimNewLine(String.format("¥ %s", bean.getPrice())));
+        // participate  参加
+        holder.setText(R.id.tvParticipate, StringUtils.trimNewLine(String.format("%s 参与", bean.getParticipate())));
+
     }
 
     private void initViewItemBlog(BaseViewHolder holder, ChildMultiItem bean) {
+        // iamge
         Picasso.with(this.mContext)
                 .load(bean.getImageUrl())
                 .placeholder(R.drawable.place_holder)
                 .error(R.drawable.place_holder)
                 .into((ImageView) holder.getView(R.id.iv));
+        // title
         holder.setText(R.id.tv, StringUtils.trimNewLine(bean.getTitle()));
+        //  author
+        holder.setText(R.id.tvAuthor, StringUtils.trimNewLine(bean.getAuthor()));
+        // to view
+        holder.setText(R.id.tvToView, StringUtils.trimNewLine(bean.getToView().toString()));
+        // favorite
+        holder.setText(R.id.tvFavorite, StringUtils.trimNewLine(bean.getFavorite().toString()));
     }
 
     private void initViewImageText(BaseViewHolder holder, ChildMultiItem bean) {

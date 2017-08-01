@@ -1,7 +1,9 @@
 package live.itrip.app.ui.activity;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
+import live.itrip.app.R;
 import live.itrip.app.data.PreferenceData;
 import live.itrip.app.ui.base.BaseActivity;
 import live.itrip.common.util.AppLog;
@@ -10,7 +12,7 @@ import live.itrip.common.util.AppLog;
  * Created by Feng on 2017/4/25.
  */
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

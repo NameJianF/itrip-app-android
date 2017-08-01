@@ -1,4 +1,4 @@
-package live.itrip.app.ui.fragment.blog;
+package live.itrip.app.ui.fragment.plan;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,12 +17,11 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import live.itrip.app.R;
-import live.itrip.app.data.model.BlogDetailModel;
+import live.itrip.app.data.model.PlanDetailModel;
 import live.itrip.app.di.component.MainComponent;
-import live.itrip.app.presenter.blog.BlogDetailPresenter;
 import live.itrip.app.presenter.interfaces.IDetailPresenter;
+import live.itrip.app.presenter.plan.PlanDetailPresenter;
 import live.itrip.app.ui.activity.DetailActivity;
-import live.itrip.app.ui.base.BaseActivity;
 import live.itrip.app.ui.base.BaseDetailFragment;
 import live.itrip.app.ui.util.ToastUtils;
 import live.itrip.app.ui.widget.DetailRecommendView;
@@ -35,7 +34,7 @@ import live.itrip.common.mvp.view.LceView;
  * Created by Feng on 2017/7/24.
  */
 
-public class BlogDetailFragment extends BaseDetailFragment implements LceView<BlogDetailModel> {
+public class PlanDetailFragment extends BaseDetailFragment implements LceView<PlanDetailModel> {
     @BindView(R.id.iv_label_today)
     ImageView mImageToday;
     @BindView(R.id.iv_label_recommend)
@@ -65,18 +64,18 @@ public class BlogDetailFragment extends BaseDetailFragment implements LceView<Bl
     @BindView(R.id.lay_detail_recommend)
     DetailRecommendView mDetailRecommendView;
 
-    public static final String EXTRA_BLOG_ID = "extra_blog_id";
-    private BlogDetailModel mBlog;
-    private Long blogId;
+    public static final String EXTRA_PLAN_ID = "extra_plan_id";
+    private PlanDetailModel mPlanDetail;
+    private Long planId;
 
     @Inject
-    BlogDetailPresenter mBlogPresenter;
+    PlanDetailPresenter mPlanDetailPresenter;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_blog_detail, container, false);
+        View root = inflater.inflate(R.layout.fragment_plan_detail, container, false);
         ButterKnife.bind(this, root);
         initViews();
         return root;
@@ -87,34 +86,33 @@ public class BlogDetailFragment extends BaseDetailFragment implements LceView<Bl
         super.onCreate(savedInstanceState);
         getComponent(MainComponent.class).inject(this);
 
-        // get blog id
-        blogId = getArguments().getLong(EXTRA_BLOG_ID, 0L);
-        mBlogPresenter.attachView(this);
+        // get plan id
+        planId = getArguments().getLong(EXTRA_PLAN_ID, 0L);
+        mPlanDetailPresenter.attachView(this);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        mBlogPresenter.loadBlogDetail(blogId);
-        this.showContent(null);
+        mPlanDetailPresenter.loadDetail(planId);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mBlogPresenter.detachView();
+        mPlanDetailPresenter.detachView();
     }
 
     private void initViews() {
         // set title
-        ((DetailActivity) getActivity()).setToolBarTitle("博客详情");
+        ((DetailActivity) getActivity()).setToolBarTitle("行程详情");
 
         mBtnRelation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mBlog.getAuthor() != null) {
-                    mBlogPresenter.addUserRelation(mBlog.getAuthor().getId());
+                if (mPlanDetail.getAuthor() != null) {
+                    mPlanDetailPresenter.addUserRelation(mPlanDetail.getAuthor().getId());
                 }
             }
         });
@@ -122,8 +120,8 @@ public class BlogDetailFragment extends BaseDetailFragment implements LceView<Bl
         mImageAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mBlog != null && mBlog.getAuthor() != null) {
-//                    OtherUserHomeActivity.show(mContext, mBlog.getAuthor());
+                if (mPlanDetail != null && mPlanDetail.getAuthor() != null) {
+//                    OtherUserHomeActivity.show(mContext, mPlanDetail.getAuthor());
                     ToastUtils.showToast("Image Avatar Clicked.");
                 }
             }
@@ -143,7 +141,7 @@ public class BlogDetailFragment extends BaseDetailFragment implements LceView<Bl
     }
 
     @Override
-    public void showContent(BlogDetailModel data) {
+    public void showContent(PlanDetailModel data) {
         // test data
         mImageToday.setVisibility(View.VISIBLE);
         mImageRecommend.setVisibility(View.VISIBLE);
@@ -187,6 +185,6 @@ public class BlogDetailFragment extends BaseDetailFragment implements LceView<Bl
 
     @Override
     public IDetailPresenter getDetailPresenter() {
-        return this.mBlogPresenter;
+        return this.mPlanDetailPresenter;
     }
 }

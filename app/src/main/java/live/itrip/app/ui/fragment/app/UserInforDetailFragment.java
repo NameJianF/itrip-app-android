@@ -67,7 +67,7 @@ public class UserInforDetailFragment extends BaseFragment {
         if (userInfo.getId() != PreferenceData.Account.getUserId()
                 && getActivity() instanceof SimpleBackActivity) {
             String title = TextUtils.isEmpty(userInfo.getUserName()) ? "" : userInfo.getUserName();
-            ((SimpleBackActivity) getActivity()).setActionBarTitle(title);
+            ((SimpleBackActivity) getActivity()).setToolBarTitle(title);
         }
 
         //  sendRequiredData();

@@ -9,7 +9,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
@@ -38,15 +40,12 @@ import live.itrip.common.util.AppLog;
  */
 
 public class DialogMessageActivity extends BaseActivity implements LceView<ArrayList<MessageModel>>, HasComponent<MessageDetailComponent> {
-
-    private ActionBar mActionBar;
     @BindView(R.id.root)
     CoordinatorLayout mCoordinatorLayout;
     @BindView(R.id.refreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
-
 
     @Inject
     MessagePresenter mMessagePresenter;
@@ -62,12 +61,15 @@ public class DialogMessageActivity extends BaseActivity implements LceView<Array
         context.startActivity(intent);
     }
 
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_dialog_message;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getComponent().inject(this);
-        setContentView(R.layout.activity_dialog_message);
         ButterKnife.bind(this);
 
         initViews();
@@ -76,14 +78,9 @@ public class DialogMessageActivity extends BaseActivity implements LceView<Array
     }
 
     private void initViews() {
-        mSwipeRefreshLayout.setOnRefreshListener(mRefreshListener);
+        this.setActionBarTitle("消息详情");
 
-        mActionBar = this.getSupportActionBar();
-        if (mActionBar != null) {
-            mActionBar.setDisplayHomeAsUpEnabled(true);
-            mActionBar.setDisplayShowHomeEnabled(true);
-            mActionBar.setTitle("");
-        }
+        mSwipeRefreshLayout.setOnRefreshListener(mRefreshListener);
 
         mMessageRecyclerAdapter = new MessageRecyclerAdapter(null);
 
@@ -101,7 +98,7 @@ public class DialogMessageActivity extends BaseActivity implements LceView<Array
         Long fromUserId = getIntent().getLongExtra(EXTRA_FROM_USER_ID, 0L);
         Long toUserId = getIntent().getLongExtra(EXTRA_TO_USER_ID, 0L);
 
-        this.mMessagePresenter.loadDialogMesages(fromUserId, toUserId, 0L);
+//        this.mMessagePresenter.loadDialogMesages(fromUserId, toUserId, 0L);
     }
 
     @Override

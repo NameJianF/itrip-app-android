@@ -8,9 +8,10 @@ import javax.inject.Singleton;
 import dagger.Component;
 import live.itrip.app.di.ApplicationContext;
 import live.itrip.app.di.module.ApplicationModule;
-import live.itrip.app.service.net.BlogService;
+import live.itrip.app.service.net.BlogDetailService;
 import live.itrip.app.service.net.HomePageServive;
 import live.itrip.app.service.net.MessageService;
+import live.itrip.app.service.net.PlanDetailService;
 import live.itrip.app.service.net.RecyclerItemDataService;
 import live.itrip.app.service.net.SettingService;
 import live.itrip.app.service.net.VisibilityPageServive;
@@ -38,5 +39,7 @@ public interface ApplicationComponent {
 
     VisibilityPageServive visibilityPageService();
 
-    BlogService blogService();
+    BlogDetailService blogDetailService();
+
+    PlanDetailService planDetailService();
 }

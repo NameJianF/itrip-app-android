@@ -6,6 +6,23 @@
     android:background="@color/main_background"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        android:minHeight="?attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_18" />
+    </android.support.v7.widget.Toolbar>
+
+
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -21,7 +38,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="@string/program_error_hint"/>
+            android:text="@string/program_error_hint" />
 
         <RadioButton
             android:layout_width="0dp"

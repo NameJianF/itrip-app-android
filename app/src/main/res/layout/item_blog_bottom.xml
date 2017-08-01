@@ -6,7 +6,7 @@
     android:paddingTop="@dimen/dimen_2">
 
     <TextView
-        android:id="@+id/tvPlanPrice"
+        android:id="@+id/tvAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -32,6 +32,7 @@
             android:background="@android:drawable/ic_menu_view" />
 
         <TextView
+            android:id="@+id/tvToView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_5"
@@ -49,7 +50,7 @@
             android:cropToPadding="false" />
 
         <TextView
-            android:id="@+id/tvPlanPersonCount"
+            android:id="@+id/tvFavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_5"

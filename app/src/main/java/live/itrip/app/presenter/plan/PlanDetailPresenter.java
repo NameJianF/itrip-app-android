@@ -1,9 +1,9 @@
-package live.itrip.app.presenter.blog;
+package live.itrip.app.presenter.plan;
 
 import javax.inject.Inject;
 
-import live.itrip.app.data.api.BlogApi;
-import live.itrip.app.data.model.BlogModel;
+import live.itrip.app.data.api.PlanDetailApi;
+import live.itrip.app.data.model.PlanDetailModel;
 import live.itrip.app.data.observer.ResponseObserver;
 import live.itrip.app.presenter.base.RxMvpPresenter;
 import live.itrip.app.presenter.interfaces.IDetailPresenter;
@@ -16,12 +16,12 @@ import rx.schedulers.Schedulers;
  * Created by Feng on 2017/7/24.
  */
 
-public class BlogPresenter extends RxMvpPresenter<LceView<BlogModel>> implements IDetailPresenter {
-    private final BlogApi mBlogApi;
+public class PlanDetailPresenter extends RxMvpPresenter<LceView<PlanDetailModel>> implements IDetailPresenter {
+    private final PlanDetailApi mPlanDetailApi;
 
     @Inject
-    public BlogPresenter(BlogApi api) {
-        this.mBlogApi = api;
+    public PlanDetailPresenter(PlanDetailApi api) {
+        this.mPlanDetailApi = api;
     }
 
 
@@ -36,7 +36,7 @@ public class BlogPresenter extends RxMvpPresenter<LceView<BlogModel>> implements
 
     @Override
     public void loadDetail(Long itemId) {
-        mCompositeSubscription.add(mBlogApi.getBlogDetail(itemId)
+        mCompositeSubscription.add(mPlanDetailApi.getPlanDetail(itemId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Action0() {
@@ -51,10 +51,10 @@ public class BlogPresenter extends RxMvpPresenter<LceView<BlogModel>> implements
                         getMvpView().dismissLoading();
                     }
                 })
-                .subscribe(new ResponseObserver<BlogModel>() {
+                .subscribe(new ResponseObserver<PlanDetailModel>() {
                     @Override
-                    public void onSuccess(BlogModel blog) {
-                        getMvpView().showContent(blog);
+                    public void onSuccess(PlanDetailModel planDetail) {
+                        getMvpView().showContent(planDetail);
                     }
 
                     @Override

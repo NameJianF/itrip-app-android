@@ -15,17 +15,18 @@ import live.itrip.common.util.AppLog;
  */
 
 public class FootmarksActivity extends BaseActivity {
-    private ActionBar mActionBar;
-
     public static void launch(Context context) {
         context.startActivity(new Intent(context, FootmarksActivity.class));
     }
 
     @Override
+    protected int getContentView() {
+        return R.layout.activity_footmarks;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_footmarks);
-
         ButterKnife.bind(this);
 
         initViews();
@@ -40,13 +41,7 @@ public class FootmarksActivity extends BaseActivity {
     }
 
     private void initViews() {
-        mActionBar = this.getSupportActionBar();
-        if (mActionBar != null) {
-            mActionBar.setDisplayHomeAsUpEnabled(true);
-            mActionBar.setDisplayShowHomeEnabled(true);
-            mActionBar.setTitle(R.string.my_travel);
 
-        }
     }
 
     @Override

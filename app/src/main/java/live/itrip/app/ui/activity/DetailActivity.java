@@ -2,11 +2,14 @@ package live.itrip.app.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,8 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +29,7 @@ import live.itrip.app.R;
 import live.itrip.app.adapter.ViewPagerAdapter;
 import live.itrip.app.cache.DetailCache;
 import live.itrip.app.data.PreferenceData;
-import live.itrip.app.data.model.BlogModel;
+import live.itrip.app.data.model.BlogDetailModel;
 import live.itrip.app.data.model.CommentModel;
 import live.itrip.app.di.HasComponent;
 import live.itrip.app.di.component.DaggerMainComponent;
@@ -40,7 +41,6 @@ import live.itrip.app.ui.activity.account.LoginActivity;
 import live.itrip.app.ui.base.BaseActivity;
 import live.itrip.app.ui.base.BaseDetailFragment;
 import live.itrip.app.ui.interfaces.DetailContract;
-import live.itrip.app.ui.util.HTMLUtils;
 import live.itrip.app.ui.util.ToastUtils;
 import live.itrip.app.ui.view.dialog.ShareDialog;
 import live.itrip.app.ui.widget.EmptyLayout;
@@ -48,7 +48,6 @@ import live.itrip.app.ui.widget.adapter.OnKeyArrivedListenerAdapter;
 import live.itrip.app.ui.widget.comment.CommentBar;
 import live.itrip.app.ui.widget.comment.OnCommentClickListener;
 import live.itrip.common.util.AppLog;
-import live.itrip.common.util.StringUtils;
 
 /**
  * Created by Feng on 2017/7/24.
@@ -68,22 +67,25 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
     protected int mPageValue = -1;
 
     private BaseDetailFragment mDetailFragment;
-    private ActionBar mActionBar;
     private CommentBar mCommentBar;
     private ShareDialog mAlertDialog;
     private TextView mCommentCountView;
 
     private Long extraBlogId = 0L;
     private String mCommentHint;
-    private BlogModel mBlogModel;
+    private BlogDetailModel mBlogModel;
     private long mCommentId;
     private long mCommentAuthorId;
     private boolean mInputEmpty = false;
 
     @Override
+    protected int getContentView() {
+        return R.layout.activity_detail;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
@@ -103,13 +105,6 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
         DetailPage page = DetailPage.getPageByValue(pageValue);
         if (page == null) {
             throw new IllegalArgumentException("can not find page by value:" + pageValue);
-        }
-
-        mActionBar = this.getSupportActionBar();
-        if (mActionBar != null) {
-            mActionBar.setDisplayHomeAsUpEnabled(true);
-            mActionBar.setDisplayShowHomeEnabled(true);
-            mActionBar.setTitle("博客详情");
         }
 
         if (TextUtils.isEmpty(mCommentHint))
@@ -233,7 +228,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
     }
 
     @Override
-    public void showGetDetailSuccess(BlogModel model) {
+    public void showGetDetailSuccess(BlogDetailModel model) {
         this.mBlogModel = model;
         if (mCommentBar != null) {
             mCommentBar.setFavDrawable(mBlogModel.getFavorite() == 1 ? R.drawable.ic_faved : R.drawable.ic_fav);
@@ -284,7 +279,6 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
      * @param url
      * @return
      */
-    @SuppressWarnings({"LoopStatementThatDoesntLoop", "SuspiciousMethodCalls"})
     protected boolean toShare(String title, String content, String url) {
 
         // test data
@@ -304,7 +298,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
             return false;
 
         String imageUrl = null;
-//        List<BlogModel.Image> images = mBlogModel.getImages();
+//        List<BlogDetailModel.Image> images = mBlogModel.getImages();
         switch (mBlogModel.getType()) {
 //            case News.TYPE_EVENT:
 //                if (images != null && images.size() > 0) {
@@ -375,6 +369,10 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
 //        }
     }
 
+
+    public void setToolBarTitle(String title){
+        this.setActionBarTitle(title);
+    }
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -474,10 +472,6 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
-    }
-
-    public void setActionBarTitle(String actionBarTitle) {
-        this.mActionBar.setTitle(actionBarTitle);
     }
 
     @Override

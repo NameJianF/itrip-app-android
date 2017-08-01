@@ -20,16 +20,18 @@ import live.itrip.common.util.AppLog;
  */
 
 public class FeedBackActivity extends BaseActivity implements HasComponent<FeedBackComponent> {
-    private ActionBar mActionBar;
-
     public static void launch(Context context) {
         context.startActivity(new Intent(context, FeedBackActivity.class));
     }
 
     @Override
+    protected int getContentView() {
+        return R.layout.activity_feed_back;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed_back);
 
         ButterKnife.bind(this);
 
@@ -45,13 +47,7 @@ public class FeedBackActivity extends BaseActivity implements HasComponent<FeedB
     }
 
     private void initViews() {
-        mActionBar = this.getSupportActionBar();
-        if (mActionBar != null) {
-            mActionBar.setDisplayHomeAsUpEnabled(true);
-            mActionBar.setDisplayShowHomeEnabled(true);
-            mActionBar.setTitle(R.string.feedback);
-
-        }
+        this.setActionBarTitle(getString(R.string.feedback));
     }
 
     @Override

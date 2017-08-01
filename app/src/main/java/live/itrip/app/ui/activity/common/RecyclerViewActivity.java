@@ -92,10 +92,14 @@ public class RecyclerViewActivity extends BaseLoadingActivity implements LceView
 
 
     @Override
+    protected int getContentView() {
+        return R.layout.activity_recycler_view;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getComponent().inject(this);
-        setContentView(R.layout.activity_recycler_view);
         ButterKnife.bind(this);
 
         initViews();

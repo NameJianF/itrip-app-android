@@ -35,7 +35,6 @@ public class UserMessageActivity extends BaseActivity implements HasComponent<Ma
     @BindView(R.id.vp_horizontal_ntb)
     ViewPager mViewPager;
 
-    private ActionBar mActionBar;
     private ViewPagerAdapter mViewPagerAdapter;
     private FragmentManager mFragmentManager = getSupportFragmentManager();
 
@@ -46,23 +45,19 @@ public class UserMessageActivity extends BaseActivity implements HasComponent<Ma
     }
 
     @Override
+    protected int getContentView() {
+        return R.layout.activity_user_message;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getComponent().inject(this);
-        setContentView(R.layout.activity_user_message);
         ButterKnife.bind(this);
-
         initViews();
-//        mRecyclerViewPresenter.attachView(this);
     }
 
     private void initViews() {
-        mActionBar = this.getSupportActionBar();
-        if (mActionBar != null) {
-            mActionBar.setDisplayHomeAsUpEnabled(true);
-            mActionBar.setDisplayShowHomeEnabled(true);
-            mActionBar.setTitle("我的消息");
-        }
+        this.setActionBarTitle("我的消息");
 
         mViewPagerAdapter = new ViewPagerAdapter(mFragmentManager);
         mViewPagerAdapter.addFragment(MessageFragment.newInstance(MessageApi.FLAG_SYSTEM));

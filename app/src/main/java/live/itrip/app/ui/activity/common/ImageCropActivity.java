@@ -58,9 +58,13 @@ public class ImageCropActivity extends BaseActivity implements HasComponent<Imag
     }
 
     @Override
+    protected int getContentView() {
+        return R.layout.activity_image_crop;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_crop);
 
         ButterKnife.bind(this);
 

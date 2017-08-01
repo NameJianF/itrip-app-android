@@ -57,9 +57,13 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
     }
 
     @Override
+    protected int getContentView() {
+        return R.layout.activity_main;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mSpaceNavigationView.initWithSaveInstanceState(savedInstanceState);
 
@@ -82,10 +86,10 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
 
 
         mViewPagerAdapter = new ViewPagerAdapter(mFragmentManager);
-        mViewPagerAdapter.addFragment(HomeFragment.newInstance());
-        mViewPagerAdapter.addFragment(VisibilityFragment.newInstance());
-        mViewPagerAdapter.addFragment(TravelFragment.newInstance());
-        mViewPagerAdapter.addFragment(ProfileFragment.newInstance());
+        mViewPagerAdapter.addFragment(HomeFragment.newInstance()); // 首页
+        mViewPagerAdapter.addFragment(VisibilityFragment.newInstance()); // 发现
+        mViewPagerAdapter.addFragment(TravelFragment.newInstance()); // 行程
+        mViewPagerAdapter.addFragment(ProfileFragment.newInstance()); // 我的
         mViewPager.setAdapter(mViewPagerAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

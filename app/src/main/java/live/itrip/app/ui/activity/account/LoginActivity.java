@@ -49,7 +49,6 @@ public class LoginActivity extends BaseLoadingActivity implements LoginView, Has
 
     @Inject
     LoginPresenter mPresenter;
-    private ActionBar mActionBar;
 
     public static void launch(Context context) {
         context.startActivity(new Intent(context, LoginActivity.class));
@@ -60,22 +59,20 @@ public class LoginActivity extends BaseLoadingActivity implements LoginView, Has
     }
 
     @Override
+    protected int getContentView() {
+        return R.layout.activity_login;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getComponent().inject(this);
-
-        setContentView(R.layout.activity_login);
 
         ButterKnife.bind(this);
 
         mPresenter.attachView(this);
 
-        mActionBar = this.getSupportActionBar();
-        if (mActionBar != null) {
-            mActionBar.setDisplayHomeAsUpEnabled(true);
-            mActionBar.setDisplayShowHomeEnabled(true);
-            mActionBar.setTitle(R.string.sign_in);
-        }
+        this.setActionBarTitle(getString(R.string.sign_in));
     }
 
     @Override

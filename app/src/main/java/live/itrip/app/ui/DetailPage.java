@@ -1,6 +1,7 @@
 package live.itrip.app.ui;
 
 import live.itrip.app.ui.fragment.blog.BlogDetailFragment;
+import live.itrip.app.ui.fragment.plan.PlanDetailFragment;
 
 /**
  * Created by Feng on 2017/5/11.
@@ -9,10 +10,14 @@ import live.itrip.app.ui.fragment.blog.BlogDetailFragment;
 public enum DetailPage {
 
     /**
-     * 设置页面
+     * 博客详情页面
      */
-    BLOG_DETAIL(1, BlogDetailFragment.class);
+    DETAIL_BLOG(1, BlogDetailFragment.class),
 
+    /**
+     * 行程详情页面
+     */
+    DETAIL_PLAN(2, PlanDetailFragment.class);
 
     private Class<?> clz;
     private int value;

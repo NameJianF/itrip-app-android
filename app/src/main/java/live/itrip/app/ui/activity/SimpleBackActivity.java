@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
@@ -29,18 +31,21 @@ import live.itrip.common.util.AppLog;
 public class SimpleBackActivity extends BaseActivity implements HasComponent<MainComponent> {
     @BindView(R.id.vp_horizontal_ntb)
     ViewPager mViewPager;
+
     private ViewPagerAdapter mViewPagerAdapter;
     private FragmentManager mFragmentManager = getSupportFragmentManager();
-    private ActionBar mActionBar;
 
     public final static String BUNDLE_KEY_PAGE = "BUNDLE_KEY_PAGE";
     public final static String BUNDLE_KEY_ARGS = "BUNDLE_KEY_ARGS";
     protected int mPageValue = -1;
 
     @Override
+    protected int getContentView() {
+        return R.layout.activity_simple_fragment;
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_simple_fragment);
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
@@ -69,15 +74,6 @@ public class SimpleBackActivity extends BaseActivity implements HasComponent<Mai
             throw new IllegalArgumentException("can not find page by value:" + pageValue);
         }
 
-        mActionBar = this.getSupportActionBar();
-        if (mActionBar != null) {
-            mActionBar.setDisplayHomeAsUpEnabled(true);
-            mActionBar.setDisplayShowHomeEnabled(true);
-            mActionBar.setTitle(page.getTitle());
-
-        }
-
-
         try {
             BaseFragment fragment = (BaseFragment) page.getClz().newInstance();
 
@@ -97,6 +93,10 @@ public class SimpleBackActivity extends BaseActivity implements HasComponent<Mai
         }
     }
 
+    public void setToolBarTitle(String title){
+        this.setActionBarTitle(title);
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -112,7 +112,4 @@ public class SimpleBackActivity extends BaseActivity implements HasComponent<Mai
                 .build();
     }
 
-    public void setActionBarTitle(String actionBarTitle) {
-        this.mActionBar.setTitle(actionBarTitle);
-    }
 }

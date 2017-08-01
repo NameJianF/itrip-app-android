@@ -41,7 +41,7 @@ public class SquareLayout extends FrameLayout {
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.SquareLayout, defStyleAttr, defStyleRes);
-        mBaseDirection = array.getInt(R.styleable.SquareLayout_oscAccordTo, 3);
+        mBaseDirection = array.getInt(R.styleable.SquareLayout_itripAccordTo, 3);
         array.recycle();
     }
 

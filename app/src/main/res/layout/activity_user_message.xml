@@ -6,21 +6,37 @@
     android:background="#423752"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        android:minHeight="?attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_18" />
+    </android.support.v7.widget.Toolbar>
+
     <devlight.io.library.ntb.NavigationTabBar
         android:id="@+id/ntb_horizontal"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginTop="-10dp"
         app:ntb_badge_gravity="top"
         app:ntb_badge_position="right"
-        app:ntb_icon_size_fraction="0"
         app:ntb_badged="true"
+        app:ntb_icon_size_fraction="0"
         app:ntb_scaled="false"
         app:ntb_swiped="true"
         app:ntb_tinted="true"
         app:ntb_title_mode="all"
-        app:ntb_titled="true"
         app:ntb_title_size="14sp"
-        android:layout_marginTop="-10dp"/>
+        app:ntb_titled="true" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_horizontal_ntb"

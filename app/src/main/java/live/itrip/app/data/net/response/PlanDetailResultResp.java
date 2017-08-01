@@ -5,36 +5,37 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import live.itrip.app.data.model.BlogModel;
+import live.itrip.app.data.model.BlogDetailModel;
+import live.itrip.app.data.model.PlanDetailModel;
 
 /**
  * Created by Feng on 2017/7/24.
  */
 
-public class BlogResultResp implements Parcelable {
+public class PlanDetailResultResp implements Parcelable {
     private String op;
     private Integer code;
     private String msg;
 
     @SerializedName("data")
-    private BlogModel blogModel;
+    private PlanDetailModel planDetailModel;
 
-    protected BlogResultResp(Parcel in) {
+    protected PlanDetailResultResp(Parcel in) {
         op = in.readString();
         code = in.readInt();
         msg = in.readString();
-        blogModel = in.readParcelable(BlogModel.class.getClassLoader());
+        planDetailModel = in.readParcelable(BlogDetailModel.class.getClassLoader());
     }
 
-    public static final Creator<BlogResultResp> CREATOR = new Creator<BlogResultResp>() {
+    public static final Creator<PlanDetailResultResp> CREATOR = new Creator<PlanDetailResultResp>() {
         @Override
-        public BlogResultResp createFromParcel(Parcel in) {
-            return new BlogResultResp(in);
+        public PlanDetailResultResp createFromParcel(Parcel in) {
+            return new PlanDetailResultResp(in);
         }
 
         @Override
-        public BlogResultResp[] newArray(int size) {
-            return new BlogResultResp[size];
+        public PlanDetailResultResp[] newArray(int size) {
+            return new PlanDetailResultResp[size];
         }
     };
 
@@ -48,7 +49,7 @@ public class BlogResultResp implements Parcelable {
         dest.writeString(op);
         dest.writeInt(code);
         dest.writeString(msg);
-        dest.writeParcelable(blogModel, flags);
+        dest.writeParcelable(planDetailModel, flags);
     }
 
     public String getOp() {
@@ -75,11 +76,11 @@ public class BlogResultResp implements Parcelable {
         this.msg = msg;
     }
 
-    public BlogModel getBlogModel() {
-        return blogModel;
+    public PlanDetailModel getPlanDetailModel() {
+        return planDetailModel;
     }
 
-    public void setBlogModel(BlogModel blogModel) {
-        this.blogModel = blogModel;
+    public void setPlanDetailModel(PlanDetailModel planDetailModel) {
+        this.planDetailModel = planDetailModel;
     }
 }

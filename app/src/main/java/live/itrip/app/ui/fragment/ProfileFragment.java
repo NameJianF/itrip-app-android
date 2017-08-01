@@ -155,10 +155,6 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
             UIUtils.showSetting(getActivity());
             AppLog.e("setting click:");
         } else {
-//            if (!PreferenceData.Account.checkLogon(this.getActivity())) {
-//                return;
-//            }
-            // User currentUser = PreferenceData.Account;
             switch (id) {
                 case R.id.iv_logo_zxing:
                     QRCodeDialog dialog = new QRCodeDialog(getActivity());
@@ -173,13 +169,12 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
                     if (!PreferenceData.Account.checkLogon(this.getActivity())) {
                         return;
                     }
-//                    if (mUserInfo != null)
-                {
-                    Bundle userBundle = new Bundle();
-                    userBundle.putSerializable("user_info", (Serializable) mUserInfo);
-                    UIUtils.showSimpleBack(getActivity(), SimpleBackPage.USER_INFORMATION_DETAIL, userBundle);
-                }
-                break;
+                    if (mUserInfo != null) {
+                        Bundle userBundle = new Bundle();
+                        userBundle.putSerializable("user_info", (Serializable) mUserInfo);
+                        UIUtils.showUserInfo(getActivity(), userBundle);
+                    }
+                    break;
                 case R.id.ly_bubbles:
                     RecyclerViewActivity.launchToShowBubbles(getActivity());
                     break;
