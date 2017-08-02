@@ -9,7 +9,7 @@ import dagger.Component;
 import live.itrip.app.di.ApplicationContext;
 import live.itrip.app.di.module.ApplicationModule;
 import live.itrip.app.service.net.BlogDetailService;
-import live.itrip.app.service.net.HomePageServive;
+import live.itrip.app.service.net.PlanCategoryServive;
 import live.itrip.app.service.net.MessageService;
 import live.itrip.app.service.net.PlanDetailService;
 import live.itrip.app.service.net.RecyclerItemDataService;
@@ -35,7 +35,7 @@ public interface ApplicationComponent {
 
     SettingService settingService();
 
-    HomePageServive homePageServive();
+    PlanCategoryServive planCategoryServive();
 
     VisibilityPageServive visibilityPageService();
 

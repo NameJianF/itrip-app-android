@@ -2,30 +2,24 @@ package live.itrip.app.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.view.View;
 import android.widget.Toast;
 
 
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import devlight.io.library.ntb.NavigationTabBar;
 import live.itrip.app.App;
 import live.itrip.app.R;
-import live.itrip.app.adapter.ViewPagerAdapter;
+import live.itrip.app.adapter.fragment.ViewPagerAdapter;
 import live.itrip.app.di.HasComponent;
 import live.itrip.app.di.component.DaggerMainComponent;
 import live.itrip.app.di.component.MainComponent;
 import live.itrip.app.di.module.ActivityModule;
 import live.itrip.app.ui.base.BaseActivity;
 import live.itrip.app.ui.fragment.HomeFragment;
-import live.itrip.app.ui.fragment.PositionFragment;
 import live.itrip.app.ui.fragment.ProfileFragment;
 import live.itrip.app.ui.fragment.TravelFragment;
 import live.itrip.app.ui.fragment.VisibilityFragment;

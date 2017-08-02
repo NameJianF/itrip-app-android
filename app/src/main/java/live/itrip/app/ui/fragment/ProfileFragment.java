@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -31,12 +30,12 @@ import butterknife.OnClick;
 import live.itrip.app.R;
 import live.itrip.app.data.PreferenceData;
 import live.itrip.app.data.model.UserModel;
-import live.itrip.app.ui.SimpleBackPage;
-import live.itrip.app.ui.activity.FootmarksActivity;
-import live.itrip.app.ui.activity.UserMessageActivity;
-import live.itrip.app.ui.activity.common.ImageCropActivity;
-import live.itrip.app.ui.activity.common.RecyclerViewActivity;
+import live.itrip.app.ui.activity.profile.FootmarksActivity;
+import live.itrip.app.ui.activity.profile.UserMessageActivity;
+import live.itrip.app.ui.activity.ImageCropActivity;
+import live.itrip.app.ui.activity.profile.RecyclerViewActivity;
 import live.itrip.app.ui.base.BaseFragment;
+import live.itrip.app.ui.fragment.profile.UserInforDetailFragment;
 import live.itrip.app.ui.util.UIUtils;
 import live.itrip.app.ui.view.dialog.QRCodeDialog;
 import live.itrip.app.ui.widget.SelectPicturePopupWindow;
@@ -107,15 +106,12 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
     private float mPx;
     private float mPy;
 
-    private UserModel mUserInfo;
-
-
     public static ProfileFragment newInstance() {
 //        Bundle args = new Bundle();
 //        args.putString("msg", text);
-        ProfileFragment fragment = new ProfileFragment();
+//        ProfileFragment fragment = new ProfileFragment();
 //        fragment.setArguments(args);
-        return fragment;
+        return new ProfileFragment();
     }
 
 
@@ -166,12 +162,13 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
                     break;
                 case R.id.user_view_solar_system:
                     //显示我的资料
-                    if (!PreferenceData.Account.checkLogon(this.getActivity())) {
+                    if (!PreferenceData.Account.checkLogon(this.getContext())) {
                         return;
                     }
+                    UserModel mUserInfo = PreferenceData.Account.getLogonUser(this.getContext());
                     if (mUserInfo != null) {
                         Bundle userBundle = new Bundle();
-                        userBundle.putSerializable("user_info", (Serializable) mUserInfo);
+                        userBundle.putSerializable(UserInforDetailFragment.EXTRA_USER_INFO, mUserInfo);
                         UIUtils.showUserInfo(getActivity(), userBundle);
                     }
                     break;

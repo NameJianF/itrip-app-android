@@ -2,9 +2,7 @@ package live.itrip.app.di.module;
 
 import dagger.Module;
 import dagger.Provides;
-import live.itrip.app.data.api.HomePageApi;
 import live.itrip.app.data.api.VisibilityPageApi;
-import live.itrip.app.data.net.HomePageDataSource;
 import live.itrip.app.data.net.VisibilityPageDataSource;
 
 /**

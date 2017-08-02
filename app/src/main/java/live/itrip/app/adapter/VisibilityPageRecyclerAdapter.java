@@ -88,8 +88,6 @@ public class VisibilityPageRecyclerAdapter extends BaseMultiItemQuickAdapter<Vis
                 .placeholder(R.drawable.place_holder)
                 .error(R.drawable.place_holder)
                 .into((ImageView) holder.getView(R.id.hot_img));
-//        holder.setText(R.id.hot_title_tv, StringUtils.replaceAllBlank(model.getTitle()));
-//        holder.setText(R.id.hot_sub_tv, StringUtils.trimNewLine(homePageModel.getContent()));
 
         holder.getView(R.id.linearLayout_hot).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -5,9 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
-import live.itrip.app.data.model.HomePageModel;
 import live.itrip.app.data.model.VisibilityPageModel;
 
 /**

@@ -2,14 +2,10 @@ package live.itrip.app.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import live.itrip.app.App;
 import live.itrip.app.R;
-import live.itrip.app.adapter.ViewPagerAdapter;
+import live.itrip.app.adapter.fragment.ViewPagerAdapter;
 import live.itrip.app.cache.DetailCache;
 import live.itrip.app.data.PreferenceData;
 import live.itrip.app.data.model.BlogDetailModel;
@@ -62,8 +58,8 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
 
-    public final static String BUNDLE_KEY_PAGE = "BUNDLE_KEY_PAGE";
-    public final static String BUNDLE_KEY_ARGS = "BUNDLE_KEY_ARGS";
+    public final static String BUNDLE_KEY_PAGE = "EXTRA_PAGE";
+    public final static String BUNDLE_KEY_ARGS = "EXTRA_ARGS";
     protected int mPageValue = -1;
 
     private BaseDetailFragment mDetailFragment;

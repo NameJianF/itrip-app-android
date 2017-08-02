@@ -16,27 +16,4 @@ public class Constants {
         public static final String OP_LOGIN = "Sso.login";
     }
 
-    public enum PlanType {
-        /**
-         * 自由行
-         */
-        SelfGuided,
-        /**
-         * 跟团游
-         */
-        GroupTravel,
-        /**
-         * 主题旅游
-         */
-        ThemeTravel,
-        /**
-         * 乡村民宿
-         */
-        CountryInn,
-        /**
-         * 旅行服务
-         */
-        TravelService;
-
-    }
 }

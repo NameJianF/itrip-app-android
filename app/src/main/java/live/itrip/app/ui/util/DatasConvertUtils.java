@@ -1,12 +1,8 @@
 package live.itrip.app.ui.util;
 
-import com.alibaba.fastjson.JSON;
-
 import java.util.ArrayList;
 
-import live.itrip.app.config.Constants;
-import live.itrip.app.data.model.ChildMultiItem;
-import live.itrip.app.data.model.HomePageModel;
+import live.itrip.app.data.model.PlanCategoryModel;
 
 /**
  * Created by Feng on 2017/7/17.
@@ -26,20 +22,20 @@ public class DatasConvertUtils {
      *
      * @return
      */
-    public static ArrayList<HomePageModel> converHomePageDatas() {
+    public static ArrayList<PlanCategoryModel> converPlanCategoryDatas() {
         // test data
-//        ArrayList<HomePageModel> list = new ArrayList<>();
+//        ArrayList<PlanCategoryModel> list = new ArrayList<>();
 //        for (int i = 0; i < 10; i++) {
-//            HomePageModel model = new HomePageModel();
+//            PlanCategoryModel model = new PlanCategoryModel();
 //
 //            if (i == 0) {
-//                model.setItemType(HomePageModel.ITEM_BANNER);
+//                model.setItemType(PlanCategoryModel.ITEM_BANNER);
 //            } else if (i == 1) {
-//                model.setItemType(HomePageModel.ITEM_NAV);
+//                model.setItemType(PlanCategoryModel.ITEM_NAV);
 //            } else if (i == 2) {
-//                model.setItemType(HomePageModel.ITEM_NEW_PLAN);
+//                model.setItemType(PlanCategoryModel.ITEM_NEW_PLAN);
 //            } else if (i == 3) {
-//                model.setItemType(HomePageModel.ITEM_HOT);
+//                model.setItemType(PlanCategoryModel.ITEM_HOT);
 //                ArrayList<ChildMultiItem> items = new ArrayList<>();
 //                for (int j = 0; j < 4; j++) {
 //                    ChildMultiItem bean = new ChildMultiItem();
@@ -51,9 +47,9 @@ public class DatasConvertUtils {
 //                }
 //                model.setItemList(items);
 //            } else if (i == 4) {
-//                model.setItemType(HomePageModel.ITEM_AD);
+//                model.setItemType(PlanCategoryModel.ITEM_AD);
 //            } else if (i == 5) {
-//                model.setItemType(HomePageModel.ITEM_BLOG);
+//                model.setItemType(PlanCategoryModel.ITEM_BLOG);
 //                ArrayList<ChildMultiItem> items = new ArrayList<>();
 //                for (int j = 0; j < 4; j++) {
 //                    ChildMultiItem bean = new ChildMultiItem();
@@ -65,9 +61,9 @@ public class DatasConvertUtils {
 //                }
 //                model.setItemList(items);
 //            } else if (i == 6) {
-//                model.setItemType(HomePageModel.ITEM_AD);
+//                model.setItemType(PlanCategoryModel.ITEM_AD);
 //            } else {
-//                model.setItemType(HomePageModel.ITEM_BLOG);
+//                model.setItemType(PlanCategoryModel.ITEM_BLOG);
 //                ArrayList<ChildMultiItem> items = new ArrayList<>();
 //                for (int j = 0; j < 4; j++) {
 //                    ChildMultiItem bean = new ChildMultiItem();

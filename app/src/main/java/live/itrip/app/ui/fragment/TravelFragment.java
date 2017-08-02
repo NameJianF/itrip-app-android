@@ -12,7 +12,7 @@ import com.astuetz.PagerSlidingTabStrip;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import live.itrip.app.R;
-import live.itrip.app.adapter.TravelFragmentAdapter;
+import live.itrip.app.adapter.fragment.TravelFragmentAdapter;
 import live.itrip.app.ui.base.BaseFragment;
 import live.itrip.app.ui.fragment.trvel.TravelChildFragment;
 
@@ -25,7 +25,7 @@ public class TravelFragment extends BaseFragment {
     PagerSlidingTabStrip mTabs;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
-    private TravelFragmentAdapter mAdapter;
+    private TravelFragmentAdapter mFragmentAdapter;
 
 
     private static final Integer[] FRAGMENT_CATEGORY = {
@@ -36,9 +36,9 @@ public class TravelFragment extends BaseFragment {
     public static TravelFragment newInstance() {
 //        Bundle args = new Bundle();
 //        args.putString("msg", text);
-        TravelFragment fragment = new TravelFragment();
+//        TravelFragment fragment = new TravelFragment();
 //        fragment.setArguments(args);
-        return fragment;
+        return new TravelFragment();
     }
 
 
@@ -53,8 +53,8 @@ public class TravelFragment extends BaseFragment {
     }
 
     private void initViews() {
-        mAdapter = new TravelFragmentAdapter(getChildFragmentManager(), FRAGMENT_CATEGORY);
-        mViewPager.setAdapter(mAdapter);
+        mFragmentAdapter = new TravelFragmentAdapter(getChildFragmentManager(), FRAGMENT_CATEGORY);
+        mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setOffscreenPageLimit(FRAGMENT_CATEGORY.length);
 
         mTabs.setViewPager(mViewPager);

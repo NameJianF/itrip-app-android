@@ -35,13 +35,14 @@
         <activity android:name=".ui.activity.IntroduceActivity" />
         <activity android:name=".ui.activity.account.LoginActivity" />
         <activity android:name=".ui.activity.SimpleBackActivity" />
-        <activity android:name=".ui.activity.FeedBackActivity" />
-        <activity android:name=".ui.activity.common.ImageCropActivity" />
-        <activity android:name=".ui.activity.common.RecyclerViewActivity" />
-        <activity android:name=".ui.activity.UserMessageActivity" />
-        <activity android:name=".ui.activity.FootmarksActivity" />
-        <activity android:name=".ui.activity.DialogMessageActivity" />
+        <activity android:name=".ui.activity.profile.FeedBackActivity" />
+        <activity android:name=".ui.activity.ImageCropActivity" />
+        <activity android:name=".ui.activity.profile.RecyclerViewActivity" />
+        <activity android:name=".ui.activity.profile.UserMessageActivity" />
+        <activity android:name=".ui.activity.profile.FootmarksActivity" />
+        <activity android:name=".ui.activity.profile.DialogMessageActivity" />
         <activity android:name=".ui.activity.DetailActivity" />
+        <activity android:name=".ui.activity.plan.PlanCategoryActivity"/>
 
         <!--service-->
         <service android:name=".service.InitializeService" />

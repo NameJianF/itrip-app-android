@@ -8,7 +8,7 @@ import dagger.Component;
 import live.itrip.app.di.PerActivity;
 import live.itrip.app.di.module.ActivityModule;
 import live.itrip.app.di.module.RecyclerViewModule;
-import live.itrip.app.ui.activity.common.RecyclerViewActivity;
+import live.itrip.app.ui.activity.profile.RecyclerViewActivity;
 
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,

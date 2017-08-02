@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import live.itrip.app.data.net.client.BlogDetailRetrofit;
-import live.itrip.app.data.net.client.HomePageRetrofit;
+import live.itrip.app.data.net.client.PlanCategoryRetrofit;
 import live.itrip.app.data.net.client.MessageRetrofit;
 import live.itrip.app.data.net.client.PlanDetailRetrofit;
 import live.itrip.app.data.net.client.RecyclerItemRetrofit;
@@ -16,7 +16,7 @@ import live.itrip.app.data.net.client.SettingRetrofit;
 import live.itrip.app.data.net.client.VisibilityPageRetrofit;
 import live.itrip.app.di.ApplicationContext;
 import live.itrip.app.service.net.BlogDetailService;
-import live.itrip.app.service.net.HomePageServive;
+import live.itrip.app.service.net.PlanCategoryServive;
 import live.itrip.app.service.net.MessageService;
 import live.itrip.app.service.net.PlanDetailService;
 import live.itrip.app.service.net.RecyclerItemDataService;
@@ -66,8 +66,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    HomePageServive provideHomePageServive(HomePageRetrofit retrofit) {
-        return retrofit.get().create(HomePageServive.class);
+    PlanCategoryServive providePlanCategoryServive(PlanCategoryRetrofit retrofit) {
+        return retrofit.get().create(PlanCategoryServive.class);
     }
 
     @Provides

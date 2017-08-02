@@ -2,7 +2,7 @@ package live.itrip.app.data.net.client;
 
 import javax.inject.Inject;
 
-import live.itrip.app.data.net.client.cache.HomePageCacheHttpClient;
+import live.itrip.app.data.net.client.cache.PlanCategoryCacheHttpClient;
 import live.itrip.app.data.net.client.core.ApiEndpoint;
 import live.itrip.app.data.net.client.core.BaseRetrofit;
 import okhttp3.OkHttpClient;
@@ -12,10 +12,10 @@ import okhttp3.OkHttpClient;
  */
 
 public class VisibilityPageRetrofit extends BaseRetrofit {
-    HomePageCacheHttpClient mHttpClient;
+    PlanCategoryCacheHttpClient mHttpClient;
 
     @Inject
-    public VisibilityPageRetrofit(HomePageCacheHttpClient mHttpClient) {
+    public VisibilityPageRetrofit(PlanCategoryCacheHttpClient mHttpClient) {
         this.mHttpClient = mHttpClient;
     }
 

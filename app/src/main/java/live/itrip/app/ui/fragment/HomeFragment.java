@@ -22,12 +22,11 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import live.itrip.app.R;
-import live.itrip.app.adapter.HomePageRecyclerAdapter;
-import live.itrip.app.data.model.HomePageModel;
+import live.itrip.app.adapter.PlanCategoryRecyclerAdapter;
+import live.itrip.app.data.model.PlanCategoryModel;
 import live.itrip.app.di.component.MainComponent;
-import live.itrip.app.presenter.HomePagePresenter;
+import live.itrip.app.presenter.PlanCategoryPresenter;
 import live.itrip.app.ui.base.BaseFragment;
-import live.itrip.app.ui.util.DatasConvertUtils;
 import live.itrip.common.mvp.view.LceView;
 import live.itrip.common.util.AppLog;
 
@@ -42,7 +41,7 @@ import live.itrip.common.util.AppLog;
  * 6. bolgs 热门博客
  */
 
-public class HomeFragment extends BaseFragment implements LceView<ArrayList<HomePageModel>> {
+public class HomeFragment extends BaseFragment implements LceView<ArrayList<PlanCategoryModel>> {
 
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
@@ -51,8 +50,8 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
     RecyclerView mRecyclerView;
 
     @Inject
-    HomePagePresenter mHomePagePresenter;
-    private HomePageRecyclerAdapter mHomePageRecyclerAdapter;
+    PlanCategoryPresenter mPlanCategoryPresenter;
+    private PlanCategoryRecyclerAdapter mPlanCategoryRecyclerAdapter;
 
 
     public static HomeFragment newInstance() {
@@ -74,32 +73,32 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
         super.onCreate(savedInstanceState);
         getComponent(MainComponent.class).inject(this);
 
-        mHomePagePresenter.attachView(this);
+        mPlanCategoryPresenter.attachView(this);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // load datas
-        mHomePagePresenter.loadDatas();
+        mPlanCategoryPresenter.loadHomePageDatas();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mHomePagePresenter.detachView();
+        mPlanCategoryPresenter.detachView();
     }
 
     private void initViews() {
         mRefreshLayout.setOnRefreshListener(mRefreshListener);
 
-        mHomePageRecyclerAdapter = new HomePageRecyclerAdapter(null);
-        mHomePageRecyclerAdapter.setOnRecyclerViewItemClickListener(mItemClickListener);
-        mHomePageRecyclerAdapter.setEmptyView(LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null));
-        mHomePageRecyclerAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+        mPlanCategoryRecyclerAdapter = new PlanCategoryRecyclerAdapter(null);
+        mPlanCategoryRecyclerAdapter.setOnRecyclerViewItemClickListener(mItemClickListener);
+        mPlanCategoryRecyclerAdapter.setEmptyView(LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null));
+        mPlanCategoryRecyclerAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                AppLog.d("HomePageRecyclerAdapter onLoadMoreRequested.");
+                AppLog.d("PlanCategoryRecyclerAdapter onLoadMoreRequested.");
             }
         });
 
@@ -111,14 +110,14 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
                 .build());
 
 
-        mRecyclerView.setAdapter(mHomePageRecyclerAdapter);
+        mRecyclerView.setAdapter(mPlanCategoryRecyclerAdapter);
 
     }
 
     private BaseMultiItemQuickAdapter.OnRecyclerViewItemClickListener mItemClickListener = new BaseMultiItemQuickAdapter.OnRecyclerViewItemClickListener() {
         @Override
         public void onItemClick(View view, int i) {
-            HomePageModel model = (HomePageModel) mHomePageRecyclerAdapter.getItem(i);
+            PlanCategoryModel model = (PlanCategoryModel) mPlanCategoryRecyclerAdapter.getItem(i);
 
 //            DialogMessageActivity.launch(getActivity(), msg.getUserFrom(), msg.getUserTo());
             AppLog.d("Recycler View Item Clicked.");
@@ -141,10 +140,10 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
     }
 
     @Override
-    public void showContent(ArrayList<HomePageModel> data) {
+    public void showContent(ArrayList<PlanCategoryModel> data) {
         AppLog.d("data:" + JSON.toJSONString(data));
         if (data != null) {
-            mHomePageRecyclerAdapter.setNewData(data);
+            mPlanCategoryRecyclerAdapter.setNewData(data);
         }
     }
 
@@ -162,7 +161,7 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Home
         @Override
         public void onRefresh() {
             AppLog.d("onRefresh, HomeFragement.");
-            mHomePagePresenter.loadDatas();
+            mPlanCategoryPresenter.loadHomePageDatas();
         }
     };
 }

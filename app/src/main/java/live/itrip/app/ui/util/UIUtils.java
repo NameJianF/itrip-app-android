@@ -9,17 +9,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import live.itrip.app.App;
 import live.itrip.app.ui.DetailPage;
-import live.itrip.app.ui.SimpleBackPage;
 import live.itrip.app.ui.activity.DetailActivity;
 import live.itrip.app.ui.activity.SimpleBackActivity;
+import live.itrip.app.ui.activity.plan.PlanCategoryActivity;
+import live.itrip.app.ui.activity.plan.PlanCategoryPage;
+import live.itrip.app.ui.activity.profile.SimpleBackPage;
 import live.itrip.common.util.AppLog;
 
 /**
@@ -35,7 +34,7 @@ public class UIUtils {
     private final static String STATUS_CLASS_FIELD = "status_bar_height";
 
     /**
-     * 显示设置界面
+     * 显示 设置界面
      *
      * @param context
      */
@@ -43,42 +42,90 @@ public class UIUtils {
         showSimpleBack(context, SimpleBackPage.SETTING);
     }
 
+    /**
+     * 显示 关于页面
+     *
+     * @param context
+     */
     public static void showAbout(Context context) {
         showSimpleBack(context, SimpleBackPage.ABOUT);
     }
 
-
+    /**
+     * 显示 个人资料页面
+     *
+     * @param context
+     * @param args
+     */
     public static void showUserInfo(Context context, Bundle args) {
         showSimpleBack(context, SimpleBackPage.USER_INFORMATION_DETAIL, args);
     }
 
     private static void showSimpleBack(Context context, SimpleBackPage page) {
         Intent intent = new Intent(context, SimpleBackActivity.class);
-        intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
+        intent.putExtra(SimpleBackActivity.EXTRA_PAGE, page.getValue());
         context.startActivity(intent);
     }
 
     private static void showSimpleBack(Context context, SimpleBackPage page,
                                        Bundle args) {
         Intent intent = new Intent(context, SimpleBackActivity.class);
-        intent.putExtra(SimpleBackActivity.BUNDLE_KEY_ARGS, args);
-        intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
+        intent.putExtra(SimpleBackActivity.EXTRA_PAGE, page.getValue());
+        intent.putExtra(SimpleBackActivity.EXTRA_ARGS, args);
         context.startActivity(intent);
     }
 
-
-    public static void showPlanDetailActivity(Context context,Bundle args){
+    /**
+     * 行程详情
+     *
+     * @param context
+     * @param args
+     */
+    public static void showPlanDetailActivity(Context context, Bundle args) {
         showDetailActivity(context, DetailPage.DETAIL_PLAN, args);
     }
 
+    /**
+     * 博客详情
+     *
+     * @param context
+     * @param args
+     */
     public static void showBlogDetailActivity(Context context, Bundle args) {
         showDetailActivity(context, DetailPage.DETAIL_BLOG, args);
     }
 
+    /**
+     * 显示详情页
+     *
+     * @param context
+     * @param page
+     * @param args
+     */
     private static void showDetailActivity(Context context, DetailPage page, Bundle args) {
         Intent intent = new Intent(context, DetailActivity.class);
         intent.putExtra(DetailActivity.BUNDLE_KEY_ARGS, args);
         intent.putExtra(DetailActivity.BUNDLE_KEY_PAGE, page.getValue());
+        context.startActivity(intent);
+    }
+
+
+    /**
+     * 显示自由行页面
+     *
+     * @param context
+     * @param args
+     */
+    public static void showPlanSelfGuided(Context context, Bundle args) {
+        showPlanCategoryActivity(context, PlanCategoryPage.PLAN_SELF_GUIDED, args);
+    }
+
+    private static void showPlanCategoryActivity(Context context, PlanCategoryPage page, Bundle args) {
+        Intent intent = new Intent(context, PlanCategoryActivity.class);
+        intent.putExtra(SimpleBackActivity.EXTRA_PAGE, page.getValue());
+        if (args != null) {
+            intent.putExtra(SimpleBackActivity.EXTRA_ARGS, args);
+        }
         context.startActivity(intent);
     }
 

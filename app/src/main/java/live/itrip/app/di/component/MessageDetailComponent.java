@@ -4,7 +4,7 @@ import dagger.Component;
 import live.itrip.app.di.PerActivity;
 import live.itrip.app.di.module.ActivityModule;
 import live.itrip.app.di.module.MessageModule;
-import live.itrip.app.ui.activity.DialogMessageActivity;
+import live.itrip.app.ui.activity.profile.DialogMessageActivity;
 
 /**
  * Created by Feng on 2017/7/6.

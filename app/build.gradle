@@ -102,7 +102,7 @@ dependencies {
 
     // NavigationTabBar
     // https://github.com/Devlight/NavigationTabBar
-    compile 'devlight.io:navigationtabbar:1.2.5'
+//    compile 'devlight.io:navigationtabbar:1.2.5'
 
     // spots-dialog
     // https://github.com/d-max/spots-dialog

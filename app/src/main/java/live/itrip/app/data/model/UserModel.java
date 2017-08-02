@@ -3,10 +3,12 @@ package live.itrip.app.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by Feng on 2017/4/26.
  */
-public class UserModel implements Parcelable {
+public class UserModel implements Parcelable, Serializable {
     private Long id;
     private String userName;
     private String email;
@@ -21,7 +23,7 @@ public class UserModel implements Parcelable {
     private String level;
     private String status;
     private String identity;
-    private Long createTime;
+//    private Long createTime;
     private String token;
 
     protected UserModel(Parcel in) {
@@ -39,7 +41,7 @@ public class UserModel implements Parcelable {
         level = in.readString();
         status = in.readString();
         identity = in.readString();
-        createTime = in.readLong();
+//        createTime = in.readLong();
         token = in.readString();
     }
 
@@ -76,7 +78,7 @@ public class UserModel implements Parcelable {
         dest.writeString(level);
         dest.writeString(status);
         dest.writeString(identity);
-        dest.writeLong(createTime);
+//        dest.writeLong(createTime);
         dest.writeString(token);
     }
 
@@ -193,13 +195,13 @@ public class UserModel implements Parcelable {
         this.identity = identity;
     }
 
-    public Long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
+//    public Long getCreateTime() {
+//        return createTime;
+//    }
+//
+//    public void setCreateTime(Long createTime) {
+//        this.createTime = createTime;
+//    }
 
     public String getToken() {
         return token;

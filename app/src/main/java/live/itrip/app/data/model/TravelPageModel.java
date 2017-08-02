@@ -44,15 +44,15 @@ public class TravelPageModel extends MultiItemEntity implements Parcelable {
         itemList = in.readArrayList(ChildMultiItem.class.getClassLoader());
     }
 
-    public static final Creator<HomePageModel> CREATOR = new Creator<HomePageModel>() {
+    public static final Creator<PlanCategoryModel> CREATOR = new Creator<PlanCategoryModel>() {
         @Override
-        public HomePageModel createFromParcel(Parcel in) {
-            return new HomePageModel(in);
+        public PlanCategoryModel createFromParcel(Parcel in) {
+            return new PlanCategoryModel(in);
         }
 
         @Override
-        public HomePageModel[] newArray(int size) {
-            return new HomePageModel[size];
+        public PlanCategoryModel[] newArray(int size) {
+            return new PlanCategoryModel[size];
         }
     };
 

@@ -4,22 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
-
-import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import live.itrip.app.App;
 import live.itrip.app.R;
-import live.itrip.app.adapter.ViewPagerAdapter;
+import live.itrip.app.adapter.fragment.ViewPagerAdapter;
 import live.itrip.app.di.HasComponent;
 import live.itrip.app.di.component.DaggerMainComponent;
 import live.itrip.app.di.component.MainComponent;
 import live.itrip.app.di.module.ActivityModule;
-import live.itrip.app.ui.SimpleBackPage;
+import live.itrip.app.ui.activity.profile.SimpleBackPage;
 import live.itrip.app.ui.base.BaseActivity;
 import live.itrip.app.ui.base.BaseFragment;
 import live.itrip.common.util.AppLog;
@@ -29,20 +24,18 @@ import live.itrip.common.util.AppLog;
  */
 
 public class SimpleBackActivity extends BaseActivity implements HasComponent<MainComponent> {
-    @BindView(R.id.vp_horizontal_ntb)
+    @BindView(R.id.viewPager)
     ViewPager mViewPager;
 
-    private ViewPagerAdapter mViewPagerAdapter;
-    private FragmentManager mFragmentManager = getSupportFragmentManager();
-
-    public final static String BUNDLE_KEY_PAGE = "BUNDLE_KEY_PAGE";
-    public final static String BUNDLE_KEY_ARGS = "BUNDLE_KEY_ARGS";
+    public final static String EXTRA_PAGE = "EXTRA_PAGE";
+    public final static String EXTRA_ARGS = "EXTRA_ARGS";
     protected int mPageValue = -1;
 
     @Override
     protected int getContentView() {
         return R.layout.activity_simple_fragment;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +43,10 @@ public class SimpleBackActivity extends BaseActivity implements HasComponent<Mai
 
         Intent intent = getIntent();
         if (mPageValue == -1) {
-            mPageValue = intent.getIntExtra(BUNDLE_KEY_PAGE, 0);
+            mPageValue = intent.getIntExtra(EXTRA_PAGE, 0);
         }
 
         initViews(mPageValue, getIntent());
-
-
         AppLog.d("trace===SimpleBackActivity onCreate, end");
     }
 
@@ -69,19 +60,21 @@ public class SimpleBackActivity extends BaseActivity implements HasComponent<Mai
         if (data == null) {
             throw new RuntimeException("you must provide a page info to display");
         }
+
         SimpleBackPage page = SimpleBackPage.getPageByValue(pageValue);
         if (page == null) {
             throw new IllegalArgumentException("can not find page by value:" + pageValue);
         }
 
+        this.setActionBarTitle(getString(page.getTitle()));
         try {
             BaseFragment fragment = (BaseFragment) page.getClz().newInstance();
 
-            mViewPagerAdapter = new ViewPagerAdapter(mFragmentManager);
+            ViewPagerAdapter mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
             mViewPagerAdapter.addFragment(fragment);
             mViewPager.setAdapter(mViewPagerAdapter);
 
-            Bundle args = data.getBundleExtra(BUNDLE_KEY_ARGS);
+            Bundle args = data.getBundleExtra(EXTRA_ARGS);
             if (args != null) {
                 fragment.setArguments(args);
             }
@@ -93,7 +86,7 @@ public class SimpleBackActivity extends BaseActivity implements HasComponent<Mai
         }
     }
 
-    public void setToolBarTitle(String title){
+    public void setToolBarTitle(String title) {
         this.setActionBarTitle(title);
     }
 
