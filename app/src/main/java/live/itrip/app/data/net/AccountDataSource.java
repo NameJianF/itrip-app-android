@@ -44,6 +44,8 @@ public class AccountDataSource implements AccountApi {
         createAuthorization.setOp(Constants.ApiOp.OP_LOGIN);
         CreateAuthorization.LoginData loginData = new CreateAuthorization.LoginData();
         loginData.setEmail(username);
+//        loginData.setPassword(password);
+        // 采用密文
         loginData.setPassword(password);
         createAuthorization.setData(loginData);
 

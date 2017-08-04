@@ -27,7 +27,7 @@ import live.itrip.common.util.AppLog;
 
 public class UserMessageActivity extends BaseActivity implements HasComponent<MainComponent> {
 
-    @BindView(R.id.tabs)
+    @BindView(R.id.pager_sliding_tabs)
     PagerSlidingTabStrip mTabs;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;

@@ -22,7 +22,7 @@ import live.itrip.common.util.AppLog;
  */
 
 public class AboutFragment extends BaseFragment {
-    @BindView(R.id.tv_version_name)
+    @BindView(R.id.text_view_version_name)
     TextView mTvVersionName;
 
 
@@ -42,16 +42,16 @@ public class AboutFragment extends BaseFragment {
 
 
     @OnClick({
-            R.id.tv_site, R.id.tv_knowmore
+            R.id.text_view_site, R.id.text_view_more
     })
     public void OnClick(View v) {
         final int id = v.getId();
         switch (id) {
-            case R.id.tv_site:
-                UIUtils.openInternalBrowser(getActivity(), "http://www.itrip.live");
+            case R.id.text_view_site:
+                UIUtils.openInternalBrowser(getActivity(), "http://www.tourin.cn");
                 break;
-            case R.id.tv_knowmore:
-                UIUtils.openInternalBrowser(getActivity(), "http://www.itrip.live/about.html");
+            case R.id.text_view_more:
+                UIUtils.openInternalBrowser(getActivity(), "http://www.tourin.cn/about.html");
                 break;
             default:
                 break;

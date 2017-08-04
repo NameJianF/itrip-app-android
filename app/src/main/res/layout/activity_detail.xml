@@ -13,7 +13,7 @@
         android:minHeight="?attr/actionBarSize">
 
         <TextView
-            android:id="@+id/toolbarTitle"
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -27,7 +27,7 @@
         android:background="@color/green">
 
         <LinearLayout
-            android:id="@+id/ll_comment"
+            android:id="@+id/linear_layout_comment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
@@ -35,7 +35,7 @@
             android:visibility="visible">
 
             <FrameLayout
-                android:id="@+id/lay_container"
+                android:id="@+id/frame_layout_container"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -50,7 +50,7 @@
         </LinearLayout>
 
         <live.itrip.app.ui.widget.EmptyLayout
-            android:id="@+id/lay_error"
+            android:id="@+id/empty_layout_error"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone" />

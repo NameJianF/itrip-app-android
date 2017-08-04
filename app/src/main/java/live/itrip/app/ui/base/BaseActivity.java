@@ -29,7 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         // set toolbar
         Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
         if(mToolBar != null) {
-            mToolbarTitle = (TextView) findViewById(R.id.toolbarTitle);
+            mToolbarTitle = (TextView) findViewById(R.id.toolbar_title);
             setSupportActionBar(mToolBar);
             ActionBar mActionBar = this.getSupportActionBar();
             if (mActionBar != null) {

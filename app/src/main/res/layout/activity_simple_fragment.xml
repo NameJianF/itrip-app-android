@@ -12,7 +12,7 @@
         android:minHeight="?attr/actionBarSize">
 
         <TextView
-            android:id="@+id/toolbarTitle"
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -21,7 +21,7 @@
     </android.support.v7.widget.Toolbar>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

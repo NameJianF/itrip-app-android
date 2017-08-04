@@ -38,13 +38,13 @@ import live.itrip.common.util.InputMethodUtils;
 
 public class LoginActivity extends BaseLoadingActivity implements LoginView, HasComponent<AccountComponent> {
 
-    @BindView(R.id.icon)
+    @BindView(R.id.image_view_icon)
     ImageView mIcon;
-    @BindView(R.id.username)
+    @BindView(R.id.edit_text_user_name)
     EditText mUsername;
-    @BindView(R.id.password)
+    @BindView(R.id.edit_text_password)
     EditText mPassword;
-    @BindView(R.id.login_btn)
+    @BindView(R.id.button_login)
     Button mLoginBtn;
 
     @Inject
@@ -86,7 +86,7 @@ public class LoginActivity extends BaseLoadingActivity implements LoginView, Has
         mPresenter.detachView();
     }
 
-    @OnClick(R.id.login_btn)
+    @OnClick(R.id.button_login)
     public void onClick() {
 
         String username = mUsername.getText().toString();

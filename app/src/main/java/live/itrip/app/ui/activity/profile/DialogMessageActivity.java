@@ -39,9 +39,9 @@ import live.itrip.common.util.AppLog;
 public class DialogMessageActivity extends BaseActivity implements LceView<ArrayList<MessageModel>>, HasComponent<MessageDetailComponent> {
     @BindView(R.id.root)
     CoordinatorLayout mCoordinatorLayout;
-    @BindView(R.id.refreshLayout)
+    @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    @BindView(R.id.recyclerView)
+    @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
     @Inject

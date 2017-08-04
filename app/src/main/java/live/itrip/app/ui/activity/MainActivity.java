@@ -31,9 +31,9 @@ import live.itrip.common.util.AppLog;
 
 public class MainActivity extends BaseActivity implements HasComponent<MainComponent> {
 
-    @BindView(R.id.vp_horizontal_ntb)
+    @BindView(R.id.view_pager)
     ViewPager mViewPager;
-    @BindView(R.id.space)
+    @BindView(R.id.space_navigation_view)
     SpaceNavigationView mSpaceNavigationView;
 
     private ViewPagerAdapter mViewPagerAdapter;

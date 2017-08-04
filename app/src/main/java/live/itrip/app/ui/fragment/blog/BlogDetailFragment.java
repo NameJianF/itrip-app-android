@@ -44,11 +44,11 @@ public class BlogDetailFragment extends BaseDetailFragment implements LceView<Bl
     ImageView mImageOriginate;
     @BindView(R.id.iv_label_reprint)
     ImageView mImageReprint;
-    @BindView(R.id.iv_avatar)
+    @BindView(R.id.image_view_avatar)
     ImageView mImageAvatar;
     @BindView(R.id.identityView)
     IdentityView mIdentityView;
-    @BindView(R.id.tv_name)
+    @BindView(R.id.text_view_name)
     TextView mTextName;
     @BindView(R.id.tv_pub_date)
     TextView mTextPubDate;
@@ -58,8 +58,8 @@ public class BlogDetailFragment extends BaseDetailFragment implements LceView<Bl
     TextView mTextAbstract;
     @BindView(R.id.btn_relation)
     Button mBtnRelation;
-    @BindView(R.id.lay_nsv)
-    NestedScrollView mViewScroller;
+//    @BindView(R.id.nested_scroll_view)
+//    NestedScrollView mViewScroller;
     @BindView(R.id.webView)
     ExtendWebView mExtendWebView;
     @BindView(R.id.lay_detail_recommend)

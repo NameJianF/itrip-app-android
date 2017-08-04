@@ -49,11 +49,11 @@ import live.itrip.common.util.AppLog;
  * Created by Feng on 2017/7/24.
  */
 public class DetailActivity extends BaseActivity implements DetailContract.EmptyView, OnCommentClickListener, HasComponent<MainComponent> {
-    @BindView(R.id.ll_comment)
+    @BindView(R.id.linear_layout_comment)
     LinearLayout mLinearLayoutComment;
-    @BindView(R.id.lay_container)
+    @BindView(R.id.frame_layout_container)
     FrameLayout mFrameLayout;
-    @BindView(R.id.lay_error)
+    @BindView(R.id.empty_layout_error)
     EmptyLayout mEmptyLayout;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
@@ -366,7 +366,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
     }
 
 
-    public void setToolBarTitle(String title){
+    public void setToolBarTitle(String title) {
         this.setActionBarTitle(title);
     }
 

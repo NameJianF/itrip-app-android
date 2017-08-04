@@ -39,7 +39,7 @@ import live.itrip.common.util.AppLog;
 
 public class RecyclerViewActivity extends BaseLoadingActivity implements LceView<ArrayList<RecyclerViewItem>>, HasComponent<RecyclerViewComponent> {
 
-    @BindView(R.id.model_list)
+    @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     @Inject
     public RecyclerViewPresenter mRecyclerViewPresenter;

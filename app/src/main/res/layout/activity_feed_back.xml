@@ -14,7 +14,7 @@
         android:minHeight="?attr/actionBarSize">
 
         <TextView
-            android:id="@+id/toolbarTitle"
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -33,7 +33,7 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/rb_error"
+            android:id="@+id/radio_button_error"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -41,6 +41,7 @@
             android:text="@string/program_error_hint" />
 
         <RadioButton
+            android:id="@+id/radio_button_suggestion"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dimen_12"
@@ -50,7 +51,7 @@
     </RadioGroup>
 
     <EditText
-        android:id="@+id/et_feed_back"
+        android:id="@+id/edit_text_feed_back"
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:layout_marginBottom="@dimen/dimen_12"
@@ -59,7 +60,8 @@
         android:background="@color/white"
         android:gravity="top"
         android:hint="@string/feedback_hint"
-        android:padding="@dimen/dimen_8" />
+        android:padding="@dimen/dimen_8"
+        android:textSize="@dimen/font_16"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -73,7 +75,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_add"
+            android:id="@+id/image_view_add"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginBottom="@dimen/dimen_12"
@@ -86,7 +88,7 @@
             android:src="@mipmap/ic_tweet_add" />
 
         <ImageView
-            android:id="@+id/iv_clear_img"
+            android:id="@+id/image_view_clear"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="right"
@@ -99,7 +101,7 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/btn_commit"
+        android:id="@+id/button_commit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimen_12"

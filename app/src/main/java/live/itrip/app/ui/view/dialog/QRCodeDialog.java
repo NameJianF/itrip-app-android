@@ -19,6 +19,7 @@ import com.google.zxing.WriterException;
 
 import java.io.File;
 
+import butterknife.BindView;
 import live.itrip.app.R;
 import live.itrip.app.data.PreferenceData;
 import live.itrip.app.ui.util.ImageUtils;
@@ -30,7 +31,9 @@ import live.itrip.common.util.QrCodeUtils;
  */
 public class QRCodeDialog extends Dialog {
 
-    private ImageView mIvCode;
+    @BindView(R.id.image_view_code)
+    ImageView mIvCode;
+
     private Bitmap bitmap;
 
     public QRCodeDialog(Context context) {
@@ -46,7 +49,7 @@ public class QRCodeDialog extends Dialog {
         super(context, defStyle);
         View contentView = getLayoutInflater().inflate(
                 R.layout.dialog_qr_code, null);
-        mIvCode = (ImageView) contentView.findViewById(R.id.iv_qr_code);
+
         try {
             bitmap = QrCodeUtils.Create2DCode(String.format(
                     "http://itrip.live/u/%s", PreferenceData.Account.getUserId()));

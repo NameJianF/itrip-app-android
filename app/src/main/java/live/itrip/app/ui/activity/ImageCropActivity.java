@@ -37,16 +37,15 @@ import live.itrip.common.util.AppLog;
  */
 
 public class ImageCropActivity extends BaseActivity implements HasComponent<ImageCropComponent> {
-    private ActionBar mActionBar;
 
-    private static final String TAG = "CropActivity";
+    private static final String TAG = "ImageCropActivity";
 
-    @BindView(R.id.weixin_act_ucrop)
+    @BindView(R.id.ucrop_view)
     UCropView mUCropView;
     GestureCropImageView mGestureCropImageView;
     OverlayView mOverlayView;
 
-    @BindView(R.id.crop_act_save_fab)
+    @BindView(R.id.floating_button_save)
     FloatingActionButton mSaveFab;
 
     private Uri mOutputUri;
@@ -78,12 +77,7 @@ public class ImageCropActivity extends BaseActivity implements HasComponent<Imag
     }
 
     private void initViews() {
-        mActionBar = this.getSupportActionBar();
-        if (mActionBar != null) {
-            mActionBar.setDisplayHomeAsUpEnabled(true);
-            mActionBar.setDisplayShowHomeEnabled(true);
-            mActionBar.setTitle("裁剪图片");
-        }
+        this.setActionBarTitle("裁剪图片");
 
         mGestureCropImageView = mUCropView.getCropImageView();
         mOverlayView = mUCropView.getOverlayView();

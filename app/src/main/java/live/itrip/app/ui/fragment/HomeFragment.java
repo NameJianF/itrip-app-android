@@ -150,11 +150,14 @@ public class HomeFragment extends BaseFragment implements LceView<ArrayList<Plan
     @Override
     public void showError(Throwable e) {
         AppLog.e(e);
+//        mPlanCategoryRecyclerAdapter.setEmptyView(LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null));
     }
 
     @Override
     public void showEmpty() {
         // TODO
+//        mPlanCategoryRecyclerAdapter.setEmptyView(LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null));
+
     }
 
     private SwipeRefreshLayout.OnRefreshListener mRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {

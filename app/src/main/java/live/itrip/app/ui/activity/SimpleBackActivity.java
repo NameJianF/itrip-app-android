@@ -24,7 +24,7 @@ import live.itrip.common.util.AppLog;
  */
 
 public class SimpleBackActivity extends BaseActivity implements HasComponent<MainComponent> {
-    @BindView(R.id.viewPager)
+    @BindView(R.id.view_pager)
     ViewPager mViewPager;
 
     public final static String EXTRA_PAGE = "EXTRA_PAGE";
