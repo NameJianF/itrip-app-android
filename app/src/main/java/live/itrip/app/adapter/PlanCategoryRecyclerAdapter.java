@@ -47,30 +47,31 @@ public class PlanCategoryRecyclerAdapter extends BaseMultiItemQuickAdapter<PlanC
 
     @Override
     protected void convert(BaseViewHolder holder, PlanCategoryModel planCategoryModel) {
-        switch (holder.getItemViewType()) {
-            case PlanCategoryModel.ITEM_BANNER:
-                initViewBanner(holder, planCategoryModel);
-                break;
-            case PlanCategoryModel.ITEM_NAV:
-                initViewNav(holder, planCategoryModel);
-                break;
-            case PlanCategoryModel.ITEM_NEW_PLAN:
-                initViewNewPlan(holder, planCategoryModel);
-                break;
-            case PlanCategoryModel.ITEM_HOT:
-                initViewHot(holder, planCategoryModel);
-                break;
-            case PlanCategoryModel.ITEM_LIST:
-                initViewList(holder, planCategoryModel);
-                break;
-            case PlanCategoryModel.ITEM_BLOG:
-                initViewBlog(holder, planCategoryModel);
-                break;
-            case PlanCategoryModel.ITEM_AD:
-                initViewAD(holder, planCategoryModel);
-                break;
+        if (holder.getItemViewType() >= 0) {
+            switch (holder.getItemViewType()) {
+                case PlanCategoryModel.ITEM_BANNER:
+                    initViewBanner(holder, planCategoryModel);
+                    break;
+                case PlanCategoryModel.ITEM_NAV:
+                    initViewNav(holder, planCategoryModel);
+                    break;
+                case PlanCategoryModel.ITEM_NEW_PLAN:
+                    initViewNewPlan(holder, planCategoryModel);
+                    break;
+                case PlanCategoryModel.ITEM_HOT:
+                    initViewHot(holder, planCategoryModel);
+                    break;
+                case PlanCategoryModel.ITEM_LIST:
+                    initViewList(holder, planCategoryModel);
+                    break;
+                case PlanCategoryModel.ITEM_BLOG:
+                    initViewBlog(holder, planCategoryModel);
+                    break;
+                case PlanCategoryModel.ITEM_AD:
+                    initViewAD(holder, planCategoryModel);
+                    break;
+            }
         }
-
     }
 
 
@@ -116,7 +117,6 @@ public class PlanCategoryRecyclerAdapter extends BaseMultiItemQuickAdapter<PlanC
         });
         //banner设置方法全部调用完毕时最后调用
         mBanner.start();
-
 
     }
 

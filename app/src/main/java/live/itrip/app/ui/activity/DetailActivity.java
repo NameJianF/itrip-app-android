@@ -25,6 +25,7 @@ import live.itrip.app.R;
 import live.itrip.app.adapter.fragment.ViewPagerAdapter;
 import live.itrip.app.cache.DetailCache;
 import live.itrip.app.data.PreferenceData;
+import live.itrip.app.data.model.BaseDetailModel;
 import live.itrip.app.data.model.BlogDetailModel;
 import live.itrip.app.data.model.CommentModel;
 import live.itrip.app.di.HasComponent;
@@ -48,7 +49,7 @@ import live.itrip.common.util.AppLog;
 /**
  * Created by Feng on 2017/7/24.
  */
-public class DetailActivity extends BaseActivity implements DetailContract.EmptyView, OnCommentClickListener, HasComponent<MainComponent> {
+public class DetailActivity extends BaseActivity implements OnCommentClickListener, HasComponent<MainComponent> {
     @BindView(R.id.linear_layout_comment)
     LinearLayout mLinearLayoutComment;
     @BindView(R.id.frame_layout_container)
@@ -69,7 +70,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
 
     private Long extraBlogId = 0L;
     private String mCommentHint;
-    private BlogDetailModel mBlogModel;
+    private BaseDetailModel mDetailModel;
     private long mCommentId;
     private long mCommentAuthorId;
     private boolean mInputEmpty = false;
@@ -119,8 +120,8 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
         mCommentBar = CommentBar.delegation(this, mLinearLayoutComment);
         mCommentBar.setCommentHint(mCommentHint);
         mCommentBar.getBottomSheet().getEditText().setHint(mCommentHint);
-        if (mBlogModel != null) {
-            mCommentBar.setFavDrawable(mBlogModel.getFavorite() == 1 ? R.drawable.ic_faved : R.drawable.ic_fav);
+        if (mDetailModel != null) {
+            mCommentBar.setFavDrawable(mDetailModel.getFavorite() == 1 ? R.drawable.ic_faved : R.drawable.ic_fav);
         } else {
             mCommentBar.setFavDrawable(R.drawable.ic_fav);
 
@@ -141,8 +142,8 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
             public void onClick(View v) {
                 // test
                 toShare("测试数据title", "测试数据title", "http://www.tourin.cn/index.html");
-                if (mBlogModel != null) {
-                    toShare(mBlogModel.getTitle(), mBlogModel.getBody(), mBlogModel.getHref());
+                if (mDetailModel != null) {
+//                    toShare(mDetailModel.getTitle(), mDetailModel.getBody(), mDetailModel.getHref());
                 }
             }
         });
@@ -165,13 +166,13 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
 
                 mCommentBar.getBottomSheet().dismiss();
                 mCommentBar.setCommitButtonEnable(false);
-                if (mBlogModel != null) {
-                    getDetailPresenter().addComment(mBlogModel.getId(),
-                            mBlogModel.getType(),
-                            mCommentBar.getBottomSheet().getCommentText(),
-                            0,
-                            mCommentId,
-                            mCommentAuthorId);
+                if (mDetailModel != null) {
+//                    getDetailPresenter().addComment(mDetailModel.getId(),
+//                            mDetailModel.getType(),
+//                            mCommentBar.getBottomSheet().getCommentText(),
+//                            0,
+//                            mCommentId,
+//                            mCommentAuthorId);
                 }
             }
         });
@@ -211,37 +212,33 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
             mCommentCountView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    CommentsActivity.show(DetailActivity.this, mBlogModel.getId(), mBlogModel.getType(), OSChinaApi.COMMENT_NEW_ORDER, mBlogModel.getTitle());
+//                    CommentsActivity.show(DetailActivity.this, mDetailModel.getId(), mDetailModel.getType(), OSChinaApi.COMMENT_NEW_ORDER, mDetailModel.getTitle());
                     ToastUtils.showToast("CommentsActivity show.");
                 }
             });
         }
     }
 
-    @Override
     public void showErrorLayout(int errorType) {
         mEmptyLayout.setErrorType(errorType);
     }
 
-    @Override
-    public void showGetDetailSuccess(BlogDetailModel model) {
-        this.mBlogModel = model;
+    public void showGetDetailSuccess(BaseDetailModel model) {
+        this.mDetailModel = model;
         if (mCommentBar != null) {
-            mCommentBar.setFavDrawable(mBlogModel.getFavorite() == 1 ? R.drawable.ic_faved : R.drawable.ic_fav);
+            mCommentBar.setFavDrawable(mDetailModel.getFavorite() == 1 ? R.drawable.ic_faved : R.drawable.ic_fav);
         }
-        if (mCommentCountView != null && mBlogModel.getStatistics() != null) {
-            mCommentCountView.setText(String.valueOf(mBlogModel.getStatistics().getComment()));
+        if (mCommentCountView != null) {
+            mCommentCountView.setText(String.valueOf(mDetailModel.getCommentCount()));
         }
     }
 
-    @Override
     public void showFavReverseSuccess(boolean isFav, int favCount, int strId) {
         if (mCommentBar != null) {
             mCommentBar.setFavDrawable(isFav ? R.drawable.ic_faved : R.drawable.ic_fav);
         }
     }
 
-    @Override
     public void showCommentSuccess(CommentModel comment) {
         if (mCommentBar == null)
             return;
@@ -260,7 +257,6 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
         mCommentBar.getBottomSheet().dismiss();
     }
 
-    @Override
     public void showCommentError(String message) {
 //        AppContext.showToastShort(R.string.pub_comment_failed);
         ToastUtils.showToast(getBaseContext().getResources().getString(R.string.pub_comment_failed));
@@ -290,12 +286,12 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
         mAlertDialog.show();
 
         /*
-        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(url) || mBlogModel == null)
+        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(url) || mDetailModel == null)
             return false;
 
         String imageUrl = null;
-//        List<BlogDetailModel.Image> images = mBlogModel.getImages();
-        switch (mBlogModel.getType()) {
+//        List<BlogDetailModel.Image> images = mDetailModel.getImages();
+        switch (mDetailModel.getType()) {
 //            case News.TYPE_EVENT:
 //                if (images != null && images.size() > 0) {
 //                    imageUrl = images.get(0).getHref();
@@ -333,8 +329,8 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
         // 分享
         if (mAlertDialog == null) {
             mAlertDialog = new
-                    ShareDialog(this, mBlogModel.getId())
-                    .type(mBlogModel.getType())
+                    ShareDialog(this, mDetailModel.getId())
+                    .type(mDetailModel.getType())
                     .title(title)
                     .content(content)
                     .imageUrl(imageUrl)//如果没有图片，即url为null，直接加入app默认分享icon
@@ -349,10 +345,10 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
      * backspage 退格
      */
     protected void handleKeyDel() {
-//        if (mCommentId != mBlogModel.getId()) {
+//        if (mCommentId != mDetailModel.getId()) {
 //            if (TextUtils.isEmpty(mCommentBar.getBottomSheet().getCommentText())) {
 //                if (mInputEmpty) {
-//                    mCommentId = mBlogModel.getId();
+//                    mCommentId = mDetailModel.getId();
 //                    mCommentAuthorId = 0;
 //                    mCommentBar.setCommentHint(mCommentHint);
 //                    mCommentBar.getBottomSheet().getEditText().setHint(mCommentHint);
@@ -382,8 +378,8 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
                 View tv = action.findViewById(R.id.tv_comment_count);
                 if (tv != null) {
                     mCommentCountView = (TextView) tv;
-                    if (mBlogModel != null && mBlogModel.getStatistics() != null)
-                        mCommentCountView.setText(mBlogModel.getStatistics().getComment() + "");
+                    if (mDetailModel != null)
+                        mCommentCountView.setText(mDetailModel.getCommentCount() + "");
                 }
             }
         }
@@ -401,7 +397,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.Empty
     @Override
     public void finish() {
         if (mEmptyLayout.getErrorState() == EmptyLayout.HIDE_LAYOUT) {
-            DetailCache.addCache(mBlogModel);
+            DetailCache.addCache(mDetailModel);
         }
         super.finish();
     }

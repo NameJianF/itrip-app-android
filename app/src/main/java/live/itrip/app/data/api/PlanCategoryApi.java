@@ -1,6 +1,6 @@
 package live.itrip.app.data.api;
 
-import android.support.annotation.IntDef;
+import android.support.annotation.StringDef;
 
 import java.util.ArrayList;
 
@@ -15,25 +15,25 @@ public interface PlanCategoryApi {
     /**
      * 自由行
      */
-    int FLAG_SELF_GUIDED = 1;
+    String FLAG_SELF_GUIDED = "1";
     /**
      * 跟团游
      */
-    int FLAG_GROUP_TRAVEL = 2;
+    String FLAG_GROUP_TRAVEL = "2";
     /**
      * 主题旅游
      */
-    int FLAG_THEME_TRAVEL = 3;
+    String FLAG_THEME_TRAVEL = "3";
     /**
      * 乡村民宿
      */
-    int FLAG_COUNTRY_INN = 4;
+    String FLAG_COUNTRY_INN = "4";
     /**
      * 旅行服务
      */
-    int FLAG_TRAVEL_SERVICE = 5;
+    String FLAG_TRAVEL_SERVICE = "5";
 
-    @IntDef({
+    @StringDef({
             FLAG_SELF_GUIDED,
             FLAG_GROUP_TRAVEL,
             FLAG_THEME_TRAVEL,
@@ -52,5 +52,5 @@ public interface PlanCategoryApi {
      * @param flag     标记，如城市
      * @return
      */
-    Observable<ArrayList<PlanCategoryModel>> loadCategoryPlans(@PlanCategory int category, int flag);
+    Observable<ArrayList<PlanCategoryModel>> loadCategoryPlans(@PlanCategory String category, int flag);
 }

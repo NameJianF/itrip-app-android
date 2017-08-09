@@ -16,6 +16,7 @@ public class ChildMultiItem extends MultiItemEntity implements Parcelable {
 
     private Long id;
     private String title;
+    private String subTitle;
     private String imageUrl;
 
     // 行程采用
@@ -30,6 +31,7 @@ public class ChildMultiItem extends MultiItemEntity implements Parcelable {
     protected ChildMultiItem(Parcel in) {
         id = in.readLong();
         title = in.readString();
+        subTitle = in.readString();
         imageUrl = in.readString();
         itemType = in.readInt();
         price = in.readInt();
@@ -65,6 +67,14 @@ public class ChildMultiItem extends MultiItemEntity implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
     }
 
     public String getImageUrl() {
@@ -124,6 +134,7 @@ public class ChildMultiItem extends MultiItemEntity implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
         dest.writeString(title);
+        dest.writeString(subTitle);
         dest.writeString(imageUrl);
         dest.writeInt(itemType);
         dest.writeInt(price);

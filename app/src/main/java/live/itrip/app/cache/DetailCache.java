@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Date;
 
+import live.itrip.app.data.model.BaseDetailModel;
 import live.itrip.app.data.model.BlogDetailModel;
 import live.itrip.common.util.AppLog;
 
@@ -56,29 +57,23 @@ public class DetailCache {
     /**
      * 添加到缓存文件
      */
-    public static void addCache(BlogDetailModel model) {
+    public static void addCache(BaseDetailModel model) {
         if (model == null)
             return;
-        String name = model.getId() + String.valueOf(model.getType());
+        String name = model.getId() + "";// + String.valueOf(model.getType());
         String path = (model.getFavorite() == 1 ? COLLECTION_CACHE : CUSTOM_CACHE)
                 + name;
         File file = new File(path);
-        FileOutputStream os = null;
-        try {
+//        FileOutputStream os = null;
+        try(FileOutputStream os = new FileOutputStream(file)) {
             if (!file.exists())
                 file.createNewFile();
-            os = new FileOutputStream(file);
+//            os = new FileOutputStream(file);
             os.write(new Gson().toJson(model).getBytes());
             os.flush();
             os.close();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                os.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 

@@ -6,60 +6,60 @@ import android.support.v4.widget.NestedScrollView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.alibaba.fastjson.JSON;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import live.itrip.app.R;
+import live.itrip.app.bean.Recommend;
+import live.itrip.app.data.model.ChildMultiItem;
 import live.itrip.app.data.model.PlanDetailModel;
 import live.itrip.app.di.component.MainComponent;
 import live.itrip.app.presenter.interfaces.IDetailPresenter;
 import live.itrip.app.presenter.plan.PlanDetailPresenter;
 import live.itrip.app.ui.activity.DetailActivity;
 import live.itrip.app.ui.base.BaseDetailFragment;
+import live.itrip.app.ui.util.PicassoImageLoader;
 import live.itrip.app.ui.util.ToastUtils;
+import live.itrip.app.ui.view.DetailView;
 import live.itrip.app.ui.widget.DetailRecommendView;
 import live.itrip.app.ui.widget.EmptyLayout;
 import live.itrip.app.ui.widget.ExtendWebView;
-import live.itrip.app.ui.widget.IdentityView;
-import live.itrip.common.mvp.view.LceView;
+import live.itrip.common.util.AppLog;
+import live.itrip.common.util.StringUtils;
 
 /**
  * Created by Feng on 2017/7/24.
  */
 
-public class PlanDetailFragment extends BaseDetailFragment implements LceView<PlanDetailModel> {
-    @BindView(R.id.iv_label_today)
-    ImageView mImageToday;
-    @BindView(R.id.iv_label_recommend)
+public class PlanDetailFragment extends BaseDetailFragment implements DetailView<PlanDetailModel> {
+    @BindView(R.id.image_view_plan)
+    ImageView mImageViewPlan;     // 顶端大图
+
+    @BindView(R.id.image_view_recommend)
     ImageView mImageRecommend;
-    @BindView(R.id.iv_label_originate)
-    ImageView mImageOriginate;
-    @BindView(R.id.iv_label_reprint)
-    ImageView mImageReprint;
-    @BindView(R.id.iv_avatar)
-    ImageView mImageAvatar;
-    @BindView(R.id.identityView)
-    IdentityView mIdentityView;
-    @BindView(R.id.tv_name)
-    TextView mTextName;
-    @BindView(R.id.tv_pub_date)
-    TextView mTextPubDate;
     @BindView(R.id.tv_title)
     TextView mTextTitle;
-    @BindView(R.id.tv_detail_abstract)
-    TextView mTextAbstract;
-    @BindView(R.id.btn_relation)
-    Button mBtnRelation;
+    @BindView(R.id.linear_layout_share)
+    LinearLayout mLinearLayoutShare;   // 分享
+
+    @BindView(R.id.text_view_price)
+    TextView mTextViewPrice;   // 价格
+    @BindView(R.id.text_view_participate)
+    TextView mTextViewParticipate;   // 销售数量
+
     @BindView(R.id.lay_nsv)
     NestedScrollView mViewScroller;
-    @BindView(R.id.webView)
+    @BindView(R.id.extend_web_view)
     ExtendWebView mExtendWebView;
     @BindView(R.id.lay_detail_recommend)
     DetailRecommendView mDetailRecommendView;
@@ -107,84 +107,126 @@ public class PlanDetailFragment extends BaseDetailFragment implements LceView<Pl
     private void initViews() {
         // set title
         ((DetailActivity) getActivity()).setToolBarTitle("行程详情");
+        mDetailRecommendView.setTitle("相关行程");
 
-        mBtnRelation.setOnClickListener(new View.OnClickListener() {
+        mLinearLayoutShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mPlanDetail.getAuthor() != null) {
-                    mPlanDetailPresenter.addUserRelation(mPlanDetail.getAuthor().getId());
-                }
+                ToastUtils.showToast("LinearLayout Share Clicked.");
             }
         });
-        mDetailRecommendView.setTitle("相关文章");
-        mImageAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mPlanDetail != null && mPlanDetail.getAuthor() != null) {
-//                    OtherUserHomeActivity.show(mContext, mPlanDetail.getAuthor());
-                    ToastUtils.showToast("Image Avatar Clicked.");
-                }
-            }
-        });
+
+    }
+
+    private DetailActivity getDetailActivity(){
+        return (DetailActivity) getActivity();
     }
 
     @Override
     public void showLoading() {
-        DetailActivity activity = (DetailActivity) getActivity();
-        activity.getEmptyLayout().setErrorType(EmptyLayout.NETWORK_LOADING);
+        this.getDetailActivity().showErrorLayout(EmptyLayout.NETWORK_LOADING);
     }
 
     @Override
     public void dismissLoading() {
-        DetailActivity activity = (DetailActivity) getActivity();
-        activity.getEmptyLayout().setErrorType(EmptyLayout.HIDE_LAYOUT);
+        this.getDetailActivity().showErrorLayout(EmptyLayout.HIDE_LAYOUT);
     }
 
     @Override
-    public void showContent(PlanDetailModel data) {
-        // test data
-        mImageToday.setVisibility(View.VISIBLE);
-        mImageRecommend.setVisibility(View.VISIBLE);
-        mImageOriginate.setVisibility(View.VISIBLE);
-        mImageReprint.setVisibility(View.VISIBLE);
+    public void showRecommendSuccess(ArrayList<ChildMultiItem> data) {
+        AppLog.d("data:" + JSON.toJSONString(data));
+        if (data != null) {
+            List<Recommend> recommendList = new ArrayList<>();
+            for (ChildMultiItem item : data) {
+                Recommend recommend = new Recommend();
+                recommend.setId(item.getId());
+                recommend.setTitle(item.getTitle());
+                recommend.setSubTitle(item.getSubTitle());
+                recommend.setImageUrl(item.getImageUrl());
+                recommend.setPrice(item.getPrice());
+                recommend.setParticipate(item.getParticipate());
 
-        mImageAvatar.setImageResource(R.mipmap.logo);
-        mIdentityView.setText("iTrip.live");
-        mTextName.setText("iTrip 管理员");
-        mTextPubDate.setText("发表于1天前 (2017-07-24 20:12)");
-        mTextTitle.setText("Webpack从零开始");
-        mTextAbstract.setText("在Google IO大会中不仅仅带来了Android Studio 2.2预览版，同时带给我们一个依赖约束的库。 简单来说，她是相对布局的升级版本，但是区别与相对布局更加强调约束。何为约束，即控件之间的关系。");
-
-        mExtendWebView.getSettings().setJavaScriptEnabled(true);//设置使用够执行JS脚本
-        mExtendWebView.getSettings().setBuiltInZoomControls(true);//设置使支持缩放
-        mExtendWebView.loadUrl("http://tourin.cn/view/product/21.html");
-        mExtendWebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
+//                recommend.getCommentCount();
+                recommendList.add(recommend);
             }
-        });
-
-        DetailActivity activity = (DetailActivity) getActivity();
-        activity.getEmptyLayout().setErrorType(EmptyLayout.HIDE_LAYOUT);
-        activity.getEmptyLayout().setVisibility(View.GONE);
+            mDetailRecommendView.setRecommendModels(recommendList, DetailRecommendView.ViewType.PLAN);
+        }
     }
+
+    @Override
+    public void showFavReverseSuccess(boolean isFav, int favCount, int strId) {
+        this.getDetailActivity().showFavReverseSuccess(isFav,favCount,strId);
+    }
+
+    @Override
+    public void showFavError() {
+
+    }
+
+    @Override
+    public void showAddCommentSuccess() {
+//        this.getDetailActivity().showCommentSuccess();
+    }
+
+    @Override
+    public void showDetailContent(PlanDetailModel data) {
+        this.mPlanDetail = data;
+
+        if (this.mPlanDetail != null) {
+            // set activity
+            this.getDetailActivity().showGetDetailSuccess(data);
+
+            PicassoImageLoader.getInstance().showImage(this.getContext(), this.mPlanDetail.getTitleImage(), mImageViewPlan);
+            if ("1".equals(this.mPlanDetail.getRecommend())) {
+                mImageRecommend.setVisibility(View.VISIBLE);
+            } else {
+                mImageRecommend.setVisibility(View.GONE);
+            }
+            mTextTitle.setText(this.mPlanDetail.getTitle());
+            mTextViewPrice.setText(StringUtils.trimNewLine(String.format("¥ %s", this.mPlanDetail.getPrice())));
+            mTextViewParticipate.setText(StringUtils.trimNewLine(String.format("销售%s笔", this.mPlanDetail.getParticipate())));
+
+            mExtendWebView.getSettings().setJavaScriptEnabled(true);  //设置使用够执行JS脚本
+            mExtendWebView.getSettings().setBuiltInZoomControls(true);//设置使支持缩放
+
+//            mExtendWebView.setWebViewClient(new WebViewClient() {
+//                @Override
+//                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                    view.loadUrl(url);
+//                    return true;
+//                }
+//            });
+//            mExtendWebView.setWebViewClient(new WebViewClient() {
+//                public void onPageFinished(WebView view, String url) {
+//                    mViewScroller.scrollTo(0, 0);
+//                }
+//            });
+            mExtendWebView.loadUrl(this.mPlanDetail.getHref());
+
+            DetailActivity activity = (DetailActivity) getActivity();
+            activity.getEmptyLayout().setErrorType(EmptyLayout.HIDE_LAYOUT);
+            activity.getEmptyLayout().setVisibility(View.GONE);
+
+            // 加载相关推荐
+            mPlanDetailPresenter.loadRecommendList(mPlanDetail.getType());
+        }
+    }
+
 
     @Override
     public void showError(Throwable e) {
-        DetailActivity activity = (DetailActivity) getActivity();
-        activity.getEmptyLayout().setErrorType(EmptyLayout.NETWORK_ERROR);
+        this.getDetailActivity().showErrorLayout(EmptyLayout.NETWORK_ERROR);
     }
 
     @Override
     public void showEmpty() {
-        DetailActivity activity = (DetailActivity) getActivity();
-        activity.getEmptyLayout().setErrorType(EmptyLayout.NODATA);
+        this.getDetailActivity().getEmptyLayout().setErrorType(EmptyLayout.NODATA);
     }
+
 
     @Override
     public IDetailPresenter getDetailPresenter() {
         return this.mPlanDetailPresenter;
     }
+
 }

@@ -5,7 +5,7 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/tvPlanPrice"
+        android:id="@+id/text_view_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dimen_8"
@@ -20,7 +20,7 @@
         android:layout_weight="1" />
 
     <TextView
-        android:id="@+id/tvParticipate"
+        android:id="@+id/text_view_participate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/dimen_8"

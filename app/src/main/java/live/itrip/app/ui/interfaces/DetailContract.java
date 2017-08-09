@@ -1,6 +1,6 @@
 package live.itrip.app.ui.interfaces;
 
-import live.itrip.app.data.model.BlogDetailModel;
+import live.itrip.app.data.model.BaseDetailModel;
 import live.itrip.app.data.model.CommentModel;
 
 /**
@@ -14,7 +14,7 @@ public interface DetailContract {
 
         void showErrorLayout(int errorType);
 
-        void showGetDetailSuccess(BlogDetailModel bean);
+        void showGetDetailSuccess(BaseDetailModel bean);
 
         void showFavReverseSuccess(boolean isFav, int favCount, int strId);
 

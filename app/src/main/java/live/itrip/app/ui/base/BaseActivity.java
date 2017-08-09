@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 
@@ -18,8 +19,8 @@ import live.itrip.app.di.module.ActivityModule;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     private ActivityComponent mActivityComponent;
-
     private TextView mToolbarTitle;
+    protected Toolbar mToolBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +28,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getContentView());
 
         // set toolbar
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        if(mToolBar != null) {
+        mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolBar != null) {
             mToolbarTitle = (TextView) findViewById(R.id.toolbar_title);
             setSupportActionBar(mToolBar);
             ActionBar mActionBar = this.getSupportActionBar();
@@ -42,13 +43,20 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * @return
      */
     protected abstract int getContentView();
 
-    protected void setActionBarTitle(String actionBarTitle) {
-        if(this.mToolbarTitle != null) {
+    public void setToolBarShow(boolean show) {
+        if (show) {
+            this.mToolBar.setVisibility(View.VISIBLE);
+        } else {
+            this.mToolBar.setVisibility(View.GONE);
+        }
+    }
+
+    public void setActionBarTitle(String actionBarTitle) {
+        if (this.mToolbarTitle != null) {
             this.mToolbarTitle.setText(actionBarTitle);
         }
     }

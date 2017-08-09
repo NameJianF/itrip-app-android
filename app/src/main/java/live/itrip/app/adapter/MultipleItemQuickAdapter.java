@@ -52,13 +52,13 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<ChildMul
                 .load(bean.getImageUrl())
                 .placeholder(R.drawable.place_holder)
                 .error(R.drawable.place_holder)
-                .into((ImageView) holder.getView(R.id.iv));
+                .into((ImageView) holder.getView(R.id.image_view_title));
         // title
-        holder.setText(R.id.tvTitle, StringUtils.trimNewLine(bean.getTitle()));
+        holder.setText(R.id.text_view_title, StringUtils.trimNewLine(bean.getTitle()));
         // price
-        holder.setText(R.id.tvPlanPrice, StringUtils.trimNewLine(String.format("¥ %s", bean.getPrice())));
+        holder.setText(R.id.text_view_price, StringUtils.trimNewLine(String.format("¥ %s", bean.getPrice())));
         // participate  参加
-        holder.setText(R.id.tvParticipate, StringUtils.trimNewLine(String.format("%s 参与", bean.getParticipate())));
+        holder.setText(R.id.text_view_participate, StringUtils.trimNewLine(String.format("%s 参与", bean.getParticipate())));
 
     }
 
@@ -68,9 +68,9 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<ChildMul
                 .load(bean.getImageUrl())
                 .placeholder(R.drawable.place_holder)
                 .error(R.drawable.place_holder)
-                .into((ImageView) holder.getView(R.id.iv));
+                .into((ImageView) holder.getView(R.id.image_view_title));
         // title
-        holder.setText(R.id.tv, StringUtils.trimNewLine(bean.getTitle()));
+        holder.setText(R.id.text_view_title, StringUtils.trimNewLine(bean.getTitle()));
         //  author
         holder.setText(R.id.tvAuthor, StringUtils.trimNewLine(bean.getAuthor()));
         // to view

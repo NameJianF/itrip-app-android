@@ -1,6 +1,11 @@
 package live.itrip.app.data.api;
 
+import java.util.ArrayList;
+
+import live.itrip.app.data.model.ChildMultiItem;
+import live.itrip.app.data.model.PlanCategoryModel;
 import live.itrip.app.data.model.PlanDetailModel;
+import rx.Completable;
 import rx.Observable;
 
 /**
@@ -8,5 +13,8 @@ import rx.Observable;
  */
 
 public interface PlanDetailApi {
+
     Observable<PlanDetailModel> getPlanDetail(Long planId);
+
+    Observable<ArrayList<ChildMultiItem>> loadRecommendList(String category);
 }
