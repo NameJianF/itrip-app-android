@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import live.itrip.app.R;
-import live.itrip.app.data.PreferenceData;
+import live.itrip.app.cache.SharePreferenceData;
 import live.itrip.app.data.model.UserModel;
 import live.itrip.app.ui.activity.SimpleBackActivity;
 import live.itrip.app.ui.base.BaseFragment;
@@ -65,7 +65,7 @@ public class UserInforDetailFragment extends BaseFragment {
         if (userInfo == null)
             return;
 
-        if (userInfo.getId() != PreferenceData.Account.getUserId()
+        if (userInfo.getId() != SharePreferenceData.Account.getUserId()
                 && getActivity() instanceof SimpleBackActivity) {
             String title = TextUtils.isEmpty(userInfo.getUserName()) ? "" : userInfo.getUserName();
             ((SimpleBackActivity) getActivity()).setToolBarTitle(title);

@@ -18,11 +18,12 @@ import android.webkit.WebViewClient;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import live.itrip.app.cache.DataCacheManager;
 import live.itrip.app.config.AppConfig;
-import live.itrip.app.data.PreferenceData;
-import live.itrip.app.ui.util.AppOperatorUtils;
-import live.itrip.app.ui.util.DeviceUtils;
-import live.itrip.app.ui.util.UIUtils;
+import live.itrip.app.cache.SharePreferenceData;
+import live.itrip.app.util.AppUtils;
+import live.itrip.app.util.DeviceUtils;
+import live.itrip.app.util.UIUtils;
 import live.itrip.app.ui.widget.listener.OnWebViewImageListener;
 import live.itrip.common.util.AppLog;
 
@@ -90,7 +91,7 @@ public class ExtendWebView extends WebView {
         Context context = getContext();
         if (context != null && context instanceof Activity) {
             final Activity activity = (Activity) context;
-            AppOperatorUtils.runOnThread(new Runnable() {
+            AppUtils.runOnThread(new Runnable() {
                 @Override
                 public void run() {
                     final String body = setupWebContent(content, true, true, "");
@@ -113,7 +114,7 @@ public class ExtendWebView extends WebView {
         Context context = getContext();
         if (context != null && context instanceof Activity) {
             final Activity activity = (Activity) context;
-            AppOperatorUtils.runOnThread(new Runnable() {
+            AppUtils.runOnThread(new Runnable() {
                 @Override
                 public void run() {
                     final String body = setupWebContent(content, true, true, "");
@@ -150,7 +151,7 @@ public class ExtendWebView extends WebView {
     private static String setupWebContent(String content, String style) {
         if (TextUtils.isEmpty(content) || TextUtils.isEmpty(content.trim()))
             return "";
-        if (PreferenceData.get(AppConfig.KEY_LOAD_IMAGE, true) || DeviceUtils.isWifiOpen()) {
+        if (SharePreferenceData.get(DataCacheManager.KEY_LOAD_IMAGE, true) || DeviceUtils.isWifiOpen()) {
             Pattern pattern = Pattern.compile("<img[^>]+src\\s*=\\s*[\"\']([^\"\']*)[\"\'](\\s*data-url\\s*=\\s*[\"\']([^\"\']*)[\"\'])*");
             Matcher matcher = pattern.matcher(content);
             while (matcher.find()) {
@@ -184,7 +185,7 @@ public class ExtendWebView extends WebView {
             return "";
 
         // 读取用户设置：是否加载文章图片--默认有wifi下始终加载图片
-        if (PreferenceData.get(AppConfig.KEY_LOAD_IMAGE, true)
+        if (SharePreferenceData.get(DataCacheManager.KEY_LOAD_IMAGE, true)
                 || DeviceUtils.isWifiOpen()) {
             content = content.replaceAll("<([u|o])l.*>", "<$1l style=\"padding-left:20px\">");
             // 过滤掉 img标签的width,height属性

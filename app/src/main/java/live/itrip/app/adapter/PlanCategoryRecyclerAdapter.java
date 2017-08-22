@@ -23,9 +23,9 @@ import live.itrip.app.data.model.ChildMultiItem;
 import live.itrip.app.data.model.PlanCategoryModel;
 import live.itrip.app.ui.fragment.blog.BlogDetailFragment;
 import live.itrip.app.ui.fragment.plan.PlanDetailFragment;
-import live.itrip.app.ui.util.BannerImageLoader;
-import live.itrip.app.ui.util.ToastUtils;
-import live.itrip.app.ui.util.UIUtils;
+import live.itrip.app.util.BannerImageLoader;
+import live.itrip.app.util.ToastUtils;
+import live.itrip.app.util.UIUtils;
 import live.itrip.common.util.StringUtils;
 
 /**

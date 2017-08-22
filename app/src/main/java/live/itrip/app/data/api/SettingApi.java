@@ -1,6 +1,9 @@
 package live.itrip.app.data.api;
 
+import org.json.JSONException;
+
 import live.itrip.app.data.model.UpdateModel;
+import live.itrip.app.data.net.response.ResultResp;
 import rx.Observable;
 
 /**
@@ -11,5 +14,5 @@ public interface SettingApi {
 
     Observable<UpdateModel> checkAppVersion();
 
-    
+    Observable<ResultResp> logout(String username, String token) throws JSONException;
 }

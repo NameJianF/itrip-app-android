@@ -24,9 +24,8 @@ import live.itrip.app.App;
 import live.itrip.app.R;
 import live.itrip.app.adapter.fragment.ViewPagerAdapter;
 import live.itrip.app.cache.DetailCache;
-import live.itrip.app.data.PreferenceData;
+import live.itrip.app.cache.SharePreferenceData;
 import live.itrip.app.data.model.BaseDetailModel;
-import live.itrip.app.data.model.BlogDetailModel;
 import live.itrip.app.data.model.CommentModel;
 import live.itrip.app.di.HasComponent;
 import live.itrip.app.di.component.DaggerMainComponent;
@@ -37,8 +36,7 @@ import live.itrip.app.ui.DetailPage;
 import live.itrip.app.ui.activity.account.LoginActivity;
 import live.itrip.app.ui.base.BaseActivity;
 import live.itrip.app.ui.base.BaseDetailFragment;
-import live.itrip.app.ui.interfaces.DetailContract;
-import live.itrip.app.ui.util.ToastUtils;
+import live.itrip.app.util.ToastUtils;
 import live.itrip.app.ui.view.dialog.ShareDialog;
 import live.itrip.app.ui.widget.EmptyLayout;
 import live.itrip.app.ui.widget.adapter.OnKeyArrivedListenerAdapter;
@@ -129,7 +127,7 @@ public class DetailActivity extends BaseActivity implements OnCommentClickListen
         mCommentBar.setFavListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!PreferenceData.Account.isLogon(DetailActivity.this)) {
+                if (!SharePreferenceData.Account.isLogon(DetailActivity.this)) {
                     LoginActivity.launch(DetailActivity.this);
                     return;
                 }

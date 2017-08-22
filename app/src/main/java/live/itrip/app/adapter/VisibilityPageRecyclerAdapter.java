@@ -15,7 +15,7 @@ import java.util.List;
 import live.itrip.app.R;
 import live.itrip.app.data.model.ChildMultiItem;
 import live.itrip.app.data.model.VisibilityPageModel;
-import live.itrip.app.ui.util.ToastUtils;
+import live.itrip.app.util.ToastUtils;
 
 /**
  * Created by Feng on 2017/7/12.

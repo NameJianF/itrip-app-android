@@ -1,4 +1,4 @@
-package live.itrip.app.ui.util;
+package live.itrip.app.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -128,43 +128,6 @@ public class UIUtils {
         }
         context.startActivity(intent);
     }
-
-
-    /**
-     * 清除app缓存
-     */
-    public static void clearAppCache(boolean showToast) {
-        final Handler handler = showToast ? new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                if (msg.what == 1) {
-                    ToastUtils.showToast("缓存清除成功");
-                } else {
-                    ToastUtils.showToast("缓存清除失败");
-                }
-            }
-        } : null;
-        Message msg = new Message();
-        msg.what = 1;
-        handler.sendMessage(msg);
-
-//        AppOperator.runOnThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Message msg = new Message();
-//                try {
-//                    AppContext.getInstance().clearAppCache();
-//                    msg.what = 1;
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    msg.what = -1;
-//                }
-//                if (handler != null)
-//                    handler.sendMessage(msg);
-//            }
-//        });
-    }
-
 
     /**
      * 打开内置浏览器

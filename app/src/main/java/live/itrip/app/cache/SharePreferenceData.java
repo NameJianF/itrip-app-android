@@ -1,4 +1,4 @@
-package live.itrip.app.data;
+package live.itrip.app.cache;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,7 +15,7 @@ import live.itrip.app.ui.activity.account.LoginActivity;
  * Created by Feng on 2017/4/25.
  */
 
-public class PreferenceData {
+public class SharePreferenceData {
     private static final String KEY_IS_FIRST_RUNNING = "isFirstRunning";
     private static final String KEY_LOGIN_TOKEN = "login_token";
     private static final String KEY_LOGON_USER = "logon_user";
@@ -24,8 +24,7 @@ public class PreferenceData {
     private static final String KEY_SOFT_KEYBOARD_HEIGHT = "softKeyboardHeight";
 
     private static SharedPreferences getPreference(Context context) {
-        return context.getApplicationContext()
-                .getSharedPreferences("live.itrip.app.app_preference.xml", Context.MODE_PRIVATE);
+        return context.getSharedPreferences(DataCacheManager.SHAREDPREFERENCES_FILE_NAME, Context.MODE_PRIVATE);
     }
 
     public static void setAlreadyRun(Context context) {
@@ -93,8 +92,19 @@ public class PreferenceData {
         }
 
         public static void removeLogonUser(Context context) {
+            // remove user
             getPreference(context).edit().remove(KEY_LOGON_USER).apply();
+            // remove token
+            getPreference(context).edit().remove(KEY_LOGIN_TOKEN).apply();
         }
+
+        public static void removeLogonUser() {
+            // remove user
+            getPreference(App.getContext()).edit().remove(KEY_LOGON_USER).apply();
+            // remove token
+            getPreference(App.getContext()).edit().remove(KEY_LOGIN_TOKEN).apply();
+        }
+
 
         public static UserModel getLogonUser(Context context) {
             UserModel user = null;
@@ -152,4 +162,5 @@ public class PreferenceData {
             SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
         }
     }
+
 }

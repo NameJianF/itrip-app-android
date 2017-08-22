@@ -6,8 +6,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import live.itrip.app.data.PreferenceData;
-import live.itrip.app.data.net.client.cache.CacheHttpClient;
+import live.itrip.app.cache.SharePreferenceData;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -43,9 +42,9 @@ public class RecyclerViewCacheHttpClient extends CacheHttpClient {
                         .header("Accept", getAcceptHeader())
                         .header("UserModel-Agent", "itrip");
 
-                if (PreferenceData.Account.isLogon(application)) {
+                if (SharePreferenceData.Account.isLogon(application)) {
                     requestBuilder
-                            .header("Authorization", "token " + PreferenceData.Account.getLogonToken(application));
+                            .header("Authorization", "token " + SharePreferenceData.Account.getLogonToken(application));
                 }
 
                 Request request = requestBuilder.build();

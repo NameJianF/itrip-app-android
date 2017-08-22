@@ -2,7 +2,6 @@ package live.itrip.app.ui.fragment.blog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.NestedScrollView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +21,8 @@ import live.itrip.app.di.component.MainComponent;
 import live.itrip.app.presenter.blog.BlogDetailPresenter;
 import live.itrip.app.presenter.interfaces.IDetailPresenter;
 import live.itrip.app.ui.activity.DetailActivity;
-import live.itrip.app.ui.base.BaseActivity;
 import live.itrip.app.ui.base.BaseDetailFragment;
-import live.itrip.app.ui.util.ToastUtils;
+import live.itrip.app.util.ToastUtils;
 import live.itrip.app.ui.widget.DetailRecommendView;
 import live.itrip.app.ui.widget.EmptyLayout;
 import live.itrip.app.ui.widget.ExtendWebView;
@@ -58,7 +56,7 @@ public class BlogDetailFragment extends BaseDetailFragment implements LceView<Bl
     TextView mTextAbstract;
     @BindView(R.id.btn_relation)
     Button mBtnRelation;
-//    @BindView(R.id.nested_scroll_view)
+    //    @BindView(R.id.nested_scroll_view)
 //    NestedScrollView mViewScroller;
     @BindView(R.id.webView)
     ExtendWebView mExtendWebView;
@@ -113,8 +111,8 @@ public class BlogDetailFragment extends BaseDetailFragment implements LceView<Bl
         mBtnRelation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mBlog.getAuthor() != null) {
-                    mBlogPresenter.addUserRelation(mBlog.getAuthor().getId());
+                if (mBlog.getAuthId() != null) {
+                    mBlogPresenter.addUserRelation(mBlog.getAuthId());
                 }
             }
         });
@@ -122,7 +120,7 @@ public class BlogDetailFragment extends BaseDetailFragment implements LceView<Bl
         mImageAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mBlog != null && mBlog.getAuthor() != null) {
+                if (mBlog != null && mBlog.getAuthId() != null) {
 //                    OtherUserHomeActivity.show(mContext, mBlog.getAuthor());
                     ToastUtils.showToast("Image Avatar Clicked.");
                 }

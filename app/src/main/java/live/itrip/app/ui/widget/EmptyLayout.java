@@ -11,9 +11,8 @@ import android.widget.TextView;
 
 import com.wang.avi.AVLoadingIndicatorView;
 
-import butterknife.BindView;
 import live.itrip.app.R;
-import live.itrip.app.ui.util.DeviceUtils;
+import live.itrip.app.util.DeviceUtils;
 
 /**
  * Created by Feng on 2017/7/21.

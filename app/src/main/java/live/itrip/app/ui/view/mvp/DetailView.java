@@ -1,4 +1,4 @@
-package live.itrip.app.ui.view;
+package live.itrip.app.ui.view.mvp;
 
 import android.support.annotation.UiThread;
 

@@ -16,9 +16,13 @@ public class CreateAuthorization extends BaseParams {
         this.data = data;
     }
 
-    public static class LoginData{
+    public static class LoginData {
         private String email;// 用户帐号
         private String password;// 用户密码
+        /**
+         * 是：1，否：0
+         */
+        private String ciphertext;// 密码是否是密文
 
         public String getEmail() {
             return email;
@@ -34,6 +38,14 @@ public class CreateAuthorization extends BaseParams {
 
         public void setPassword(String password) {
             this.password = password;
+        }
+
+        public String getCiphertext() {
+            return ciphertext;
+        }
+
+        public void setCiphertext(String ciphertext) {
+            this.ciphertext = ciphertext;
         }
     }
 

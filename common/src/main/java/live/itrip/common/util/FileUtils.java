@@ -215,7 +215,7 @@ public class FileUtils {
      * @return B/KB/MB/GB
      */
     public static String formatFileSize(long fileS) {
-        java.text.DecimalFormat df = new java.text.DecimalFormat("#.00");
+        java.text.DecimalFormat df = new java.text.DecimalFormat("#.0");
         String fileSizeString = "";
         if (fileS < 1024) {
             fileSizeString = df.format((double) fileS) + "B";
@@ -249,8 +249,8 @@ public class FileUtils {
             for (File file : files) {
                 if (file.isFile()) {
                     dirSize += file.length();
+                    AppLog.d(String.format("File:%s,Size:%s", file.getAbsolutePath(), file.length()));
                 } else if (file.isDirectory()) {
-                    dirSize += file.length();
                     dirSize += getDirSize(file); // 递归调用继续统计
                 }
             }
@@ -611,22 +611,5 @@ public class FileUtils {
         int start = absolutePath.lastIndexOf(File.separator) + 1;
         int end = absolutePath.length();
         return absolutePath.substring(start, end);
-    }
-
-    /**
-     * 获取应用程序缓存文件夹下的指定目录
-     *
-     * @param context
-     * @param dir
-     * @return
-     */
-    public static String getAppCache(Context context, String dir) {
-        String savePath = context.getCacheDir().getAbsolutePath() + "/" + dir + "/";
-        File savedir = new File(savePath);
-        if (!savedir.exists()) {
-            savedir.mkdirs();
-        }
-        savedir = null;
-        return savePath;
     }
 }

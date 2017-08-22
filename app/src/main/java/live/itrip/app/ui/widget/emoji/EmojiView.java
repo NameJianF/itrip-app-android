@@ -3,8 +3,8 @@ package live.itrip.app.ui.widget.emoji;
 import android.content.Context;
 import android.widget.EditText;
 
-import live.itrip.app.ui.util.DeviceUtils;
-import live.itrip.app.ui.util.InputHelper;
+import live.itrip.app.util.DeviceUtils;
+import live.itrip.app.util.InputHelper;
 import live.itrip.app.ui.widget.face.FacePanelView;
 import live.itrip.app.ui.widget.face.FaceRecyclerView;
 

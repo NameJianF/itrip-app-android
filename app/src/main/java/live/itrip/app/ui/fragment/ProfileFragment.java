@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -28,7 +27,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import live.itrip.app.R;
-import live.itrip.app.data.PreferenceData;
+import live.itrip.app.cache.DataCacheManager;
+import live.itrip.app.cache.SharePreferenceData;
 import live.itrip.app.data.model.UserModel;
 import live.itrip.app.ui.activity.profile.FootmarksActivity;
 import live.itrip.app.ui.activity.profile.UserMessageActivity;
@@ -36,7 +36,7 @@ import live.itrip.app.ui.activity.ImageCropActivity;
 import live.itrip.app.ui.activity.profile.RecyclerViewActivity;
 import live.itrip.app.ui.base.BaseFragment;
 import live.itrip.app.ui.fragment.profile.UserInforDetailFragment;
-import live.itrip.app.ui.util.UIUtils;
+import live.itrip.app.util.UIUtils;
 import live.itrip.app.ui.view.dialog.QRCodeDialog;
 import live.itrip.app.ui.widget.SelectPicturePopupWindow;
 import live.itrip.common.crop.UCrop;
@@ -55,8 +55,8 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
     ImageView mIvLogoZxing;
     @BindView(R.id.user_info_head_container)
     FrameLayout mFlUserInfoHeadContainer;
-    @BindView(R.id.iv_portrait)
-    PortraitView mPortrait;
+    @BindView(R.id.image_view_avatar)
+    PortraitView mImageViewAvatar;
     @BindView(R.id.iv_gender)
     ImageView mIvGander;
     @BindView(R.id.user_info_icon_container)
@@ -138,7 +138,7 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
 
 
     @OnClick({
-            R.id.iv_logo_setting, R.id.iv_logo_zxing, R.id.iv_portrait,
+            R.id.iv_logo_setting, R.id.iv_logo_zxing, R.id.image_view_avatar,
             R.id.user_view_solar_system, R.id.ly_bubbles, R.id.ly_favorite,
             R.id.ly_following, R.id.ly_follower, R.id.rl_message, R.id.rl_blog,
             R.id.rl_info_footmarks
@@ -156,16 +156,16 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
                     QRCodeDialog dialog = new QRCodeDialog(getActivity());
                     dialog.show();
                     break;
-                case R.id.iv_portrait:
+                case R.id.image_view_avatar:
                     showAvatarOperation();
                     //查看头像 or 更换头像
                     break;
                 case R.id.user_view_solar_system:
                     //显示我的资料
-                    if (!PreferenceData.Account.checkLogon(this.getContext())) {
+                    if (!SharePreferenceData.Account.checkLogon(this.getContext())) {
                         return;
                     }
-                    UserModel mUserInfo = PreferenceData.Account.getLogonUser(this.getContext());
+                    UserModel mUserInfo = SharePreferenceData.Account.getLogonUser(this.getContext());
                     if (mUserInfo != null) {
                         Bundle userBundle = new Bundle();
                         userBundle.putSerializable(UserInforDetailFragment.EXTRA_USER_INFO, mUserInfo);
@@ -216,9 +216,9 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
                     int height = mFlUserInfoIconContainer.getHeight();
                     float y1 = mFlUserInfoIconContainer.getY();
 
-                    float x = mPortrait.getX();
-                    float y = mPortrait.getY();
-                    int portraitWidth = mPortrait.getWidth();
+                    float x = mImageViewAvatar.getX();
+                    float y = mImageViewAvatar.getY();
+                    int portraitWidth = mImageViewAvatar.getWidth();
 
                     mPx = x + +rlShowInfoX + (width >> 1);
                     mPy = y1 + y + (height - y) / 2;
@@ -265,7 +265,7 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
         setOnPictureSelectedListener(new OnPictureSelectedListener() {
             @Override
             public void onPictureSelected(Uri fileUri, Bitmap bitmap) {
-                mPortrait.setImageBitmap(bitmap);
+                mImageViewAvatar.setImageBitmap(bitmap);
 
                 String filePath = fileUri.getEncodedPath();
                 String imagePath = Uri.decode(filePath);
@@ -273,8 +273,9 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
             }
         });
 
-        mDestinationUri = Uri.fromFile(new File(getActivity().getCacheDir(), "cropImage.jpeg"));
-        mTempPhotoPath = Environment.getExternalStorageDirectory() + File.separator + "photo.jpeg";
+        mDestinationUri = Uri.fromFile(new File(DataCacheManager.getCacheDir(getContext()), "cropImage.jpeg"));
+        mTempPhotoPath = DataCacheManager.getExternalStorageDirectory() + File.separator + "photo.jpeg";
+
         mSelectPicturePopupWindow = new SelectPicturePopupWindow(getActivity());
         mSelectPicturePopupWindow.setOnSelectedListener(this);
 

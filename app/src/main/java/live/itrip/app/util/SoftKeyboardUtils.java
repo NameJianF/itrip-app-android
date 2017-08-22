@@ -1,4 +1,4 @@
-package live.itrip.app.ui.util;
+package live.itrip.app.util;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
-import live.itrip.app.data.PreferenceData;
+import live.itrip.app.cache.SharePreferenceData;
 import live.itrip.common.util.AppLog;
 
 /**
@@ -31,13 +31,13 @@ public class SoftKeyboardUtils {
         }
 
         LAST_SAVE_KEYBOARD_HEIGHT = keyboardHeight;
-        PreferenceData.SoftKeyboard.updateSoftKeyboardHeight(context, keyboardHeight);
+        SharePreferenceData.SoftKeyboard.updateSoftKeyboardHeight(context, keyboardHeight);
         return true;
     }
 
     public static int getKeyboardHeight(final Context context) {
         if (LAST_SAVE_KEYBOARD_HEIGHT == 0) {
-            LAST_SAVE_KEYBOARD_HEIGHT = PreferenceData.SoftKeyboard.getSoftKeyboardHeight(context);
+            LAST_SAVE_KEYBOARD_HEIGHT = SharePreferenceData.SoftKeyboard.getSoftKeyboardHeight(context);
             if (LAST_SAVE_KEYBOARD_HEIGHT == 0)
                 LAST_SAVE_KEYBOARD_HEIGHT = getMinPanelHeight(context.getResources());
         }

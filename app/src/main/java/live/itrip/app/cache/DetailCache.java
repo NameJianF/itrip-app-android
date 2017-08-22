@@ -14,6 +14,7 @@ import java.util.Date;
 
 import live.itrip.app.data.model.BaseDetailModel;
 import live.itrip.app.data.model.BlogDetailModel;
+import live.itrip.app.data.model.PlanDetailModel;
 import live.itrip.common.util.AppLog;
 
 
@@ -23,12 +24,12 @@ import live.itrip.common.util.AppLog;
 
 public class DetailCache {
     private static final long ONE_DAY = 86400000;//1天毫秒
-    private static String CUSTOM_CACHE;
-    private static String COLLECTION_CACHE;
+    private static String FAVORITE_CACHE; // 收藏数据缓存
+    private static String NO_FAVORITE_CACHE; // 未收藏数据缓存
 
     public static void init(Context context) {
-        CUSTOM_CACHE = context.getCacheDir() + "/" + "custom_cache/";
-        COLLECTION_CACHE = context.getCacheDir() + "/" + "collection_cache/";
+        FAVORITE_CACHE = DataCacheManager.getCacheDir(context) + File.separator + "favorite" + File.separator;
+        NO_FAVORITE_CACHE = context.getCacheDir() + File.separator + "no_favorite" + File.separator;
         update(false);
         update(true);
     }
@@ -36,17 +37,17 @@ public class DetailCache {
     /**
      * 更新文件夹过期的文件
      *
-     * @param isCollection 是否是收藏 文件夹名 custom_cache | collection_cache
+     * @param favorite 是否是收藏 文件夹名 NO_FAVORITE_CACHE | FAVORITE_CACHE
      */
-    private static void update(boolean isCollection) {
-        File file = new File(isCollection ? COLLECTION_CACHE : CUSTOM_CACHE);
+    private static void update(boolean favorite) {
+        File file = new File(favorite ? FAVORITE_CACHE : NO_FAVORITE_CACHE);
         if (!file.exists()) {
             file.mkdirs();
             return;
         }
         File[] files = file.listFiles();
         long currentDate = new Date().getTime();//当前时间
-        long delayDate = (isCollection ? 10 : 2) * ONE_DAY;
+        long delayDate = (favorite ? 10 : 2) * ONE_DAY;
         for (File f : files) {
             if (currentDate - f.lastModified() >= delayDate) {
                 f.delete();
@@ -60,15 +61,15 @@ public class DetailCache {
     public static void addCache(BaseDetailModel model) {
         if (model == null)
             return;
-        String name = model.getId() + "";// + String.valueOf(model.getType());
-        String path = (model.getFavorite() == 1 ? COLLECTION_CACHE : CUSTOM_CACHE)
-                + name;
+        String name = "";
+        if (model instanceof BlogDetailModel) {
+            name = "blog" + model.getId();
+        } else if (model instanceof PlanDetailModel) {
+            name = "plan" + model.getId();
+        }
+        String path = (model.getFavorite() == 1 ? FAVORITE_CACHE : NO_FAVORITE_CACHE) + name;
         File file = new File(path);
-//        FileOutputStream os = null;
-        try(FileOutputStream os = new FileOutputStream(file)) {
-            if (!file.exists())
-                file.createNewFile();
-//            os = new FileOutputStream(file);
+        try (FileOutputStream os = new FileOutputStream(file)) {
             os.write(new Gson().toJson(model).getBytes());
             os.flush();
             os.close();
@@ -77,14 +78,15 @@ public class DetailCache {
         }
     }
 
+
     /**
      * 读取缓存
      */
-    static BlogDetailModel readCache(BlogDetailModel bean) {
-        if (bean == null || bean.getId() <= 0)
+    public static BlogDetailModel readBlogDetailCache(BaseDetailModel model) {
+        if (model == null || model.getId() <= 0)
             return null;
-        String path = (bean.getFavorite() == 1 ? COLLECTION_CACHE : CUSTOM_CACHE)
-                + bean.getId() + String.valueOf(bean.getType());
+        String name = "blog" + model.getId();
+        String path = (model.getFavorite() == 1 ? FAVORITE_CACHE : NO_FAVORITE_CACHE) + name;
         File file = new File(path);
         FileReader reader = null;
         try {
@@ -92,6 +94,35 @@ public class DetailCache {
             Type type = new TypeToken<BlogDetailModel>() {
             }.getType();
             BlogDetailModel subBean = new Gson().fromJson(reader, type);
+            reader.close();
+            return subBean;
+        } catch (Exception e) {
+            AppLog.e(e.getMessage());
+            return null;
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 读取缓存
+     */
+    public static PlanDetailModel readPlanDetailCache(BaseDetailModel model) {
+        if (model == null || model.getId() <= 0)
+            return null;
+        String name = "plan" + model.getId();
+        String path = (model.getFavorite() == 1 ? FAVORITE_CACHE : NO_FAVORITE_CACHE) + name;
+        File file = new File(path);
+        FileReader reader = null;
+        try {
+            reader = new FileReader(file);
+            Type type = new TypeToken<PlanDetailModel>() {
+            }.getType();
+            PlanDetailModel subBean = new Gson().fromJson(reader, type);
             reader.close();
             return subBean;
         } catch (Exception e) {

@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content">
 
                 <live.itrip.common.widget.PortraitView
-                    android:id="@+id/iv_portrait"
+                    android:id="@+id/image_view_avatar"
                     android:layout_width="72dp"
                     android:layout_height="72dp"
                     android:src="@mipmap/logo"

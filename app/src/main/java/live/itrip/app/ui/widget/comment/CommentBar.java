@@ -4,13 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import live.itrip.app.R;
-import live.itrip.app.data.PreferenceData;
+import live.itrip.app.cache.SharePreferenceData;
 import live.itrip.app.ui.activity.account.LoginActivity;
 
 /**
@@ -50,7 +49,7 @@ public class CommentBar {
         mCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (PreferenceData.Account.isLogon(mContext)) {
+                if (SharePreferenceData.Account.isLogon(mContext)) {
                     mBottomSheetBar.show(mCommentText.getHint().toString());
                 } else {
                     LoginActivity.launch(mContext);

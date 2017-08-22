@@ -17,6 +17,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import java.io.File;
 
 import javax.inject.Inject;
@@ -26,17 +28,20 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import live.itrip.app.App;
 import live.itrip.app.R;
-import live.itrip.app.data.PreferenceData;
+import live.itrip.app.cache.DataCacheManager;
+import live.itrip.app.cache.SharePreferenceData;
 import live.itrip.app.data.model.UpdateModel;
 import live.itrip.app.di.component.MainComponent;
 import live.itrip.app.presenter.SettingPresenter;
 import live.itrip.app.ui.activity.profile.FeedBackActivity;
 import live.itrip.app.ui.base.BaseFragment;
-import live.itrip.app.ui.util.DialogUtils;
-import live.itrip.app.ui.util.UIUtils;
+import live.itrip.app.util.AppUtils;
+import live.itrip.app.util.DialogUtils;
+import live.itrip.app.util.ToastUtils;
+import live.itrip.app.util.UIUtils;
+import live.itrip.app.ui.view.mvp.LogoutView;
 import live.itrip.common.files.download.DownLoadHelper;
 import live.itrip.common.files.download.interfaces.IdownLoadProgress;
-import live.itrip.common.mvp.view.LceView;
 import live.itrip.common.util.AppLog;
 import live.itrip.common.util.FileUtils;
 
@@ -45,10 +50,9 @@ import live.itrip.common.util.FileUtils;
  *
  * @author
  */
-public class SettingsFragment extends BaseFragment implements LceView<UpdateModel> {
+public class SettingsFragment extends BaseFragment implements LogoutView<UpdateModel> {
 
     private static final int RC_EXTERNAL_STORAGE = 0x04;//存储权限
-
 
     // 缓存
     @BindView(R.id.tv_cache_size)
@@ -108,7 +112,7 @@ public class SettingsFragment extends BaseFragment implements LceView<UpdateMode
     @Override
     public void onResume() {
         super.onResume();
-        boolean login = PreferenceData.Account.isLogon(App.getContext());
+        boolean login = SharePreferenceData.Account.isLogon(App.getContext());
 
         if (!login) {
             mCancel.setVisibility(View.INVISIBLE);
@@ -125,21 +129,8 @@ public class SettingsFragment extends BaseFragment implements LceView<UpdateMode
      * 计算缓存的大小
      */
     private void calculateCacheSize() {
-        long fileSize = 0;
         String cacheSize = "0KB";
-        File filesDir = getActivity().getFilesDir();
-        File cacheDir = getActivity().getCacheDir();
-
-        fileSize += FileUtils.getDirSize(filesDir);
-        fileSize += FileUtils.getDirSize(cacheDir);
-        // 2.2版本才有将应用缓存转移到sd卡的功能
-//        if (AppContext.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
-//            File externalCacheDir = MethodsCompat
-//                    .getExternalCacheDir(getActivity());
-//            fileSize += FileUtils.getDirSize(externalCacheDir);
-//        }
-        if (fileSize > 0)
-            cacheSize = FileUtils.formatFileSize(fileSize);
+        cacheSize = DataCacheManager.getCacheSizeString(getContext());
         mTvCacheSize.setText(cacheSize);
     }
 
@@ -154,7 +145,7 @@ public class SettingsFragment extends BaseFragment implements LceView<UpdateMode
                 onClickCleanCache();
                 break;
             case R.id.rl_feedback:
-                if (!PreferenceData.Account.checkLogon(this.getContext())) {
+                if (!SharePreferenceData.Account.checkLogon(this.getContext())) {
                     return;
                 }
                 FeedBackActivity.launch(getActivity());
@@ -164,43 +155,61 @@ public class SettingsFragment extends BaseFragment implements LceView<UpdateMode
                 break;
             case R.id.rl_check_version:
                 // 版本更新检测
-//                mPresenter.checkAppVersion();
-                showContent(null);
+                mPresenter.checkAppVersion();
                 break;
             case R.id.rl_cancel:
-                // 清理所有缓存
-                UIUtils.clearAppCache(false);
-                // 注销操作
-//                AccountUtils.logout(mCancel, new Runnable() {
-//                    @SuppressLint("SetTextI18n")
-//                    @Override
-//                    public void run() {
-//                        //getActivity().finish();
-//                        mTvCacheSize.setText("0KB");
-//                        AppContext.showToastShort(getString(R.string.logout_success_hint));
-//                        mCancel.setVisibility(View.INVISIBLE);
-//                        mSettingLineTop.setVisibility(View.INVISIBLE);
-//                        mSettingLineBottom.setVisibility(View.INVISIBLE);
-//                    }
-//                });
+                // 注销登陆
+                doLogout();
                 break;
             default:
                 break;
         }
     }
 
+    private void doLogout() {
+        // 清理所有缓存
+        AppUtils.clearAppCache(false);
+        // 注销操作
+        try {
+            mPresenter.logout(SharePreferenceData.Account.getLogonUser(getContext()).getEmail()
+                    , SharePreferenceData.Account.getLogonToken(getContext()));
+        } catch (JSONException e) {
+            AppLog.e(e);
+        }
+    }
+
+    /**
+     * 清理所有缓存
+     */
     private void onClickCleanCache() {
-        DialogUtils.getConfirmDialog(getActivity(), "是否清空缓存?", new DialogInterface.OnClickListener
+        DialogUtils.getConfirmDialog(getActivity(), getString(R.string.is_clear_cache), new DialogInterface.OnClickListener
                 () {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                UIUtils.clearAppCache(true);
-//                mTvCacheSize.setText("0KB");
+                AppUtils.clearAppCache(true);
+                mTvCacheSize.setText("0KB");
             }
         }).show();
     }
 
+
+    @Override
+    public void logoutSuccess() {
+        // 注销成功
+        //getActivity().finish();
+        mTvCacheSize.setText(getString(R.string.cache_size_zero));
+        mCancel.setVisibility(View.INVISIBLE);
+        mSettingLineTop.setVisibility(View.INVISIBLE);
+        mSettingLineBottom.setVisibility(View.INVISIBLE);
+        ToastUtils.showToast(getString(R.string.logout_success));
+    }
+
+    @Override
+    public void logoutFailed() {
+        // 注销失败
+        ToastUtils.showToast(getString(R.string.logout_success));
+    }
 
     @Override
     public void showLoading() {
@@ -213,16 +222,12 @@ public class SettingsFragment extends BaseFragment implements LceView<UpdateMode
     }
 
     @Override
-    public void showContent(UpdateModel model) {
-        if (model == null) {
-            model = new UpdateModel();
-        }
-        model.setDesc("======================");
+    public void showContent(final UpdateModel model) {
         DialogUtils.getConfirmDialog(getActivity(), "更新提示", model.getDesc(), "现在更新", "稍后更新", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 AppLog.d("现在更新...");
-                downloadApk(null);
+                downloadApk(model);
             }
         }).show();
     }
@@ -233,10 +238,10 @@ public class SettingsFragment extends BaseFragment implements LceView<UpdateMode
         progressDialog.show();
 
         DownLoadHelper downLoadHelper = new DownLoadHelper();
-        String url = "http://cdn.other.file.testin.cn/95efac1d70bf4edea5c67b85e8a5167b.apk";
+//        String url = "http://cdn.other.file.testin.cn/95efac1d70bf4edea5c67b85e8a5167b.apk";
         final String savePath = App.getContext().getApplicationInfo().dataDir + File.separator;
         final String fileName = "itrip-app.apk";
-        downLoadHelper.downLoad(url, savePath, fileName, new IdownLoadProgress() {
+        downLoadHelper.downLoad(model.getDownloadUrl(), savePath, fileName, new IdownLoadProgress() {
             @Override
             public void onProgress(long progress, long total, boolean done) {
                 progressDialog.setProgress((int) (progress * 100 / total));

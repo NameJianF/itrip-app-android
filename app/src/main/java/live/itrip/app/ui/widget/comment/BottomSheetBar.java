@@ -3,7 +3,6 @@ package live.itrip.app.ui.widget.comment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -13,7 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 import live.itrip.app.R;
-import live.itrip.app.ui.util.DeviceUtils;
+import live.itrip.app.util.DeviceUtils;
 import live.itrip.app.ui.view.dialog.BottomDialog;
 import live.itrip.app.ui.widget.RichEditText;
 import live.itrip.app.ui.widget.emoji.EmojiView;

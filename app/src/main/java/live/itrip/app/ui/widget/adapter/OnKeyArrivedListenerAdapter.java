@@ -10,7 +10,7 @@ import android.text.TextUtils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import live.itrip.app.ui.util.ToastUtils;
+import live.itrip.app.util.ToastUtils;
 import live.itrip.app.ui.widget.RichEditText;
 
 /**

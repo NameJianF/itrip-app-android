@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import live.itrip.app.data.PreferenceData;
+import live.itrip.app.cache.SharePreferenceData;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -37,9 +37,9 @@ public class MessageCacheHttpClient extends CacheHttpClient {
                         .header("Accept", getAcceptHeader())
                         .header("UserModel-Agent", "itrip");
 
-                if (PreferenceData.Account.isLogon(mContext)) {
+                if (SharePreferenceData.Account.isLogon(mContext)) {
                     requestBuilder
-                            .header("Authorization", "token " + PreferenceData.Account.getLogonToken(mContext));
+                            .header("Authorization", "token " + SharePreferenceData.Account.getLogonToken(mContext));
                 }
 
                 Request request = requestBuilder.build();

@@ -6,12 +6,12 @@ import org.json.JSONException;
 
 import javax.inject.Inject;
 
-import live.itrip.app.data.PreferenceData;
+import live.itrip.app.cache.SharePreferenceData;
 import live.itrip.app.data.api.AccountApi;
 import live.itrip.app.data.model.UserModel;
 import live.itrip.app.data.observer.ResponseObserver;
 import live.itrip.app.presenter.base.RxMvpPresenter;
-import live.itrip.app.ui.activity.account.view.LoginView;
+import live.itrip.app.ui.view.mvp.LoginView;
 import live.itrip.common.util.AppLog;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
@@ -54,10 +54,10 @@ public class LoginPresenter extends RxMvpPresenter<LoginView> {
                     public void onSuccess(UserModel user) {
                         if (user != null) {
                             // save user
-                            PreferenceData.Account.saveLogonUser(mContext, user);
+                            SharePreferenceData.Account.saveLogonUser(mContext, user);
 
                             // save token
-                            PreferenceData.Account.saveLoginToken(mContext, user.getToken());
+                            SharePreferenceData.Account.saveLoginToken(mContext, user.getToken());
                             AppLog.d("user:" + user.getToken());
 
                             getMvpView().loginSuccess(user);
@@ -71,4 +71,5 @@ public class LoginPresenter extends RxMvpPresenter<LoginView> {
                     }
                 }));
     }
+
 }

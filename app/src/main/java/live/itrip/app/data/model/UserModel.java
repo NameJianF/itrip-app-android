@@ -26,6 +26,7 @@ public class UserModel implements Parcelable, Serializable {
 //    private Long createTime;
     private String token;
 
+
     protected UserModel(Parcel in) {
         id = in.readLong();
         userName = in.readString();

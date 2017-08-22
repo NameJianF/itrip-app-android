@@ -14,8 +14,10 @@ public class BaseDetailModel implements Parcelable{
     private String titleImage; // 图片
     private String content;    // 文本内容
     private String href = "";  // 正文链接
-
-    private int favorite = 1; // 1：收藏，0：未收藏
+    /**
+     * 1：收藏，0：未收藏
+     */
+    private int favorite = 1;
     private int commentCount; // 评论总数
 
 

@@ -1,20 +1,16 @@
 package live.itrip.app.presenter.plan;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
-import live.itrip.app.data.api.PlanCategoryApi;
 import live.itrip.app.data.api.PlanDetailApi;
 import live.itrip.app.data.model.ChildMultiItem;
-import live.itrip.app.data.model.PlanCategoryModel;
 import live.itrip.app.data.model.PlanDetailModel;
 import live.itrip.app.data.observer.ResponseObserver;
 import live.itrip.app.presenter.base.RxMvpPresenter;
 import live.itrip.app.presenter.interfaces.IDetailPresenter;
-import live.itrip.app.ui.view.DetailView;
-import live.itrip.common.mvp.view.LceView;
+import live.itrip.app.ui.view.mvp.DetailView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.schedulers.Schedulers;

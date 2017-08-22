@@ -3,6 +3,7 @@ package live.itrip.app.data.net.request;
 import org.json.JSONObject;
 
 import live.itrip.app.config.AppConfig;
+import live.itrip.app.util.AppUtils;
 
 /**
  * Created by Feng on 2017/4/28.
@@ -20,7 +21,7 @@ public class BaseParams {
         this.setApiKey(AppConfig.API_KEY);
         this.setTimestamp(System.currentTimeMillis());
         this.setSource(AppConfig.SOURCE);
-        this.setClientVersion(AppConfig.CLIENT_VERSION);
+        this.setClientVersion(AppUtils.getVersion());
     }
 
     public String getApiKey() {

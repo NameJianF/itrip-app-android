@@ -33,10 +33,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import live.itrip.app.R;
-import live.itrip.app.ui.util.AppOperatorUtils;
-import live.itrip.app.ui.util.DeviceUtils;
-import live.itrip.app.ui.util.DialogUtils;
-import live.itrip.app.ui.util.ToastUtils;
+import live.itrip.app.util.DeviceUtils;
+import live.itrip.app.util.DialogUtils;
+import live.itrip.app.util.ToastUtils;
 import live.itrip.app.ui.widget.adapter.BaseRecyclerAdapter;
 import live.itrip.common.open.bean.Share;
 import live.itrip.common.open.constants.OpenConstant;
@@ -229,7 +228,7 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback, D
                         }
                     });
 
-//            AppOperatorUtils.runOnThread(new Runnable() {
+//            AppUtils.runOnThread(new Runnable() {
 //                @Override
 //                public void run() {
 //

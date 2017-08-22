@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import live.itrip.app.App;
 import live.itrip.app.R;
-import live.itrip.app.data.PreferenceData;
+import live.itrip.app.cache.SharePreferenceData;
 import live.itrip.app.data.model.UserModel;
 import live.itrip.app.di.HasComponent;
 import live.itrip.app.di.component.AccountComponent;
@@ -28,7 +27,7 @@ import live.itrip.app.di.component.DaggerAccountComponent;
 import live.itrip.app.di.module.AccountModule;
 import live.itrip.app.di.module.ActivityModule;
 import live.itrip.app.presenter.account.LoginPresenter;
-import live.itrip.app.ui.activity.account.view.LoginView;
+import live.itrip.app.ui.view.mvp.LoginView;
 import live.itrip.app.ui.base.BaseLoadingActivity;
 import live.itrip.common.util.InputMethodUtils;
 
@@ -121,7 +120,7 @@ public class LoginActivity extends BaseLoadingActivity implements LoginView, Has
     @Override
     public void loginSuccess(UserModel user) {
         Snackbar.make(mLoginBtn, "Login Success", Snackbar.LENGTH_LONG).show();
-        PreferenceData.Account.saveLogonUser(this, user);
+        SharePreferenceData.Account.saveLogonUser(this, user);
         finish();
     }
 }

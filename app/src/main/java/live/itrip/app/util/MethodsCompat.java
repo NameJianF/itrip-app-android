@@ -1,4 +1,4 @@
-package live.itrip.app.ui.util;
+package live.itrip.app.util;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;

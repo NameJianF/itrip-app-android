@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 
 import live.itrip.app.R;
-import live.itrip.app.ui.util.DeviceUtils;
+import live.itrip.app.util.DeviceUtils;
 
 /**
  * Created by Feng on 2017/7/5.

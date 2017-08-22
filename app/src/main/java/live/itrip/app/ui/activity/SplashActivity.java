@@ -3,9 +3,7 @@ package live.itrip.app.ui.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import live.itrip.app.R;
-import live.itrip.app.data.PreferenceData;
-import live.itrip.app.ui.base.BaseActivity;
+import live.itrip.app.cache.SharePreferenceData;
 import live.itrip.common.util.AppLog;
 
 /**
@@ -19,7 +17,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         AppLog.d("trace===SplashActivity onCreate");
-        if (PreferenceData.isFirstRunning(this)) {
+        if (SharePreferenceData.isFirstRunning(this)) {
             IntroduceActivity.launch(this);
         } else {
             MainActivity.launch(this);

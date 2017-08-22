@@ -12,9 +12,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import live.itrip.app.App;
 import live.itrip.app.R;
-import live.itrip.app.data.PreferenceData;
+import live.itrip.app.config.AppConfig;
 import live.itrip.app.ui.base.BaseFragment;
-import live.itrip.app.ui.util.UIUtils;
+import live.itrip.app.util.AppUtils;
+import live.itrip.app.util.UIUtils;
 import live.itrip.common.util.AppLog;
 
 /**
@@ -37,7 +38,7 @@ public class AboutFragment extends BaseFragment {
     }
 
     public void initData() {
-        mTvVersionName.setText(App.getInstance().getVersion());
+        mTvVersionName.setText(AppUtils.getVersion());
     }
 
 

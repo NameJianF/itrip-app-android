@@ -16,8 +16,8 @@ import java.util.List;
 import live.itrip.app.R;
 import live.itrip.app.bean.Recommend;
 import live.itrip.app.ui.fragment.plan.PlanDetailFragment;
-import live.itrip.app.ui.util.PicassoImageLoader;
-import live.itrip.app.ui.util.UIUtils;
+import live.itrip.app.util.PicassoImageLoader;
+import live.itrip.app.util.UIUtils;
 import live.itrip.common.util.StringUtils;
 
 /**

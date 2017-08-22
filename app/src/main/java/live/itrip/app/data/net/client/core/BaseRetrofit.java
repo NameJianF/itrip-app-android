@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public abstract class BaseRetrofit {
-    protected static final String END_POINT = "http://10.32.22.207:8080/";
+    protected static final String END_POINT = "http://10.32.22.209:8080/";
 
     public Retrofit get() {
         Retrofit.Builder builder = new Retrofit.Builder();

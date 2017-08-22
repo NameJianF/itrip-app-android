@@ -7,8 +7,9 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import live.itrip.app.cache.DataCacheManager;
 import live.itrip.app.data.net.client.core.BaseOkHttpClient;
-import live.itrip.app.ui.util.NetworkUtils;
+import live.itrip.app.util.NetworkUtils;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -34,7 +35,7 @@ public class CacheHttpClient extends BaseOkHttpClient {
     @Override
     public OkHttpClient.Builder customize(OkHttpClient.Builder builder) {
         // set cache dir
-        File cacheFile = new File(mContext.getCacheDir(), "itrip_cache");
+        File cacheFile = new File(DataCacheManager.getCacheDir(mContext), "itrip_http_cache");
         Cache cache = new Cache(cacheFile, CACHE_SIZE);
         builder.cache(cache);
 

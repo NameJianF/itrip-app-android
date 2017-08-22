@@ -21,9 +21,9 @@ import java.io.File;
 
 import butterknife.BindView;
 import live.itrip.app.R;
-import live.itrip.app.data.PreferenceData;
-import live.itrip.app.ui.util.ImageUtils;
-import live.itrip.app.ui.util.ToastUtils;
+import live.itrip.app.cache.SharePreferenceData;
+import live.itrip.app.util.ImageUtils;
+import live.itrip.app.util.ToastUtils;
 import live.itrip.common.util.QrCodeUtils;
 
 /**
@@ -52,7 +52,7 @@ public class QRCodeDialog extends Dialog {
 
         try {
             bitmap = QrCodeUtils.Create2DCode(String.format(
-                    "http://itrip.live/u/%s", PreferenceData.Account.getUserId()));
+                    "http://itrip.live/u/%s", SharePreferenceData.Account.getUserId()));
             mIvCode.setImageBitmap(bitmap);
         } catch (WriterException e) {
             e.printStackTrace();

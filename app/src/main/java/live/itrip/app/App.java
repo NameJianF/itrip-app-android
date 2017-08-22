@@ -11,6 +11,7 @@ import live.itrip.app.di.component.ApplicationComponent;
 import live.itrip.app.di.component.DaggerApplicationComponent;
 import live.itrip.app.di.module.ApplicationModule;
 import live.itrip.app.service.InitializeService;
+import live.itrip.app.util.AppUtils;
 import live.itrip.common.util.AppLog;
 
 /**
@@ -30,8 +31,6 @@ public class App extends Application {
         AppLog.init(BuildConfig.DEBUG);
 
         InitializeService.start(this);
-
-        AppConfig.CLIENT_VERSION = getVersion();
 
 //        context = getApplicationContext();
         instance = this;
@@ -76,22 +75,4 @@ public class App extends Application {
     public void setComponent(ApplicationComponent applicationComponent) {
         mApplicationComponent = applicationComponent;
     }
-
-    /**
-     * 2  * 获取版本号
-     * 3  * @return 当前应用的版本号
-     * 4
-     */
-    public String getVersion() {
-        try {
-            PackageManager manager = this.getPackageManager();
-            PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
-            return info.versionName;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "NO_VERSION";
-    }
-
-
 }

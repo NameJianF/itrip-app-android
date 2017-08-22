@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import live.itrip.app.ui.util.SoftKeyboardUtils;
+import live.itrip.app.util.SoftKeyboardUtils;
 import live.itrip.app.ui.widget.emoji.DisplayRules;
 import live.itrip.app.ui.widget.emoji.Emojicon;
 import live.itrip.app.R;

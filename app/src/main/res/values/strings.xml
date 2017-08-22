@@ -55,11 +55,15 @@
     <string name="update">检查更新</string>
     <string name="setting_cancel">注销登录</string>
 
+    <string name="logout_success">注销成功</string>
+    <string name="logout_failed">注销失败</string>
+    <string name="is_clear_cache">是否清空缓存?</string>
     <string name="program_error_hint">程序错误</string>
     <string name="feature_suggestions_hint">功能建议</string>
     <string name="feedback_hint">我们将不断改进</string>
     <string name="screenshot_hint">截图描述：（可选）</string>
     <string name="submit_feedback_hint">提交反馈</string>
+    <string name="cache_size_zero">0 KB</string>
 
     <string name="itrip_site">官网</string>
     <string name="know_more">了解更多</string>

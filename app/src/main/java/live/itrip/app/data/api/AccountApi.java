@@ -3,6 +3,7 @@ package live.itrip.app.data.api;
 import org.json.JSONException;
 
 import live.itrip.app.data.model.UserModel;
+import live.itrip.app.data.net.response.ResultResp;
 import rx.Observable;
 
 /**

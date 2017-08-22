@@ -10,25 +10,29 @@ import java.util.List;
  * Created by Feng on 2017/7/24.
  */
 
-public class BlogDetailModel implements Parcelable {
-    private Long id;
-    /**
-     * 1：收藏，0：未收藏
-     */
-    private int favorite = 1;
-    private String title = "";
-    private String body = "";
-    private String href = "";
-    private int type;
+public class BlogDetailModel extends BaseDetailModel implements Parcelable {
+    private int type;       // 博客类型
+    private int today;      // 今日发布
+    private int originate;  // 原创
+    private int reprint;    // 转发
+    private int recommend;  // 推荐
+    private int relation; // 关注
 
-    private List<Image> images;
-    private Statistics statistics;
-
-    private UserModel author;
+    private Long authId; // 作者id
+    private String authName;// 作者名称
+    private String authAvator; // 作者头像地址
 
     protected BlogDetailModel(Parcel in) {
-        id = in.readLong();
-        author = in.readParcelable(UserModel.class.getClassLoader());
+        super(in);
+        type = in.readInt();
+        today = in.readInt();
+        originate = in.readInt();
+        reprint = in.readInt();
+        recommend = in.readInt();
+        relation = in.readInt();
+        authId = in.readLong();
+        authName = in.readString();
+        authAvator = in.readString();
     }
 
     public static final Creator<BlogDetailModel> CREATOR = new Creator<BlogDetailModel>() {
@@ -43,44 +47,22 @@ public class BlogDetailModel implements Parcelable {
         }
     };
 
-    public Long getId() {
-        return id;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(int favorite) {
-        this.favorite = favorite;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public String getHref() {
-        return href;
-    }
-
-    public void setHref(String href) {
-        this.href = href;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(type);
+        dest.writeInt(today);
+        dest.writeInt(originate);
+        dest.writeInt(reprint);
+        dest.writeInt(recommend);
+        dest.writeInt(relation);
+        dest.writeLong(authId);
+        dest.writeString(authName);
+        dest.writeString(authAvator);
     }
 
     public int getType() {
@@ -91,144 +73,67 @@ public class BlogDetailModel implements Parcelable {
         this.type = type;
     }
 
-    public List<Image> getImages() {
-        return images;
+    public int getToday() {
+        return today;
     }
 
-    public void setImages(List<Image> images) {
-        this.images = images;
+    public void setToday(int today) {
+        this.today = today;
     }
 
-    public Statistics getStatistics() {
-        return statistics;
+    public int getOriginate() {
+        return originate;
     }
 
-    public void setStatistics(Statistics statistics) {
-        this.statistics = statistics;
+    public void setOriginate(int originate) {
+        this.originate = originate;
     }
 
-    public UserModel getAuthor() {
-        return author;
+    public int getReprint() {
+        return reprint;
     }
 
-    public void setAuthor(UserModel author) {
-        this.author = author;
+    public void setReprint(int reprint) {
+        this.reprint = reprint;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public int getRecommend() {
+        return recommend;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(id);
-        dest.writeParcelable(author, flags);
+    public void setRecommend(int recommend) {
+        this.recommend = recommend;
     }
 
-
-    public static class Image implements Serializable {
-        private String href;
-        private String thumb;
-        private int w;
-        private int h;
-        private String type;
-        private String name;
-
-        public String getHref() {
-            return href;
-        }
-
-        public void setHref(String href) {
-            this.href = href;
-        }
-
-        public String getThumb() {
-            return thumb;
-        }
-
-        public void setThumb(String thumb) {
-            this.thumb = thumb;
-        }
-
-        public int getW() {
-            return w;
-        }
-
-        public void setW(int w) {
-            this.w = w;
-        }
-
-        public int getH() {
-            return h;
-        }
-
-        public void setH(int h) {
-            this.h = h;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
+    public Long getAuthId() {
+        return authId;
     }
 
-    public static class Statistics implements Serializable {
-        private int comment;
-        private int view;
-        private int like;
-        private int transmit;
-        private int favCount;
+    public void setAuthId(Long authId) {
+        this.authId = authId;
+    }
 
-        public int getComment() {
-            return comment;
-        }
+    public String getAuthName() {
+        return authName;
+    }
 
-        public void setComment(int comment) {
-            this.comment = comment;
-        }
+    public void setAuthName(String authName) {
+        this.authName = authName;
+    }
 
-        public int getView() {
-            return view;
-        }
+    public String getAuthAvator() {
+        return authAvator;
+    }
 
-        public void setView(int view) {
-            this.view = view;
-        }
+    public void setAuthAvator(String authAvator) {
+        this.authAvator = authAvator;
+    }
 
-        public int getLike() {
-            return like;
-        }
+    public int getRelation() {
+        return relation;
+    }
 
-        public void setLike(int like) {
-            this.like = like;
-        }
-
-        public int getTransmit() {
-            return transmit;
-        }
-
-        public void setTransmit(int transmit) {
-            this.transmit = transmit;
-        }
-
-        public int getFavCount() {
-            return favCount;
-        }
-
-        public void setFavCount(int favCount) {
-            this.favCount = favCount;
-        }
+    public void setRelation(int relation) {
+        this.relation = relation;
     }
 }

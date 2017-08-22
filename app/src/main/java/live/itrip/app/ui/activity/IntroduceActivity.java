@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import live.itrip.app.R;
-import live.itrip.app.data.PreferenceData;
+import live.itrip.app.cache.SharePreferenceData;
 import live.itrip.common.Indicator.AppIntro2;
 import live.itrip.common.Indicator.AppIntroFragment;
 
@@ -75,7 +75,7 @@ public class IntroduceActivity extends AppIntro2 {
     }
 
     private void goMain() {
-        PreferenceData.setAlreadyRun(this);
+        SharePreferenceData.setAlreadyRun(this);
 
         MainActivity.launch(this);
         finish();

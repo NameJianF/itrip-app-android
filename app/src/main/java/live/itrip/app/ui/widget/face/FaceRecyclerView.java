@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-import live.itrip.app.ui.util.DeviceUtils;
+import live.itrip.app.util.DeviceUtils;
 import live.itrip.app.ui.widget.emoji.Emojicon;
 import live.itrip.app.R;
 

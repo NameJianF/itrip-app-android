@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import live.itrip.app.ui.util.UIUtils;
+import live.itrip.app.util.UIUtils;
 
 /**
  * Created by Feng on 2017/7/24.
