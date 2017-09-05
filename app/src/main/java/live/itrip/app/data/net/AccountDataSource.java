@@ -11,10 +11,13 @@ import javax.inject.Inject;
 import live.itrip.app.config.AppConfig;
 import live.itrip.app.config.Constants;
 import live.itrip.app.data.api.AccountApi;
+import live.itrip.app.data.model.UserExpandModel;
 import live.itrip.app.data.model.UserModel;
 import live.itrip.app.data.net.client.AppAuthRetrofit;
 import live.itrip.app.data.net.request.CreateAuthorization;
+import live.itrip.app.data.net.request.UserExpandInfoParams;
 import live.itrip.app.data.net.response.AuthorizationResp;
+import live.itrip.app.data.net.response.UserExpandInfoResp;
 import live.itrip.app.service.net.AccountService;
 import live.itrip.common.util.Md5Utils;
 import live.itrip.common.util.SigUtil;
@@ -62,6 +65,29 @@ public class AccountDataSource implements AccountApi {
             }
         });
 
+    }
+
+    @Override
+    public Observable<UserExpandModel> getUserExpandInfo(String username, String token) throws JSONException {
+        UserExpandInfoParams request = new UserExpandInfoParams();
+        request.setOp(Constants.ApiOp.OP_USER_INFO);
+        request.setEmail(username);
+        request.setSid(token);
+
+        String json = JSON.toJSONString(request);
+        request.setSig(SigUtil.getSig(json, AppConfig.SECRET_KEY));
+
+        mRetrofit.setPostJsonString(JSON.toJSONString(request));
+
+        final AccountService accountService = mRetrofit.get().create(AccountService.class);
+
+        Observable<UserExpandInfoResp> respObservable = accountService.getUserExpandInfo();
+        return respObservable.map(new Func1<UserExpandInfoResp, UserExpandModel>() {
+            @Override
+            public UserExpandModel call(UserExpandInfoResp resp) {
+                return resp.getUserExpandModel();
+            }
+        });
     }
 
 }

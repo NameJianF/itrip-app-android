@@ -29,6 +29,11 @@ public class Constants {
          * 退出
          */
         public static final String OP_LOGOUT = "Sso.logout";
+
+        /**
+         * 获取用户信息
+         */
+        public static final String OP_USER_INFO = "User.info";
     }
 
 }

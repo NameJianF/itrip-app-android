@@ -29,6 +29,7 @@ import butterknife.OnClick;
 import live.itrip.app.R;
 import live.itrip.app.cache.DataCacheManager;
 import live.itrip.app.cache.SharePreferenceData;
+import live.itrip.app.data.model.UserExpandModel;
 import live.itrip.app.data.model.UserModel;
 import live.itrip.app.ui.activity.profile.FootmarksActivity;
 import live.itrip.app.ui.activity.profile.UserMessageActivity;
@@ -36,6 +37,7 @@ import live.itrip.app.ui.activity.ImageCropActivity;
 import live.itrip.app.ui.activity.profile.RecyclerViewActivity;
 import live.itrip.app.ui.base.BaseFragment;
 import live.itrip.app.ui.fragment.profile.UserInforDetailFragment;
+import live.itrip.app.util.PicassoImageLoader;
 import live.itrip.app.util.UIUtils;
 import live.itrip.app.ui.view.dialog.QRCodeDialog;
 import live.itrip.app.ui.widget.SelectPicturePopupWindow;
@@ -74,7 +76,7 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
     @BindView(R.id.lay_about_info)
     LinearLayout mLayAboutCount;
     @BindView(R.id.tv_bubbles)
-    TextView mTvCount;
+    TextView mTvBubbles;
     @BindView(R.id.tv_favorite)
     TextView mTvFavoriteCount;
     @BindView(R.id.tv_following)
@@ -134,8 +136,45 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
             mFansView.setVisibility(View.INVISIBLE);
 
         initSolar(root);
+
+        // set values
+        this.setUIValues();
     }
 
+    private void setUIValues() {
+        UserModel user = SharePreferenceData.Account.getLogonUser(getContext());
+
+        if (user != null) {
+            // 头像
+            PicassoImageLoader.getInstance().showImage(getContext(), user.getImg(), mImageViewAvatar);
+            // email
+            mTvName.setText(user.getEmail());
+
+            UserExpandModel userExpandModel = SharePreferenceData.Account.getLogonUserExpandInfo(getContext());
+            if (userExpandModel != null) {
+                // 性别
+                if ("1".equals(userExpandModel.getSex())) {
+                    mIvGander.setImageResource(R.mipmap.ic_male);
+                } else {
+                    mIvGander.setImageResource(R.mipmap.ic_woman);
+                }
+//            TextView mTvScore;  // 积分
+                mTvScore.setText("298");
+//            TextView mTvBubbles; // 冒泡
+                mTvBubbles.setText("80");
+//            TextView mTvFavoriteCount;  // 收藏
+                mTvFavoriteCount.setText("66");
+//            TextView mTvFollowCount;  // 关注
+                mTvFollowCount.setText("35");
+//            TextView mTvFollowerCount; // 粉丝
+                mTvFollowerCount.setText("30");
+//            TextView mMesView;   // 未读消息
+                mMesView.setText("2");
+//            TextView mFansView;  // 未查看 粉丝
+                mFansView.setText("5");
+            }
+        }
+    }
 
     @OnClick({
             R.id.iv_logo_setting, R.id.iv_logo_zxing, R.id.image_view_avatar,
@@ -161,7 +200,7 @@ public class ProfileFragment extends BaseFragment implements SelectPicturePopupW
                     //查看头像 or 更换头像
                     break;
                 case R.id.user_view_solar_system:
-                    //显示我的资料
+                    // 显示我的资料
                     if (!SharePreferenceData.Account.checkLogon(this.getContext())) {
                         return;
                     }

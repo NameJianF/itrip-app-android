@@ -80,16 +80,15 @@ public class SettingPresenter extends RxMvpPresenter<LogoutView<UpdateModel>> {
                     @Override
                     public void onSuccess(ResultResp resp) {
                         if (resp != null) {
-                            if (resp.getCode() == 0) {
-                                // 成功
-                                // remove user
-                                SharePreferenceData.Account.removeLogonUser();
-                                AppLog.d("remove user :" + username);
-                                getMvpView().logoutSuccess();
-                            } else {
-                                // 失败
-                                getMvpView().logoutFailed();
-                            }
+                            // 成功
+                            getMvpView().logoutSuccess();
+//                            if (resp.getCode() == 0) {
+//                                // 成功
+//                                getMvpView().logoutSuccess();
+//                            } else {
+//                                // 失败
+//                                getMvpView().logoutFailed();
+//                            }
                         }
                     }
 

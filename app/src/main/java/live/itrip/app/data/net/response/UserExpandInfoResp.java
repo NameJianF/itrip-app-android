@@ -12,35 +12,18 @@ import live.itrip.app.data.model.UserModel;
  * Created by Feng on 2017/4/26.
  */
 
-public class AuthorizationResp implements Parcelable {
+public class UserExpandInfoResp implements Parcelable {
     private String op;
     private int code = -1;
     private String msg;
     @SerializedName("data")
-    private UserModel author;
+    private UserExpandModel userExpandModel;
 
-    protected AuthorizationResp(Parcel in) {
+    protected UserExpandInfoResp(Parcel in) {
         op = in.readString();
         code = in.readInt();
         msg = in.readString();
-        author = in.readParcelable(UserModel.class.getClassLoader());
-    }
-
-    public static final Creator<AuthorizationResp> CREATOR = new Creator<AuthorizationResp>() {
-        @Override
-        public AuthorizationResp createFromParcel(Parcel in) {
-            return new AuthorizationResp(in);
-        }
-
-        @Override
-        public AuthorizationResp[] newArray(int size) {
-            return new AuthorizationResp[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
+        userExpandModel = in.readParcelable(UserExpandModel.class.getClassLoader());
     }
 
     @Override
@@ -48,8 +31,25 @@ public class AuthorizationResp implements Parcelable {
         dest.writeString(op);
         dest.writeInt(code);
         dest.writeString(msg);
-        dest.writeParcelable(author, flags);
+        dest.writeParcelable(userExpandModel, flags);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<UserExpandInfoResp> CREATOR = new Creator<UserExpandInfoResp>() {
+        @Override
+        public UserExpandInfoResp createFromParcel(Parcel in) {
+            return new UserExpandInfoResp(in);
+        }
+
+        @Override
+        public UserExpandInfoResp[] newArray(int size) {
+            return new UserExpandInfoResp[size];
+        }
+    };
 
     public String getOp() {
         return op;
@@ -75,12 +75,11 @@ public class AuthorizationResp implements Parcelable {
         this.msg = msg;
     }
 
-    public UserModel getAuthor() {
-        return author;
+    public UserExpandModel getUserExpandModel() {
+        return userExpandModel;
     }
 
-    public void setAuthor(UserModel author) {
-        this.author = author;
+    public void setUserExpandModel(UserExpandModel userExpandModel) {
+        this.userExpandModel = userExpandModel;
     }
-
 }

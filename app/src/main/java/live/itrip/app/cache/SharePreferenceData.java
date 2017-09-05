@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 
 import live.itrip.app.App;
+import live.itrip.app.data.model.UserExpandModel;
 import live.itrip.app.data.model.UserModel;
 import live.itrip.app.ui.activity.account.LoginActivity;
 
@@ -19,6 +20,7 @@ public class SharePreferenceData {
     private static final String KEY_IS_FIRST_RUNNING = "isFirstRunning";
     private static final String KEY_LOGIN_TOKEN = "login_token";
     private static final String KEY_LOGON_USER = "logon_user";
+    private static final String KEY_LOGON_USER_EXPAND_INFO = "logon_user_expand_info";
 
 
     private static final String KEY_SOFT_KEYBOARD_HEIGHT = "softKeyboardHeight";
@@ -91,20 +93,19 @@ public class SharePreferenceData {
             getPreference(context).edit().putString(KEY_LOGON_USER, userJson).apply();
         }
 
+        public static void saveLogonUserExpandInfo(Context context, UserExpandModel userExpandModel) {
+            String userJson = new Gson().toJson(userExpandModel);
+            getPreference(context).edit().putString(KEY_LOGON_USER_EXPAND_INFO, userJson).apply();
+        }
+
         public static void removeLogonUser(Context context) {
             // remove user
             getPreference(context).edit().remove(KEY_LOGON_USER).apply();
             // remove token
             getPreference(context).edit().remove(KEY_LOGIN_TOKEN).apply();
+            // remove user expand info
+            getPreference(context).edit().remove(KEY_LOGON_USER_EXPAND_INFO).apply();
         }
-
-        public static void removeLogonUser() {
-            // remove user
-            getPreference(App.getContext()).edit().remove(KEY_LOGON_USER).apply();
-            // remove token
-            getPreference(App.getContext()).edit().remove(KEY_LOGIN_TOKEN).apply();
-        }
-
 
         public static UserModel getLogonUser(Context context) {
             UserModel user = null;
@@ -113,6 +114,15 @@ public class SharePreferenceData {
                 user = new Gson().fromJson(userJson, UserModel.class);
             }
             return user;
+        }
+
+        public static UserExpandModel getLogonUserExpandInfo(Context context) {
+            UserExpandModel userExpandModel = null;
+            String userJson = getPreference(context).getString(KEY_LOGON_USER_EXPAND_INFO, "");
+            if (!TextUtils.isEmpty(userJson)) {
+                userExpandModel = new Gson().fromJson(userJson, UserExpandModel.class);
+            }
+            return userExpandModel;
         }
 
         public static boolean isLogon(Context context) {

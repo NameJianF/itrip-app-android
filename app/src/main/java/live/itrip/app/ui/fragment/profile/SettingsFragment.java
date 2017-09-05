@@ -68,8 +68,6 @@ public class SettingsFragment extends BaseFragment implements LogoutView<UpdateM
     @BindView(R.id.rl_cancel)
     FrameLayout mCancel;
 
-//    private Version mVersion;
-
     @Inject
     SettingPresenter mPresenter;
 
@@ -145,9 +143,9 @@ public class SettingsFragment extends BaseFragment implements LogoutView<UpdateM
                 onClickCleanCache();
                 break;
             case R.id.rl_feedback:
-                if (!SharePreferenceData.Account.checkLogon(this.getContext())) {
-                    return;
-                }
+//                if (!SharePreferenceData.Account.checkLogon(this.getContext())) {
+//                    return;
+//                }
                 FeedBackActivity.launch(getActivity());
                 break;
             case R.id.rl_about:
@@ -197,6 +195,9 @@ public class SettingsFragment extends BaseFragment implements LogoutView<UpdateM
     @Override
     public void logoutSuccess() {
         // 注销成功
+        // remove user
+        SharePreferenceData.Account.removeLogonUser(getContext());
+
         //getActivity().finish();
         mTvCacheSize.setText(getString(R.string.cache_size_zero));
         mCancel.setVisibility(View.INVISIBLE);

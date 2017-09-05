@@ -1,5 +1,6 @@
 package live.itrip.app.ui.view.mvp;
 
+import live.itrip.app.data.model.UserExpandModel;
 import live.itrip.app.data.model.UserModel;
 import live.itrip.common.mvp.view.LoadView;
 
@@ -11,4 +12,5 @@ public interface LoginView extends LoadView {
 
     void loginSuccess(UserModel user);
 
+    void getUserExpandInfoSuccess(UserExpandModel userExpandModel);
 }

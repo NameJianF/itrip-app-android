@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import live.itrip.app.cache.SharePreferenceData;
 import live.itrip.app.data.api.AccountApi;
+import live.itrip.app.data.model.UserExpandModel;
 import live.itrip.app.data.model.UserModel;
 import live.itrip.app.data.observer.ResponseObserver;
 import live.itrip.app.presenter.base.RxMvpPresenter;
@@ -71,5 +72,41 @@ public class LoginPresenter extends RxMvpPresenter<LoginView> {
                     }
                 }));
     }
+
+
+    public void getUserExpandInfo(String username, String token) throws JSONException {
+        mCompositeSubscription.add(mAccountApi.getUserExpandInfo(username, token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        getMvpView().showLoading();
+                    }
+                })
+                .doOnTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        getMvpView().dismissLoading();
+                    }
+                })
+                .subscribe(new ResponseObserver<UserExpandModel>() {
+                    @Override
+                    public void onSuccess(UserExpandModel userExpandModel) {
+                        if (userExpandModel != null) {
+                            // save user expand info
+                            SharePreferenceData.Account.saveLogonUserExpandInfo(mContext, userExpandModel);
+                            getMvpView().getUserExpandInfoSuccess(userExpandModel);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        AppLog.e(e);
+                        getMvpView().getUserExpandInfoSuccess(null);
+                    }
+                }));
+    }
+
 
 }

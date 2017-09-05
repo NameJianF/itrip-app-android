@@ -20,6 +20,7 @@ import butterknife.OnClick;
 import live.itrip.app.App;
 import live.itrip.app.R;
 import live.itrip.app.cache.SharePreferenceData;
+import live.itrip.app.data.model.UserExpandModel;
 import live.itrip.app.data.model.UserModel;
 import live.itrip.app.di.HasComponent;
 import live.itrip.app.di.component.AccountComponent;
@@ -29,6 +30,7 @@ import live.itrip.app.di.module.ActivityModule;
 import live.itrip.app.presenter.account.LoginPresenter;
 import live.itrip.app.ui.view.mvp.LoginView;
 import live.itrip.app.ui.base.BaseLoadingActivity;
+import live.itrip.common.util.AppLog;
 import live.itrip.common.util.InputMethodUtils;
 
 /**
@@ -119,8 +121,20 @@ public class LoginActivity extends BaseLoadingActivity implements LoginView, Has
 
     @Override
     public void loginSuccess(UserModel user) {
+        try {
+            mPresenter.getUserExpandInfo(user.getEmail(), user.getToken());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         Snackbar.make(mLoginBtn, "Login Success", Snackbar.LENGTH_LONG).show();
-        SharePreferenceData.Account.saveLogonUser(this, user);
+    }
+
+    @Override
+    public void getUserExpandInfoSuccess(UserExpandModel userExpandModel) {
+        if (userExpandModel == null) {
+            AppLog.d("get user expand info failed ...");
+        }
         finish();
     }
 }

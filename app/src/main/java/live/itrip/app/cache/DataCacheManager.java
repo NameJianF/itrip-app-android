@@ -7,7 +7,6 @@ import android.os.Environment;
 import android.text.TextUtils;
 
 import java.io.File;
-import java.math.BigDecimal;
 
 import live.itrip.common.util.AppLog;
 import live.itrip.common.util.FileUtils;

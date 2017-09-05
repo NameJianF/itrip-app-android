@@ -40,9 +40,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_20"
-                    android:hint="Username"
                     android:inputType="text"
-                    android:text="fjf789@126.com"/>
+                    tools:text="fjf789@126.com" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -53,11 +52,12 @@
                     android:id="@+id/edit_text_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
                     android:inputType="textPassword"
-                    android:text="123456"/>
+                    tools:text="123456" />
 
             </android.support.design.widget.TextInputLayout>
+
+
 
             <Button
                 android:id="@+id/button_login"
@@ -66,7 +66,7 @@
                 android:layout_marginTop="@dimen/dimen_20"
                 android:background="@color/button_bg"
                 android:elevation="4dp"
-                android:text="@string/sign_in"/>
+                android:text="@string/sign_in" />
 
         </LinearLayout>
 

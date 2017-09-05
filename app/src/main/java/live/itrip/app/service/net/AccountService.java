@@ -1,11 +1,13 @@
 package live.itrip.app.service.net;
 
 import live.itrip.app.config.Constants;
+import live.itrip.app.data.model.UserExpandModel;
 import live.itrip.app.data.model.UserModel;
 import live.itrip.app.data.net.request.CreateAuthorization;
 import live.itrip.app.data.net.request.LogoutParams;
 import live.itrip.app.data.net.response.AuthorizationResp;
 import live.itrip.app.data.net.response.ResultResp;
+import live.itrip.app.data.net.response.UserExpandInfoResp;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -23,8 +25,8 @@ public interface AccountService {
     @POST(Constants.ApiAction.ACTION_SSO)
     Observable<ResultResp> logout();
 
-//    @GET(Constants.ApiAction.ACTION_USER)
-//    rx.Observable<UserModel> getUserInfo(@Query("token") String accessToken);
+    @POST(Constants.ApiAction.ACTION_USER)
+    Observable<UserExpandInfoResp> getUserExpandInfo();
 
 
 }
