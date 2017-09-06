@@ -28,5 +28,15 @@ public interface AccountService {
     @POST(Constants.ApiAction.ACTION_USER)
     Observable<UserExpandInfoResp> getUserExpandInfo();
 
+    @POST(Constants.ApiAction.ACTION_USER)
+    Observable<ResultResp> validateSmsCode();
 
+    @POST(Constants.ApiAction.ACTION_USER)
+    Observable<ResultResp> sendSmsCode();
+
+    @POST(Constants.ApiAction.ACTION_USER)
+    Observable<ResultResp> resetPwd();
+
+    @POST(Constants.ApiAction.ACTION_USER)
+    Observable<AuthorizationResp> register();
 }

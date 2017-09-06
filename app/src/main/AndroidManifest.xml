@@ -34,6 +34,11 @@
         <activity android:name=".ui.activity.MainActivity" />
         <activity android:name=".ui.activity.IntroduceActivity" />
         <activity android:name=".ui.activity.account.LoginActivity" />
+        <activity android:name=".ui.activity.account.RetrieveActivity" />
+        <activity android:name=".ui.activity.account.ResetPwdActivity"/>
+        <activity android:name=".ui.activity.account.RegisterStepOneActivity"/>
+        <activity android:name=".ui.activity.account.RegisterStepTwoActivity"/>
+
         <activity android:name=".ui.activity.SimpleBackActivity" />
         <activity android:name=".ui.activity.profile.FeedBackActivity" />
         <activity android:name=".ui.activity.ImageCropActivity" />
@@ -42,7 +47,7 @@
         <activity android:name=".ui.activity.profile.FootmarksActivity" />
         <activity android:name=".ui.activity.profile.DialogMessageActivity" />
         <activity android:name=".ui.activity.DetailActivity" />
-        <activity android:name=".ui.activity.plan.PlanCategoryActivity"/>
+        <activity android:name=".ui.activity.plan.PlanCategoryActivity" />
 
         <!--service-->
         <service android:name=".service.InitializeService" />

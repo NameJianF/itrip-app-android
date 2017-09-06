@@ -23,4 +23,22 @@
     <dimen name="dimen_200">200dp</dimen>
     <dimen name="dimen_260">260dp</dimen>
     <dimen name="dimen_300">300dp</dimen>
+
+    <dimen name="space_100">100.0dip</dimen>
+    <dimen name="space_49">49dip</dimen>
+    <dimen name="space_35">35.0dip</dimen>
+    <dimen name="space_16">16.0dip</dimen>
+    <dimen name="space_15">15.0dip</dimen>
+    <dimen name="space_14">14.0dip</dimen>
+    <dimen name="space_13">13.0dip</dimen>
+    <dimen name="space_12">12.0dip</dimen>
+    <dimen name="space_10">10.0dip</dimen>
+    <dimen name="space_8">8.0dip</dimen>
+    <dimen name="space_6">6.0dip</dimen>
+    <dimen name="space_5">5.0dip</dimen>
+    <dimen name="space_4">4.0dip</dimen>
+    <dimen name="space_3">3.0dip</dimen>
+    <dimen name="space_2">2.0dip</dimen>
+    <!--toast y offset  官方默认是64dip-->
+    <dimen name="toast_y_offset">35dp</dimen>
 </resources>

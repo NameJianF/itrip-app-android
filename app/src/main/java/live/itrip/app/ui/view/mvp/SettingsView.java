@@ -8,7 +8,7 @@ import live.itrip.common.mvp.view.MvpView;
  * Created by Feng on 2017/8/22.
  */
 
-public interface LogoutView<M> extends MvpView {
+public interface SettingsView<M> extends MvpView {
 
 
     @UiThread

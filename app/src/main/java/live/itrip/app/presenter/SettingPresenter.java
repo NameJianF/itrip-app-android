@@ -4,13 +4,12 @@ import org.json.JSONException;
 
 import javax.inject.Inject;
 
-import live.itrip.app.cache.SharePreferenceData;
 import live.itrip.app.data.api.SettingApi;
 import live.itrip.app.data.model.UpdateModel;
 import live.itrip.app.data.net.response.ResultResp;
 import live.itrip.app.data.observer.ResponseObserver;
 import live.itrip.app.presenter.base.RxMvpPresenter;
-import live.itrip.app.ui.view.mvp.LogoutView;
+import live.itrip.app.ui.view.mvp.SettingsView;
 import live.itrip.common.util.AppLog;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
@@ -20,7 +19,7 @@ import rx.schedulers.Schedulers;
  * Created by Feng on 2017/6/28.
  */
 
-public class SettingPresenter extends RxMvpPresenter<LogoutView<UpdateModel>> {
+public class SettingPresenter extends RxMvpPresenter<SettingsView<UpdateModel>> {
     private final SettingApi mSettingApi;
 
     @Inject
@@ -59,7 +58,13 @@ public class SettingPresenter extends RxMvpPresenter<LogoutView<UpdateModel>> {
                 }));
     }
 
-
+    /**
+     * 注销登录
+     *
+     * @param username
+     * @param token
+     * @throws JSONException
+     */
     public void logout(final String username, String token) throws JSONException {
         mCompositeSubscription.add(mSettingApi.logout(username, token)
                 .subscribeOn(Schedulers.io())

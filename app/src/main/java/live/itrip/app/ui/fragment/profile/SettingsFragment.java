@@ -39,18 +39,17 @@ import live.itrip.app.util.AppUtils;
 import live.itrip.app.util.DialogUtils;
 import live.itrip.app.util.ToastUtils;
 import live.itrip.app.util.UIUtils;
-import live.itrip.app.ui.view.mvp.LogoutView;
+import live.itrip.app.ui.view.mvp.SettingsView;
 import live.itrip.common.files.download.DownLoadHelper;
 import live.itrip.common.files.download.interfaces.IdownLoadProgress;
 import live.itrip.common.util.AppLog;
-import live.itrip.common.util.FileUtils;
 
 /**
  * 系统设置界面
  *
  * @author
  */
-public class SettingsFragment extends BaseFragment implements LogoutView<UpdateModel> {
+public class SettingsFragment extends BaseFragment implements SettingsView<UpdateModel> {
 
     private static final int RC_EXTERNAL_STORAGE = 0x04;//存储权限
 
