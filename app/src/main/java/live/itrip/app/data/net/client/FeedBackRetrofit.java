@@ -2,21 +2,27 @@ package live.itrip.app.data.net.client;
 
 import javax.inject.Inject;
 
-import live.itrip.app.data.net.client.cache.MessageCacheHttpClient;
+import live.itrip.app.data.net.client.cache.FeedBackCacheHttpClient;
 import live.itrip.app.data.net.client.core.ApiEndpoint;
 import live.itrip.app.data.net.client.core.BaseRetrofit;
 import okhttp3.OkHttpClient;
 
 /**
- * Created by Feng on 2017/6/27.
+ * Created by Feng on 2017/9/6.
  */
 
-public class MessageRetrofit extends BaseRetrofit {
-    MessageCacheHttpClient mHttpClient;
+public class FeedBackRetrofit extends BaseRetrofit {
+    FeedBackCacheHttpClient mHttpClient;
+    private String postJsonString;
 
     @Inject
-    public MessageRetrofit(MessageCacheHttpClient httpClient) {
+    public FeedBackRetrofit(FeedBackCacheHttpClient httpClient) {
         this.mHttpClient = httpClient;
+    }
+
+
+    public void setPostJsonString(String postJsonString) {
+        this.postJsonString = postJsonString;
     }
 
     @Override
@@ -31,6 +37,7 @@ public class MessageRetrofit extends BaseRetrofit {
 
     @Override
     public OkHttpClient getHttpClient() {
+        this.mHttpClient.setPostJsonString(this.postJsonString);
         return mHttpClient.get();
     }
 }

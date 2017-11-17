@@ -30,6 +30,7 @@ public class Constants {
     public static class ApiAction {
         public static final String ACTION_SSO = "sso.action";
         public static final String ACTION_USER = "user.action";
+        public static final String ACTION_FEEDBACK = "feedback.action";
     }
 
     public static class ApiOp {
@@ -64,6 +65,11 @@ public class Constants {
          * 发送短信验证码
          */
         public static final String OP_USER_SEND_SMS_CODE = "User.sendSmsCode";
+
+        /**
+         * 提交反馈信息
+         */
+        public static final String OP_FEEDBACK_SUBMIT = "Feedback.submit";
     }
 
 }

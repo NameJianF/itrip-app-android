@@ -206,22 +206,6 @@ public class SettingsFragment extends BaseFragment implements SettingsView<Updat
     }
 
     @Override
-    public void logoutFailed() {
-        // 注销失败
-        ToastUtils.showToast(getString(R.string.logout_success));
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void dismissLoading() {
-
-    }
-
-    @Override
     public void showContent(final UpdateModel model) {
         DialogUtils.getConfirmDialog(getActivity(), "更新提示", model.getDesc(), "现在更新", "稍后更新", new DialogInterface.OnClickListener() {
             @Override
@@ -283,12 +267,17 @@ public class SettingsFragment extends BaseFragment implements SettingsView<Updat
     }
 
     @Override
-    public void showError(Throwable e) {
-        AppLog.e(e);
+    public void showLoading() {
+
     }
 
     @Override
-    public void showEmpty() {
-        // TODO
+    public void dismissLoading() {
+
+    }
+
+    @Override
+    public void error(Throwable e) {
+        AppLog.e(e);
     }
 }

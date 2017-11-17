@@ -53,7 +53,7 @@ public class PlanDetailPresenter extends RxMvpPresenter<DetailView<PlanDetailMod
 
                     @Override
                     public void onError(Throwable e) {
-                        getMvpView().showError(e);
+                        getMvpView().error(e);
                     }
                 }));
     }
@@ -87,7 +87,7 @@ public class PlanDetailPresenter extends RxMvpPresenter<DetailView<PlanDetailMod
 
                     @Override
                     public void onError(Throwable e) {
-                        getMvpView().showError(e);
+                        getMvpView().error(e);
                     }
                 }));
 

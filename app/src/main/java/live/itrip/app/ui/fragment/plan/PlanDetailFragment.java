@@ -214,7 +214,7 @@ public class PlanDetailFragment extends BaseDetailFragment implements DetailView
 
 
     @Override
-    public void showError(Throwable e) {
+    public void error(Throwable e) {
         this.getDetailActivity().showErrorLayout(EmptyLayout.NETWORK_ERROR);
     }
 

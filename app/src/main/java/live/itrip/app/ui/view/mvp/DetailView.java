@@ -5,19 +5,14 @@ import android.support.annotation.UiThread;
 import java.util.ArrayList;
 
 import live.itrip.app.data.model.ChildMultiItem;
+import live.itrip.common.mvp.view.LoadView;
 import live.itrip.common.mvp.view.MvpView;
 
 /**
  * Created by Feng on 2017/8/8.
  */
 
-public interface DetailView<M> extends MvpView {
-    @UiThread
-    void showLoading();
-
-    @UiThread
-    void dismissLoading();
-
+public interface DetailView<M> extends LoadView {
     /**
      * 加载 详细信息
      *
@@ -25,9 +20,6 @@ public interface DetailView<M> extends MvpView {
      */
     @UiThread
     void showDetailContent(M data);
-
-    @UiThread
-    void showError(Throwable e);
 
     @UiThread
     void showEmpty();

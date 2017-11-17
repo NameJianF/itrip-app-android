@@ -5,4 +5,5 @@ package live.itrip.common.mvp.view;
  */
 
 public interface MvpView {
+
 }

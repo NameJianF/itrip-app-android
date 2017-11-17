@@ -41,7 +41,6 @@ import butterknife.OnClick;
 import live.itrip.app.App;
 import live.itrip.app.R;
 import live.itrip.app.cache.SharePreferenceData;
-import live.itrip.app.data.model.UserExpandModel;
 import live.itrip.app.data.model.UserModel;
 import live.itrip.app.di.HasComponent;
 import live.itrip.app.di.component.AccountComponent;

@@ -7,7 +7,9 @@ import android.content.Intent;
 import live.itrip.common.util.AppLog;
 
 /**
- * Created by Feng on 2017/4/24.
+ * Created on 2017/4/24.
+ *
+ * @author JianF
  */
 
 public class InitializeService extends IntentService {

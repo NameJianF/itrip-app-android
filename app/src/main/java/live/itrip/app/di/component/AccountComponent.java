@@ -28,4 +28,5 @@ public interface AccountComponent extends ActivityComponent {
     void inject(RegisterStepOneActivity registerStepOneActivity);
 
     void inject(RegisterStepTwoActivity registerStepTwoActivity);
+
 }

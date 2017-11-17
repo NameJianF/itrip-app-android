@@ -53,7 +53,7 @@ public class SettingPresenter extends RxMvpPresenter<SettingsView<UpdateModel>> 
                     @Override
                     public void onError(Throwable e) {
                         AppLog.e(e);
-                        getMvpView().showError(e);
+                        getMvpView().error(e);
                     }
                 }));
     }
@@ -100,7 +100,7 @@ public class SettingPresenter extends RxMvpPresenter<SettingsView<UpdateModel>> 
                     @Override
                     public void onError(Throwable e) {
                         AppLog.e(e);
-                        getMvpView().showError(e);
+                        getMvpView().error(e);
                     }
                 }));
     }

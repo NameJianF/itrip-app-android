@@ -9,11 +9,11 @@ import android.support.annotation.UiThread;
 public interface LoadView extends MvpView {
 
     @UiThread
-    public void showLoading();
+    void showLoading();
 
     @UiThread
-    public void dismissLoading();
+    void dismissLoading();
 
     @UiThread
-    public void error(Throwable e);
+    void error(Throwable e);
 }

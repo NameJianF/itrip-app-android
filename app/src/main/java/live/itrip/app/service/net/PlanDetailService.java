@@ -1,6 +1,5 @@
 package live.itrip.app.service.net;
 
-import live.itrip.app.data.net.response.PlanCategoryResultResp;
 import live.itrip.app.data.net.response.PlanDetailResultResp;
 import live.itrip.app.data.net.response.RecommendResultResp;
 import retrofit2.http.GET;
