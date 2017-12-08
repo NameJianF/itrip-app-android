@@ -1,18 +1,17 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion 19
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
-
-//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -23,14 +22,14 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    //    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-    //        exclude group: 'com.android.support', module: 'support-annotations'
-    //    })
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
-    testCompile 'junit:junit:4.12'
-    // Logger
-    // https://github.com/orhanobut/logger
+    compile 'com.android.support:appcompat-v7:26.1.0'
+//    testcompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    // add lib
+    compile 'com.android.support:design:26.1.0'
+    // Logger https://github.com/orhanobut/logger
     compile 'com.orhanobut:logger:1.14'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.alibaba:fastjson:1.1.56.android'
@@ -39,15 +38,16 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
-    compile 'com.squareup.okhttp3:okhttp:3.3.1'
+    compile 'com.squareup.okhttp3:okhttp:3.7.0'
     compile 'com.trello:rxlifecycle:0.6.1'
     compile 'com.trello:rxlifecycle-components:0.6.1'
-
+    //    compile files('libs/open_sdk_r5781.jar')
     compile files('libs/open_sdk_r5781.jar')
 }
-//// 指定编码
+
+// 指定编码
 //tasks.withType(JavaCompile) {
 //    options.encoding = "UTF-8"
 //}

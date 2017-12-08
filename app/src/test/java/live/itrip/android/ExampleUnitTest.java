@@ -1,4 +1,4 @@
-package live.itrip.app;
+package live.itrip.android;
 
 import org.junit.Test;
 

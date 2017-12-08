@@ -5,14 +5,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Created by Feng on 2017/4/28.
+ * Created on 2017/4/28.
+ * @author JianF
  */
 
 public final class SigUtil {

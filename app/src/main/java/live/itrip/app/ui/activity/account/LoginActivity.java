@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONObject;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
@@ -32,6 +31,7 @@ import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 
@@ -406,13 +406,12 @@ public class LoginActivity extends AccountBaseActivity implements AccountView, H
                         Oauth2AccessToken oauth2AccessToken = Oauth2AccessToken.parseAccessToken(bundle);
 
                         if (oauth2AccessToken.isSessionValid()) {
-                            JSONObject jsonObject = new JSONObject();
-                            jsonObject.put("openid", oauth2AccessToken.getUid());
-                            jsonObject.put("expires_in", oauth2AccessToken.getExpiresTime());
-                            jsonObject.put("refresh_token", oauth2AccessToken.getRefreshToken());
-                            jsonObject.put("access_token", oauth2AccessToken.getToken());
-
                             try {
+                                JSONObject jsonObject = new JSONObject();
+                                jsonObject.put("openid", oauth2AccessToken.getUid());
+                                jsonObject.put("expires_in", oauth2AccessToken.getExpiresTime());
+                                jsonObject.put("refresh_token", oauth2AccessToken.getRefreshToken());
+                                jsonObject.put("access_token", oauth2AccessToken.getToken());
                                 mAccountPresenter.openLogin(OpenConstant.SINA, jsonObject.toString());
                             } catch (JSONException e) {
                                 AppLog.e(e);
